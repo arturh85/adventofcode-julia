@@ -47,17 +47,20 @@ function read_input(input)
 	count_by_position
 end
 
-# ╔═╡ 08c02233-d5ab-4401-aec8-7e659d5778d1
-grid1 = read_input(puzzle_input)
+# ╔═╡ 52128dc3-c860-49e9-a4c0-c87d468e7d30
+@assert length(read_input(">")) == 2
+
+# ╔═╡ 0a13e12e-7041-4c55-bf67-ae6b8bb694fa
+@assert length(read_input("^>v<")) == 4
+
+# ╔═╡ 2b2592b1-a5b8-4e88-9353-af472936b40c
+@assert length(read_input("^v^v^v^v^v")) == 2
 
 # ╔═╡ 3ffcafa7-fdcd-4e5a-8b7b-7b562bdb7e59
-part1 = length(filter(x -> x > 0, collect(values(grid1))))
+part1 = length(read_input(puzzle_input))
 
 # ╔═╡ 2741702a-5941-46dd-9765-bcd6cae92194
-md"""
-Your puzzle answer was `2565`.
-
-The first half of this puzzle is complete! It provides one gold star: *"""
+md"Your puzzle answer was `2565`."
 
 # ╔═╡ 1237b6c7-a70c-48e6-bc87-c717ab42c509
 md"""
@@ -101,11 +104,25 @@ function merge_grids(a, b)
 	grid
 end
 
-# ╔═╡ 87bbf36d-d76c-4bad-9cf0-4ac92e44385f
-grid2 = merge_grids(read_input(santa), read_input(robosanta))
+# ╔═╡ 03cdb8b4-f9e2-4b56-95f9-dea9d36ca9b0
+function split_merge(input) 
+	arr = collect(input)
+	santa = arr[keys(arr) |> Base.Fix1(filter, iseven)] |> join
+	robosanta = arr[keys(arr) |> Base.Fix1(filter, isodd)] |> join
+	merge_grids(read_input(santa), read_input(robosanta))
+end
+
+# ╔═╡ 3320325e-e4bb-4eb5-8489-b0829af0105e
+@assert length(split_merge("^v")) == 3
+
+# ╔═╡ a999a3e4-ec57-4403-a337-3b672f965801
+@assert length(split_merge("^>v<")) == 3
+
+# ╔═╡ 861c96c5-8863-4652-b297-bdef31da1123
+@assert length(split_merge("^v^v^v^v^v")) == 11
 
 # ╔═╡ 7c8c216d-f935-4a56-b7f3-c0e41616b0ae
-part2 = length(filter(x -> x > 0, collect(values(grid2))))
+part2 = length(split_merge(puzzle_input))
 
 # ╔═╡ cf43ee1e-48c7-47de-94e5-ed9b132382a9
 md"""Your puzzle answer was `2639`."""
@@ -114,7 +131,9 @@ md"""Your puzzle answer was `2639`."""
 # ╟─107fc214-1fef-49cc-ab35-52bf21241db9
 # ╟─e5bf1d5f-35c3-4c69-805d-506435532e24
 # ╠═349fb7c9-8fc8-4554-8fdc-26604b2d3920
-# ╠═08c02233-d5ab-4401-aec8-7e659d5778d1
+# ╠═52128dc3-c860-49e9-a4c0-c87d468e7d30
+# ╠═0a13e12e-7041-4c55-bf67-ae6b8bb694fa
+# ╠═2b2592b1-a5b8-4e88-9353-af472936b40c
 # ╠═3ffcafa7-fdcd-4e5a-8b7b-7b562bdb7e59
 # ╟─2741702a-5941-46dd-9765-bcd6cae92194
 # ╟─1237b6c7-a70c-48e6-bc87-c717ab42c509
@@ -122,6 +141,9 @@ md"""Your puzzle answer was `2639`."""
 # ╠═343a1d30-0553-479c-bd33-903f2f8a5821
 # ╠═461d70b8-c508-4366-9236-0774c29bf263
 # ╠═63128fe3-993d-48bc-b2c4-edce7c86db63
-# ╠═87bbf36d-d76c-4bad-9cf0-4ac92e44385f
+# ╠═03cdb8b4-f9e2-4b56-95f9-dea9d36ca9b0
+# ╠═3320325e-e4bb-4eb5-8489-b0829af0105e
+# ╠═a999a3e4-ec57-4403-a337-3b672f965801
+# ╠═861c96c5-8863-4652-b297-bdef31da1123
 # ╠═7c8c216d-f935-4a56-b7f3-c0e41616b0ae
 # ╟─cf43ee1e-48c7-47de-94e5-ed9b132382a9
