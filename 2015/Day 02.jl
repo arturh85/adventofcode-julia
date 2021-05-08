@@ -1023,8 +1023,8 @@ puzzle_input = """29x13x26
 
 # ╔═╡ 0c139b96-8597-428f-b877-8ebe19f56b9b
 presents = split(puzzle_input, "\n") |> 
-Base.Fix1(map, line -> split(line, "x")) |>
-Base.Fix1(map, entry -> parse.(Int, entry))
+	Base.Fix1(map, line -> split(line, "x")) |>
+	Base.Fix1(map, entry -> parse.(Int, entry))
 
 # ╔═╡ fdebde6b-c7a2-46b7-936a-11c19fb037dc
 # removes the entry with biggest values and returns the rest
