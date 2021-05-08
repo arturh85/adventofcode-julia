@@ -1129,9 +1129,6 @@ end
 # ╔═╡ 065377a0-b116-43aa-9b10-da16c2651d73
 @assert !has_pair_twice_without_overlapping("aaa") # false
 
-# ╔═╡ b92ceb3d-0036-4d0f-b723-360c82432799
-
-
 # ╔═╡ c8ecfeed-df4a-4d3f-9ce2-4583362d61a2
 @assert has_pair_twice_without_overlapping("qjhvhtzxzqqjkmpb") # is nice because is has a pair that appears twice (qj)
 
@@ -1171,7 +1168,6 @@ check2(str::String) = has_pair_twice_without_overlapping(str) && has_repeat_with
 # ╠═542ba6ce-f781-4f10-9414-329177b35733
 # ╠═8f6b4850-737c-4194-a0ee-6f49c98a7f49
 # ╠═065377a0-b116-43aa-9b10-da16c2651d73
-# ╠═b92ceb3d-0036-4d0f-b723-360c82432799
 # ╠═c8ecfeed-df4a-4d3f-9ce2-4583362d61a2
 # ╠═192ba648-8047-4a19-b813-b94f64fdbe73
 # ╠═3c5f7512-2cbb-4d27-8ff4-9109ebb113d0

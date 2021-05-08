@@ -11,6 +11,7 @@ begin
 	Pkg.add(["Plots"])	
 	
 	using Plots
+	plotly()
 end
 
 # ╔═╡ f59b7cd9-989e-4911-ab48-6994091b1a74
@@ -63,9 +64,6 @@ read_movements(movements) = map(x -> x == '(' ? 1 : -1, collect(movements))
 # ╔═╡ 0d0133fc-e7f2-4776-8a87-0ab75fc06f70
 puzzle_movements = read_movements(puzzle_input)
 
-# ╔═╡ eabd9935-40c5-4ae2-9873-12163d35723f
-plot(cumsum(puzzle_movements), label = false)
-
 # ╔═╡ 647d7f09-2ba8-40e0-8e78-168099e5e8b1
 part1 = sum(puzzle_movements)
 
@@ -84,6 +82,12 @@ For example:
 
 **What is the position of the character that causes Santa to first enter the basement?**
 """
+
+# ╔═╡ eabd9935-40c5-4ae2-9873-12163d35723f
+begin
+	plot(cumsum(puzzle_movements), label = false)
+	hline!([-1], label="basement")
+end
 
 # ╔═╡ 3aabdaf4-3654-486f-91ac-01f5f2db3c87
 function below_zero_index(movements)
@@ -119,10 +123,10 @@ md"Your puzzle answer was `1783`."
 # ╠═f23b09a3-b95c-4d72-8195-1cc36acce0cf
 # ╠═54a7cd1f-e4de-4064-a6f4-fd09f4e5730c
 # ╠═0d0133fc-e7f2-4776-8a87-0ab75fc06f70
-# ╠═eabd9935-40c5-4ae2-9873-12163d35723f
 # ╠═647d7f09-2ba8-40e0-8e78-168099e5e8b1
 # ╟─c039b088-9f32-4381-8128-21f5ffb9d5b4
 # ╟─af2306cd-fa6e-495c-b427-f6c0bc38e6ee
+# ╠═eabd9935-40c5-4ae2-9873-12163d35723f
 # ╠═3aabdaf4-3654-486f-91ac-01f5f2db3c87
 # ╠═759a6fbf-8875-42b7-a657-63054c61da3e
 # ╠═2368ed8d-bae9-4878-bcdb-85277c8b26d3
