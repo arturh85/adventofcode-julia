@@ -1028,19 +1028,27 @@ pxdfvcpvwaddrzwv
 phdqqxleqdjfgfbg
 cqfikbgxvjmnfncy"
 
+# ╔═╡ 0cc15cb8-4a0f-4a04-a858-43088cb68ff3
+is_vowel(c::Char) = contains("aeiou", c)
+
+# ╔═╡ 255d9b2e-4bc3-4b52-a835-9609eacf0c38
+vowel_count(str::String) = sum(map(c -> is_vowel(c) ? 1 : 0, collect(str)))
+
 # ╔═╡ 8cd32bc3-661a-4e0a-b02b-0a51b13c1e6a
-has_enough_vowels(str) = sum(map(c -> contains("aeiou", c) ? 1 : 0, collect(str))) >= 3
+# It contains at least three vowels (aeiou only), like aei, xazegov, or aeiouaeiouaeiou.
+has_enough_vowels(str::String) = vowel_count(str) >= 3
 
 # ╔═╡ 47de64ba-6e35-402b-b222-c214f2801e5f
-has_enough_vowels("dvszwmarrgswjxmb") # is naughty because it contains only one vowel.
+@assert !has_enough_vowels("dvszwmarrgswjxmb") # is naughty because it contains only one vowel.
 
 # ╔═╡ 9a2f0a15-57b5-4d28-838d-0bdd7485f500
-has_enough_vowels("ugknbfddgicrmopn") # is nice because it has at least three vowels (u...i...o...)
+@assert has_enough_vowels("ugknbfddgicrmopn") # is nice because it has at least three vowels (u...i...o...)
 
 # ╔═╡ a1634cc1-6e18-46d8-97fd-fb2bc38131e5
-has_enough_vowels("aaa")
+@assert has_enough_vowels("aaa")
 
 # ╔═╡ 273e3edb-417e-4d47-9450-ad07c41c6281
+# It contains at least one letter that appears twice in a row, like xx, abcdde (dd), or aabbccdd (aa, bb, cc, or dd)
 has_double_letter(str) = begin
 	for (idx, c) in enumerate(str)
 		if idx < length(str) && c == str[idx+1]
@@ -1051,12 +1059,13 @@ has_double_letter(str) = begin
 end
 
 # ╔═╡ 12123c64-a5d4-42e8-ac89-12d9f0b8cd6e
-has_double_letter("jchzalrnumimnmhp") # is naughty because it has no double letter.
+@assert !has_double_letter("jchzalrnumimnmhp") # is naughty because it has no double letter.
 
 # ╔═╡ c81aed85-fd24-4f1c-a2a7-be7e8ab8ad40
-has_double_letter("ugknbfddgicrmopn") # is nice because it has ... a double letter (...dd...)
+@assert has_double_letter("ugknbfddgicrmopn") # is nice because it has ... a double letter (...dd...)
 
 # ╔═╡ 8972c6bf-bcad-481a-b763-d9a5b22bd358
+# It does not contain the strings ab, cd, pq, or xy, even if they are part of one of the other requirements.
 no_forbidden(str) = begin
 	for bad in ["ab", "cd", "pq", "xy"]
 		if contains(str, bad)
@@ -1067,23 +1076,23 @@ no_forbidden(str) = begin
 end
 
 # ╔═╡ f768f13a-d075-4ffb-9d81-b2bb3c5b9bab
-no_forbidden("haegwjzuvuyypxyu") # is naughty because it contains the string xy.
+@assert !no_forbidden("haegwjzuvuyypxyu") # is naughty because it contains the string xy.
 
 # ╔═╡ 8a320756-41fa-4f49-8c72-225065d21a59
-no_forbidden("ugknbfddgicrmopn") # is nice because it has ... none of the disallowed substrings.
+@assert no_forbidden("ugknbfddgicrmopn") # is nice because it has ... none of the disallowed substrings.
 
 # ╔═╡ 29f607dd-133e-4cc8-87d4-b101b4017897
-check(str) = has_enough_vowels(str) && has_double_letter(str) && no_forbidden(str)
+check1(str::String) = has_enough_vowels(str) && has_double_letter(str) && no_forbidden(str)
 
 # ╔═╡ 064293dc-63ff-44a6-9ecb-5a0fba08df66
-check("ugknbfddgicrmopn")
+@assert check1("ugknbfddgicrmopn")
 
 # ╔═╡ 69765b8f-6917-4781-bfc4-3f00843005a2
-check("aaa")
+@assert check1("aaa")
 
 # ╔═╡ c4811f7d-6801-4fcb-8065-205bbd5e2e03
 part1 = split(puzzle_input, "\n") |>
-Base.Fix1(map, str -> check(str) ? 1 : 0) |>
+Base.Fix1(map, str -> check1(String(str)) ? 1 : 0) |>
 sum
 
 # ╔═╡ 12eeff68-cf8d-48c0-a76a-1b6404b32247
@@ -1109,11 +1118,40 @@ For example:
 """
 
 # ╔═╡ 542ba6ce-f781-4f10-9414-329177b35733
+# It contains a pair of any two letters that appears at least twice in the string without overlapping, like xyxy (xy) or aabcdefgaa (aa), but not like aaa (aa, but it overlaps).
+has_pair_twice_without_overlapping(str::String) = begin
+	false
+end
 
+# ╔═╡ 8f6b4850-737c-4194-a0ee-6f49c98a7f49
+@assert has_pair_twice_without_overlapping("xyxy") # true
+
+# ╔═╡ 065377a0-b116-43aa-9b10-da16c2651d73
+@assert !has_pair_twice_without_overlapping("aaa") # false
+
+# ╔═╡ b92ceb3d-0036-4d0f-b723-360c82432799
+
+
+# ╔═╡ c8ecfeed-df4a-4d3f-9ce2-4583362d61a2
+@assert has_pair_twice_without_overlapping("qjhvhtzxzqqjkmpb") # is nice because is has a pair that appears twice (qj)
+
+# ╔═╡ 192ba648-8047-4a19-b813-b94f64fdbe73
+@assert !has_pair_twice_without_overlapping("ieodomkazucvgmuy") # is naughty because it has ... no pair that appears twice.
+
+# ╔═╡ 3c5f7512-2cbb-4d27-8ff4-9109ebb113d0
+# It contains at least one letter which repeats with exactly one letter between them, like xyx, abcdefeghi (efe), or even aaa.
+has_repeat_with_gap(str::String) = begin
+	true
+end
+
+# ╔═╡ 51e8ef23-7d4c-4a6b-a477-b7fd17a388dd
+check2(str::String) = has_pair_twice_without_overlapping(str) && has_repeat_with_gap(str)
 
 # ╔═╡ Cell order:
 # ╟─e9086930-afeb-11eb-35ad-dba62b2459a9
 # ╟─c7430382-47c7-4f2e-a260-fa4de8a8648c
+# ╠═0cc15cb8-4a0f-4a04-a858-43088cb68ff3
+# ╠═255d9b2e-4bc3-4b52-a835-9609eacf0c38
 # ╠═8cd32bc3-661a-4e0a-b02b-0a51b13c1e6a
 # ╠═47de64ba-6e35-402b-b222-c214f2801e5f
 # ╠═9a2f0a15-57b5-4d28-838d-0bdd7485f500
@@ -1131,3 +1169,10 @@ For example:
 # ╟─12eeff68-cf8d-48c0-a76a-1b6404b32247
 # ╟─95825a3c-e112-4451-94c4-c68929e28cf3
 # ╠═542ba6ce-f781-4f10-9414-329177b35733
+# ╠═8f6b4850-737c-4194-a0ee-6f49c98a7f49
+# ╠═065377a0-b116-43aa-9b10-da16c2651d73
+# ╠═b92ceb3d-0036-4d0f-b723-360c82432799
+# ╠═c8ecfeed-df4a-4d3f-9ce2-4583362d61a2
+# ╠═192ba648-8047-4a19-b813-b94f64fdbe73
+# ╠═3c5f7512-2cbb-4d27-8ff4-9109ebb113d0
+# ╠═51e8ef23-7d4c-4a6b-a477-b7fd17a388dd

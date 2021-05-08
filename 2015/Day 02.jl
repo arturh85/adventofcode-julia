@@ -1027,16 +1027,26 @@ Base.Fix1(map, line -> split(line, "x")) |>
 Base.Fix1(map, entry -> parse.(Int, entry))
 
 # ╔═╡ fdebde6b-c7a2-46b7-936a-11c19fb037dc
+# removes the entry with biggest values and returns the rest
 shortest_side(dims) = dims[1:end .!= findfirst(x -> x == maximum(dims), dims)]
 
 # ╔═╡ 5e2901d0-3731-441e-8f87-2db9b774760a
-prod(shortest_side([2,3,4]))
+@assert prod(shortest_side([2,3,4])) == 6
 
 # ╔═╡ 218a0a0f-4fa7-4b1b-8c3c-2ae96ef13c72
-prod(shortest_side([2,10,10]))
+@assert prod(shortest_side([2,10,10])) == 20
+
+# ╔═╡ 86bcb6d8-0614-4025-ae94-f9310b830739
+paper_required((l,w,h),) = 2*l*w + 2*w*h + 2*h*l + prod(shortest_side((l,w,h)))
+
+# ╔═╡ ca06b273-ac98-4cde-94ec-6cd9a65e0807
+@assert paper_required((2,3,4)) == 52 + 6 == 58
+
+# ╔═╡ 73275b5b-b4cd-47a7-ac0c-8b0ce25c6578
+@assert paper_required((1,1,10)) == 42 + 1 == 43
 
 # ╔═╡ 77691a13-3967-4874-8d08-4f35ddb21369
-part1 = sum(map(((l,w,h),) -> 2*l*w + 2*w*h + 2*h*l + prod(shortest_side((l,w,h))), presents))
+part1 = sum(map(paper_required, presents))
 
 # ╔═╡ b0d9c03f-6b5c-4d5f-a88d-bc1d641bd86a
 md"Your puzzle answer was `1586300`."
@@ -1058,8 +1068,17 @@ For example:
 
 """
 
+# ╔═╡ d23cc5bf-0748-489e-9da7-2054051482c9
+ribbon_required((l,w,h),) = 2*sum(shortest_side((l,w,h))) + prod((l,w,h))
+
+# ╔═╡ c1eef318-9168-4400-aec1-defd790d28db
+@assert ribbon_required((2,3,4)) == 10 + 24 == 34
+
+# ╔═╡ 9bc722bb-f1ae-4cd9-9664-5ab7c282c57c
+@assert ribbon_required((1,1,10)) == 4 + 10 == 14
+
 # ╔═╡ 630aad38-6f6f-4902-be97-8836fd7b8ed7
-part2 = sum(map(((l,w,h),) -> 2*sum(shortest_side((l,w,h))) + prod((l,w,h)), presents))
+part2 = sum(map(ribbon_required, presents))
 
 # ╔═╡ 819beeb8-7b2a-4a88-aa50-032ef21dbae8
 md"Your puzzle answer was `3737498`."
@@ -1071,8 +1090,14 @@ md"Your puzzle answer was `3737498`."
 # ╠═fdebde6b-c7a2-46b7-936a-11c19fb037dc
 # ╠═5e2901d0-3731-441e-8f87-2db9b774760a
 # ╠═218a0a0f-4fa7-4b1b-8c3c-2ae96ef13c72
+# ╠═86bcb6d8-0614-4025-ae94-f9310b830739
+# ╠═ca06b273-ac98-4cde-94ec-6cd9a65e0807
+# ╠═73275b5b-b4cd-47a7-ac0c-8b0ce25c6578
 # ╠═77691a13-3967-4874-8d08-4f35ddb21369
 # ╟─b0d9c03f-6b5c-4d5f-a88d-bc1d641bd86a
 # ╟─c086f72d-ba34-42e5-bc38-4f3d40a6a0a2
+# ╠═d23cc5bf-0748-489e-9da7-2054051482c9
+# ╠═c1eef318-9168-4400-aec1-defd790d28db
+# ╠═9bc722bb-f1ae-4cd9-9664-5ab7c282c57c
 # ╠═630aad38-6f6f-4902-be97-8836fd7b8ed7
 # ╟─819beeb8-7b2a-4a88-aa50-032ef21dbae8
