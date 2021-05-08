@@ -1,0 +1,78 @@
+‹¥bonds€¬cell_results‚Ù$56cedfe0-b02c-11eb-1f56-3557d6c170bc‡¦queuedÂ±published_objects€§runningÂ¦output…¤bodyÚÊ<div class="markdown"><h1><a href="https://adventofcode.com/2015/day/9">Day 9: All in a Single Night</a></h1>
+<p>Every year, Santa manages to deliver all of his presents in a single night.</p>
+<p>This year, however, he has someÂ new locationsÂ to visit; his elves have provided him the distances between every pair of locations. He can start and end at any two &#40;different&#41; locations he wants, but he must visit each location exactly once. What is theÂ shortest distanceÂ he can travel to achieve this?</p>
+<p>For example, given the following distances:</p>
+<pre><code>London to Dublin &#61; 464
+London to Belfast &#61; 518
+Dublin to Belfast &#61; 141
+</code></pre>
+<p>The possible routes are therefore:</p>
+<pre><code>Dublin -&gt; London -&gt; Belfast &#61; 982
+London -&gt; Dublin -&gt; Belfast &#61; 605
+London -&gt; Belfast -&gt; Dublin &#61; 659
+Dublin -&gt; Belfast -&gt; London &#61; 659
+Belfast -&gt; Dublin -&gt; London &#61; 605
+Belfast -&gt; London -&gt; Dublin &#61; 982
+</code></pre>
+<p>The shortest of these isÂ <code>London -&gt; Dublin -&gt; Belfast &#61; 605</code>, and so the answer isÂ <code>605</code>Â in this example.</p>
+<p><strong>What is the distance of the shortest route?</strong></p>
+</div>°persist_js_stateÂ¤mime©text/html²last_run_timestampËAØ%·èæ¬rootassigneeÀ§cell_idÙ$56cedfe0-b02c-11eb-1f56-3557d6c170bc§runtimeÍD\§erroredÂÙ$1609ee1f-1d90-4889-b39d-5fe0fb6de8c4‡¦queuedÂ±published_objects€§runningÂ¦output…¤bodyÚâ"AlphaCentauri to Snowdin = 66\nAlphaCentauri to Tambi = 28\nAlphaCentauri to Faerun = 60\nAlphaCentauri to Norrath = 34\nAlphaCentauri to Straylight = 34\nAlphaCentauri to Tristram = 3\nAlphaCentauri to Arbre = 108\nSnowdin to Tambi = 22\nSnowdin to Faerun = 12\nSnowdin to Norrath = 91\nSnowdin to Straylight = 121\nSnowdin to Tristram = 111\nSnowdin to Arbre = 71\nTambi to Faerun = 39\nTambi to Norrath = 113\nTambi to Straylight = 130\nTambi to Tristram = 35\nTambi to Arbre = 40\nFaerun to Norrath = 63\nFaerun to Straylight = 21\nFaerun to Tristram = 57\nFaerun to Arbre = 83\nNorrath to Straylight = 9\nNorrath to Tristram = 50\nNorrath to Arbre = 60\nStraylight to Tristram = 27\nStraylight to Arbre = 81\nTristram to Arbre = 90"°persist_js_stateÂ¤mimeªtext/plain²last_run_timestampËAØ%·ò«z¬rootassignee¬puzzle_input§cell_idÙ$1609ee1f-1d90-4889-b39d-5fe0fb6de8c4§runtimeÌÈ§erroredÂ±cell_dependencies‚Ù$56cedfe0-b02c-11eb-1f56-3557d6c170bc„´precedence_heuristic§cell_idÙ$56cedfe0-b02c-11eb-1f56-3557d6c170bc´downstream_cells_map€²upstream_cells_map‚§@md_str¨getindexÙ$1609ee1f-1d90-4889-b39d-5fe0fb6de8c4„´precedence_heuristic§cell_idÙ$1609ee1f-1d90-4889-b39d-5fe0fb6de8c4´downstream_cells_map¬puzzle_input²upstream_cells_map€´cell_execution_order’Ù$56cedfe0-b02c-11eb-1f56-3557d6c170bcÙ$1609ee1f-1d90-4889-b39d-5fe0fb6de8c4©shortpath©Day 09.jl®process_status¥ready¤pathÙF/home/runner/work/adventofcode-julia/adventofcode-julia/2015/Day 09.jlªcell_order’Ù$56cedfe0-b02c-11eb-1f56-3557d6c170bcÙ$1609ee1f-1d90-4889-b39d-5fe0fb6de8c4«cell_inputs‚Ù$56cedfe0-b02c-11eb-1f56-3557d6c170bcƒ§cell_idÙ$56cedfe0-b02c-11eb-1f56-3557d6c170bc¤codeÚçmd"""
+# [Day 9: All in a Single Night](https://adventofcode.com/2015/day/9)
+
+
+Every year, Santa manages to deliver all of his presents in a single night.
+
+This year, however, he has someÂ new locationsÂ to visit; his elves have provided him the distances between every pair of locations. He can start and end at any two (different) locations he wants, but he must visit each location exactly once. What is theÂ shortest distanceÂ he can travel to achieve this?
+
+For example, given the following distances:
+
+```
+London to Dublin = 464
+London to Belfast = 518
+Dublin to Belfast = 141
+
+```
+
+The possible routes are therefore:
+
+```
+Dublin -> London -> Belfast = 982
+London -> Dublin -> Belfast = 605
+London -> Belfast -> Dublin = 659
+Dublin -> Belfast -> London = 659
+Belfast -> Dublin -> London = 605
+Belfast -> London -> Dublin = 982
+
+```
+
+The shortest of these isÂ `London -> Dublin -> Belfast = 605`, and so the answer isÂ `605`Â in this example.
+
+**What is the distance of the shortest route?**
+"""«code_foldedÃÙ$1609ee1f-1d90-4889-b39d-5fe0fb6de8c4ƒ§cell_idÙ$1609ee1f-1d90-4889-b39d-5fe0fb6de8c4¤codeÚÖpuzzle_input = "AlphaCentauri to Snowdin = 66
+AlphaCentauri to Tambi = 28
+AlphaCentauri to Faerun = 60
+AlphaCentauri to Norrath = 34
+AlphaCentauri to Straylight = 34
+AlphaCentauri to Tristram = 3
+AlphaCentauri to Arbre = 108
+Snowdin to Tambi = 22
+Snowdin to Faerun = 12
+Snowdin to Norrath = 91
+Snowdin to Straylight = 121
+Snowdin to Tristram = 111
+Snowdin to Arbre = 71
+Tambi to Faerun = 39
+Tambi to Norrath = 113
+Tambi to Straylight = 130
+Tambi to Tristram = 35
+Tambi to Arbre = 40
+Faerun to Norrath = 63
+Faerun to Straylight = 21
+Faerun to Tristram = 57
+Faerun to Arbre = 83
+Norrath to Straylight = 9
+Norrath to Tristram = 50
+Norrath to Arbre = 60
+Straylight to Tristram = 27
+Straylight to Arbre = 81
+Tristram to Arbre = 90"«code_foldedÃ«notebook_idÙ$67a50c9e-b02d-11eb-3666-374242055a1a«in_temp_dirÂ

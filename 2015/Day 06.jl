@@ -336,6 +336,9 @@ parse_input(input) = split(input, "\n")
 # ╔═╡ cfeb0f48-8879-4c32-882a-6cfc5fbe5e78
 grid = zeros(dims)
 
+# ╔═╡ 1f1adb0c-446c-4b17-abb0-06b45892c237
+not(x) = !x
+
 # ╔═╡ b64e92eb-2505-4203-a512-6292235ccea5
 apply!(grid, command) = begin
 	parts = split(command, " ")
@@ -357,7 +360,7 @@ apply!(grid, command) = begin
 	elseif parts[1] == "toggle"
 		from = parse_value(parts[2])
 		to = parse_value(parts[4])
-		grid[from[1]:to[1], from[2]:to[2]] .= 1 # FIXME, how do i broadcast toggle?
+		grid = map(not, grid[from[1]:to[1], from[2]:to[2]]) # FIXME, how do i broadcast toggle?
 	else
 		throw(ErrorException("invalid syntax"))
 	end
@@ -373,6 +376,9 @@ puzzle_commands = parse_input(puzzle_input)
 
 # ╔═╡ 2d924161-974a-4209-bf72-5632dcc3e5b5
 @assert sum(apply!(falses(dims), "toggle 0,0 through 999,0")) == 1000
+
+# ╔═╡ 736dc654-d890-4bd5-8669-26ab00feae99
+apply!(falses(dims), "toggle 0,0 through 999,0")
 
 # ╔═╡ e3e5aa80-54bf-4d7d-912a-00d1d7061ea7
 @assert sum(apply!(trues(dims), "toggle 0,0 through 999,0")) == 1000*1000-1000
@@ -401,10 +407,12 @@ part1 = Int(sum(grid1))
 # ╠═462f3b05-97a4-4bc7-b817-0b74be141531
 # ╠═bdb2415c-bef7-4d31-81cf-4175679b8814
 # ╠═cfeb0f48-8879-4c32-882a-6cfc5fbe5e78
+# ╠═1f1adb0c-446c-4b17-abb0-06b45892c237
 # ╠═b64e92eb-2505-4203-a512-6292235ccea5
 # ╠═238fc1ab-c208-4f54-9d48-552fba424020
 # ╠═fa569771-87e4-4534-83d3-22da3fe425f7
 # ╠═2d924161-974a-4209-bf72-5632dcc3e5b5
+# ╠═736dc654-d890-4bd5-8669-26ab00feae99
 # ╠═e3e5aa80-54bf-4d7d-912a-00d1d7061ea7
 # ╠═ea5f89aa-012b-4d23-8516-3d26269e27c5
 # ╠═41e0a047-f7a4-4e7c-a9b8-6a3891e52465
