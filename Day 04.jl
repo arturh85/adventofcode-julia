@@ -5,7 +5,13 @@ using Markdown
 using InteractiveUtils
 
 # ╔═╡ d2c27263-8b8e-486e-9f85-a639ce3749c7
-using MD5
+begin
+	import Pkg
+	Pkg.activate(mktempdir())
+	Pkg.add(["MD5"])	
+	
+	using MD5
+end
 
 # ╔═╡ 0a80eec0-af92-11eb-2306-a1148fe38e04
 md"""

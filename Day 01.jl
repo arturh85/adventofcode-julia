@@ -5,7 +5,13 @@ using Markdown
 using InteractiveUtils
 
 # ╔═╡ 2b9eb9cf-d6cc-4dae-bb01-06ae7b62e888
-using Plots
+begin
+	import Pkg
+	Pkg.activate(mktempdir())
+	Pkg.add(["Plots"])	
+	
+	using Plots
+end
 
 # ╔═╡ f59b7cd9-989e-4911-ab48-6994091b1a74
 md"""
