@@ -4,6 +4,16 @@
 using Markdown
 using InteractiveUtils
 
+# ╔═╡ bb9d2d33-45fb-4746-9305-9844bad00725
+begin
+	import Pkg
+	Pkg.activate(mktempdir())
+	Pkg.add(["Plots"])	
+	
+	using Plots
+	plotly()
+end
+
 # ╔═╡ 107fc214-1fef-49cc-ab35-52bf21241db9
 md"""
 # [Day 3: Perfectly Spherical Houses in a Vacuum](https://adventofcode.com/2015/day/3)
@@ -56,8 +66,32 @@ end
 # ╔═╡ 2b2592b1-a5b8-4e88-9353-af472936b40c
 @assert length(read_input("^v^v^v^v^v")) == 2
 
+# ╔═╡ df8c0698-8b30-435e-a134-fc477c9e27f8
+function visualize_grid(grid::Dict) 
+	min_x = min_y = max_x = max_y = 0
+	for key in keys(grid)
+		min_x = min(min_x, key[1])
+		max_x = max(max_x, key[1])
+		min_y = min(min_y, key[2])
+		max_y = max(max_y, key[2])
+	end	
+	matrix = zeros(max_y - min_y + 1, max_x - min_x + 1)	
+	for key in keys(grid)
+		x = key[1] - min_x + 1
+		y = key[2] - min_y + 1
+		matrix[y, x] = grid[key]
+	end	
+	heatmap(matrix)
+end
+
+# ╔═╡ 4434d480-bf52-4f97-a359-9c338f023742
+grid1 = read_input(puzzle_input)
+
+# ╔═╡ 062672eb-cb2b-401f-adfe-a278c2604311
+visualize_grid(grid1)
+
 # ╔═╡ 3ffcafa7-fdcd-4e5a-8b7b-7b562bdb7e59
-part1 = length(read_input(puzzle_input))
+part1 = length(grid1)
 
 # ╔═╡ 2741702a-5941-46dd-9765-bcd6cae92194
 md"Your puzzle answer was `2565`."
@@ -120,19 +154,29 @@ end
 # ╔═╡ 861c96c5-8863-4652-b297-bdef31da1123
 @assert length(split_merge("^v^v^v^v^v")) == 11
 
+# ╔═╡ d1bdf51f-b25f-4f04-bc91-ba92c4d50f81
+grid2 = split_merge(puzzle_input)
+
+# ╔═╡ 8e7b0399-6700-4daf-9881-80ed8cbe3cc2
+visualize_grid(grid2)
+
 # ╔═╡ 7c8c216d-f935-4a56-b7f3-c0e41616b0ae
-part2 = length(split_merge(puzzle_input))
+part2 = length(grid2)
 
 # ╔═╡ cf43ee1e-48c7-47de-94e5-ed9b132382a9
 md"""Your puzzle answer was `2639`."""
 
 # ╔═╡ Cell order:
+# ╠═bb9d2d33-45fb-4746-9305-9844bad00725
 # ╟─107fc214-1fef-49cc-ab35-52bf21241db9
 # ╟─e5bf1d5f-35c3-4c69-805d-506435532e24
 # ╠═349fb7c9-8fc8-4554-8fdc-26604b2d3920
 # ╠═52128dc3-c860-49e9-a4c0-c87d468e7d30
 # ╠═0a13e12e-7041-4c55-bf67-ae6b8bb694fa
 # ╠═2b2592b1-a5b8-4e88-9353-af472936b40c
+# ╠═4434d480-bf52-4f97-a359-9c338f023742
+# ╠═df8c0698-8b30-435e-a134-fc477c9e27f8
+# ╠═062672eb-cb2b-401f-adfe-a278c2604311
 # ╠═3ffcafa7-fdcd-4e5a-8b7b-7b562bdb7e59
 # ╟─2741702a-5941-46dd-9765-bcd6cae92194
 # ╟─1237b6c7-a70c-48e6-bc87-c717ab42c509
@@ -144,5 +188,7 @@ md"""Your puzzle answer was `2639`."""
 # ╠═3320325e-e4bb-4eb5-8489-b0829af0105e
 # ╠═a999a3e4-ec57-4403-a337-3b672f965801
 # ╠═861c96c5-8863-4652-b297-bdef31da1123
+# ╠═d1bdf51f-b25f-4f04-bc91-ba92c4d50f81
+# ╠═8e7b0399-6700-4daf-9881-80ed8cbe3cc2
 # ╠═7c8c216d-f935-4a56-b7f3-c0e41616b0ae
 # ╟─cf43ee1e-48c7-47de-94e5-ed9b132382a9
