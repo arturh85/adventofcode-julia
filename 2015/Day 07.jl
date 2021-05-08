@@ -395,10 +395,107 @@ gj RSHIFT 3 -> gl
 fo RSHIFT 3 -> fq
 he RSHIFT 2 -> hf"
 
-# ╔═╡ 70a11986-1efc-4c06-939c-5c2489a1a2a9
+# ╔═╡ 6b6a90e8-880b-46f4-9e7d-6c72056441d1
+function interpret(commands)
+	state = Dict()
+	
+	for command in commands
+		parts = split(command, " -> ")
+		state[parts[2]] = parts[1] 
+	end
+	
+	outputs = Dict()
+	
+	for key in keys(state)
+		parts = split(state[key], " ")
+		if length(parts) == 1
+			outputs[key] = parse(UInt16, state[key])
+		elseif length(parts) == 2
+			if parts[1] == "NOT"
+				outputs[key] = ~ parse(UInt16, state[parts[2]])
+			else
+				throw(ErrorException("invalid syntax"))
+			end
+		elseif length(parts) == 3
+			left = tryparse(UInt16, parts[1]) 
+			if left == nothing
+				left = parse(UInt16, state[parts[1]])
+			end
+			right = tryparse(UInt16, parts[3])
+			if right == nothing 
+				right = parse(UInt16, state[parts[3]])
+			end
+			if parts[2] == "AND"
+				outputs[key] = left & right
+			elseif parts[2] == "OR"
+				outputs[key] = left | right
+			elseif parts[2] == "LSHIFT"
+				outputs[key] = left << right
+			elseif parts[2] == "RSHIFT"
+				outputs[key] = left >> right
+			else
+				throw(ErrorException("invalid syntax"))
+			end
+		else
+			throw(ErrorException("invalid syntax"))
+		end
+	end
+	
+	outputs
+end
 
+# ╔═╡ 70a11986-1efc-4c06-939c-5c2489a1a2a9
+example_input = "123 -> x
+456 -> y
+x AND y -> d
+x OR y -> e
+x LSHIFT 2 -> f
+y RSHIFT 2 -> g
+NOT x -> h
+NOT y -> i"
+
+# ╔═╡ 5b0d40b2-04b1-43f4-bd7d-64d698b6db10
+example_outputs = interpret(split(example_input, "\n"))
+
+# ╔═╡ 70c81a2b-32ed-4b04-968c-ab2f283d021b
+@assert example_outputs["d"] == 72
+
+# ╔═╡ 8d4dda38-f22c-476f-8b50-38e1d890ce4e
+@assert example_outputs["e"] == 507
+
+# ╔═╡ d16c8354-06ab-4307-b6a2-5e0f55c34379
+@assert example_outputs["f"] == 492
+
+# ╔═╡ a1cbba28-3794-4fe5-ac40-71a4ce17c4b4
+@assert example_outputs["g"] == 114
+
+# ╔═╡ 7a0a9d14-7624-43a9-8e31-7ddc238f5d87
+@assert example_outputs["h"] == 65412
+
+# ╔═╡ 5895bb39-ef00-4d57-b970-baa298988564
+@assert example_outputs["i"] == 65079
+
+# ╔═╡ e7dda86a-261b-4852-861f-db4d1062300b
+@assert example_outputs["x"] == 123
+
+# ╔═╡ 2de2b696-f8fa-4b5b-9c80-264e81e1d231
+@assert example_outputs["y"] == 456
+
+# ╔═╡ 789f6538-5bc5-48e1-a2d4-f16b6c520c55
+part1_outputs = interpret(split(puzzle_input, "\n"))
 
 # ╔═╡ Cell order:
 # ╟─efb28490-b023-11eb-04e4-db86b53af0fe
 # ╟─bc36e815-9b26-4e8b-aaae-599e06f95af3
-# ╠═70a11986-1efc-4c06-939c-5c2489a1a2a9
+# ╠═6b6a90e8-880b-46f4-9e7d-6c72056441d1
+# ╟─70a11986-1efc-4c06-939c-5c2489a1a2a9
+# ╠═5b0d40b2-04b1-43f4-bd7d-64d698b6db10
+# ╠═70c81a2b-32ed-4b04-968c-ab2f283d021b
+# ╠═8d4dda38-f22c-476f-8b50-38e1d890ce4e
+# ╠═d16c8354-06ab-4307-b6a2-5e0f55c34379
+# ╠═a1cbba28-3794-4fe5-ac40-71a4ce17c4b4
+# ╠═7a0a9d14-7624-43a9-8e31-7ddc238f5d87
+# ╠═5895bb39-ef00-4d57-b970-baa298988564
+# ╠═e7dda86a-261b-4852-861f-db4d1062300b
+# ╠═2de2b696-f8fa-4b5b-9c80-264e81e1d231
+# ╠═789f6538-5bc5-48e1-a2d4-f16b6c520c55
