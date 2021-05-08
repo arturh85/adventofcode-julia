@@ -6,7 +6,7 @@ using InteractiveUtils
 
 # ╔═╡ 107fc214-1fef-49cc-ab35-52bf21241db9
 md"""
-# Day 3: Perfectly Spherical Houses in a Vacuum
+# [Day 3: Perfectly Spherical Houses in a Vacuum](https://adventofcode.com/2015/day/3)
 Santa is delivering presents to an infinite two-dimensional grid of houses.
 
 He begins by delivering a present to the house at his starting location, and then an elf at the North Pole calls him via radio and tells him where to move next. Moves are always exactly one house to the north (`^`), south (`v`), east (`>`), or west (`<`). After each move, he delivers another present to the house at his new location.

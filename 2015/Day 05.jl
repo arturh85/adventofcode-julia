@@ -6,7 +6,7 @@ using InteractiveUtils
 
 # ╔═╡ e9086930-afeb-11eb-35ad-dba62b2459a9
 md"""
-# Day 5: Doesn't He Have Intern-Elves For This?
+# [Day 5: Doesn't He Have Intern-Elves For This?](https://adventofcode.com/2015/day/5)
 Santa needs help figuring out which strings in his text file are naughty or nice.
 
 A nice string is one with all of the following properties:
