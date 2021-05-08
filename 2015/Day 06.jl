@@ -4,6 +4,16 @@
 using Markdown
 using InteractiveUtils
 
+# ╔═╡ 9353168e-bd57-446f-9fc3-ce063aa9c0f5
+begin
+	import Pkg
+	Pkg.activate(mktempdir())
+	Pkg.add(["Plots"])	
+	
+	using Plots
+	plotly()
+end
+
 # ╔═╡ 1b64f670-b017-11eb-140d-ebd5ac033872
 md"""
 # [Day 6: Probably a Fire Hazard](https://adventofcode.com/2015/day/6)
@@ -330,21 +340,18 @@ turn off 102,229 through 674,529"
 dims = (1000, 1000)
 
 # ╔═╡ bdb2415c-bef7-4d31-81cf-4175679b8814
-parse_input(input) = split(input, "\n") 
-	#Base.Fix1(map, x->split(x, " "))
+parse_input(input) = split(input, "\n")
 
 # ╔═╡ cfeb0f48-8879-4c32-882a-6cfc5fbe5e78
 grid = zeros(dims)
 
-# ╔═╡ 1f1adb0c-446c-4b17-abb0-06b45892c237
-not(x) = !x
-
 # ╔═╡ b64e92eb-2505-4203-a512-6292235ccea5
-apply!(grid, command) = begin
+apply1!(grid::BitMatrix, command::AbstractString) = begin
 	parts = split(command, " ")
-	parse_value(str) = split(str, ",") |> 
+	parse_value(str::AbstractString) = split(str, ",") |> 
 			Base.Fix1(map, s->parse(Int, s)) |> 
 			Base.Fix1(map, s->s+1)
+	not(x::Bool) = !x
 	
 	if parts[1] == "turn"
 		from = parse_value(parts[3])
@@ -355,12 +362,12 @@ apply!(grid, command) = begin
 		elseif parts[2] == "off"
 			grid[from[1]:to[1], from[2]:to[2]] .= 0
 		else
-			 throw(ErrorException("invalid syntax"))
+			throw(ErrorException("invalid syntax"))
 		end
 	elseif parts[1] == "toggle"
 		from = parse_value(parts[2])
 		to = parse_value(parts[4])
-		grid = map(not, grid[from[1]:to[1], from[2]:to[2]]) # FIXME, how do i broadcast toggle?
+		grid[from[1]:to[1], from[2]:to[2]] = not.(grid[from[1]:to[1], from[2]:to[2]])
 	else
 		throw(ErrorException("invalid syntax"))
 	end
@@ -372,49 +379,142 @@ end
 puzzle_commands = parse_input(puzzle_input)
 
 # ╔═╡ fa569771-87e4-4534-83d3-22da3fe425f7
-@assert sum(apply!(falses(dims), "turn on 0,0 through 999,999")) == 1000*1000
+@assert sum(apply1!(falses(dims), "turn on 0,0 through 999,999")) == 1000*1000
 
 # ╔═╡ 2d924161-974a-4209-bf72-5632dcc3e5b5
-@assert sum(apply!(falses(dims), "toggle 0,0 through 999,0")) == 1000
-
-# ╔═╡ 736dc654-d890-4bd5-8669-26ab00feae99
-apply!(falses(dims), "toggle 0,0 through 999,0")
+@assert sum(apply1!(falses(dims), "toggle 0,0 through 999,0")) == 1000
 
 # ╔═╡ e3e5aa80-54bf-4d7d-912a-00d1d7061ea7
-@assert sum(apply!(trues(dims), "toggle 0,0 through 999,0")) == 1000*1000-1000
+@assert sum(apply1!(trues(dims), "toggle 0,0 through 999,0")) == 1000*1000-1000
 
 # ╔═╡ ea5f89aa-012b-4d23-8516-3d26269e27c5
-@assert sum(apply!(trues(dims), "turn off 499,499 through 500,500")) == 1000*1000-4
+@assert sum(apply1!(trues(dims), "turn off 499,499 through 500,500")) == 1000*1000-4
 
 # ╔═╡ 41e0a047-f7a4-4e7c-a9b8-6a3891e52465
-function mass_apply(commands::Vector) 
+function mass_apply1(commands::Vector) 
 	grid = falses(dims)
 	for command in commands
-		apply!(grid, command)
+		apply1!(grid, command)
 	end
 	grid
 end
 
 # ╔═╡ 175908f4-2ef8-44a9-81c0-fb21e4bc10b7
-grid1 = mass_apply(split(puzzle_input, "\n"))
+grid1 = mass_apply1(split(puzzle_input, "\n"))
+
+# ╔═╡ 184bb620-2d32-4b98-a02d-f5b64ae88eb6
+heatmap(grid1)
 
 # ╔═╡ 9840d540-607e-47d3-874c-9df7ec814d51
 part1 = Int(sum(grid1))
 
+# ╔═╡ 8ada2165-6667-4850-8131-e56b1fde7abe
+md"Your puzzle answer was `377891`."
+
+# ╔═╡ b3b7099c-b2c2-4ff4-b5c2-dfa6ec3cda87
+md"""
+# Part Two
+
+You just finish implementing your winning light pattern when you realize you mistranslated Santa's message from Ancient Nordic Elvish.
+
+The light grid you bought actually has individual brightness controls; each light can have a brightness of zero or more. The lights all start at zero.
+
+The phrase `turn on` actually means that you should increase the brightness of those lights by `1`.
+
+The phrase `turn off` actually means that you should decrease the brightness of those lights by `1`, to a minimum of zero.
+
+The phrase `toggle` actually means that you should increase the brightness of those lights by `2`.
+
+**What is the total brightness of all lights combined after following Santa's instructions?**
+
+For example:
+
+-   `turn on 0,0 through 0,0` would increase the total brightness by `1`.
+-   `toggle 0,0 through 999,999` would increase the total brightness by `2000000`.
+
+"""
+
+# ╔═╡ eea139c9-3d08-499a-a9fb-df4f20bd129a
+apply2!(grid::Matrix, command::AbstractString) = begin
+	parts = split(command, " ")
+	parse_value(str::AbstractString) = split(str, ",") |> 
+			Base.Fix1(map, s->parse(Int, s)) |> 
+			Base.Fix1(map, s->s+1)
+	reduce_to_zero(n::Float64) = n > 0 ? n - 1 : 0
+	
+	if parts[1] == "turn"
+		from = parse_value(parts[3])
+		to = parse_value(parts[5])
+		
+		if parts[2] == "on"
+			grid[from[1]:to[1], from[2]:to[2]] .+= 1
+		elseif parts[2] == "off"
+			grid[from[1]:to[1], from[2]:to[2]] = reduce_to_zero.(grid[from[1]:to[1], from[2]:to[2]])
+		else
+			throw(ErrorException("invalid syntax"))
+		end
+	elseif parts[1] == "toggle"
+		from = parse_value(parts[2])
+		to = parse_value(parts[4])
+		grid[from[1]:to[1], from[2]:to[2]] .+= 2
+	else
+		throw(ErrorException("invalid syntax"))
+	end
+	
+	grid
+end
+
+# ╔═╡ ee1b5584-8e75-4ebf-9514-0e5985b9869f
+@assert sum(apply2!(zeros(dims), "turn on 0,0 through 0,0")) == 1
+
+# ╔═╡ 13f0e9af-d1dd-40ec-99a8-c56b91ab6ce8
+@assert sum(apply2!(zeros(dims), "toggle 0,0 through 999,999")) == 1000*1000*2
+
+# ╔═╡ 7b0a6f85-0637-4ec0-8d17-3984bd9d8969
+function mass_apply2(commands::Vector) 
+	grid = zeros(dims)
+	for command in commands
+		apply2!(grid, command)
+	end
+	grid
+end
+
+# ╔═╡ 4d5a5013-fd59-4fea-8f73-396fba062fc5
+grid2 = mass_apply2(split(puzzle_input, "\n"))
+
+# ╔═╡ fbae4e2b-2ea5-414a-b3fd-01cd5630bfda
+heatmap(grid2)
+
+# ╔═╡ f245c971-fa2d-482e-a355-67a51963c0cb
+part2 = Int(sum(grid2))
+
+# ╔═╡ 0f036ef3-4901-42e4-bf0c-0580215b20cb
+md"Your puzzle answer was `14110788`."
+
 # ╔═╡ Cell order:
+# ╠═9353168e-bd57-446f-9fc3-ce063aa9c0f5
 # ╟─1b64f670-b017-11eb-140d-ebd5ac033872
 # ╟─c87dc276-6a3a-4903-955e-6ee8063b0f53
 # ╠═462f3b05-97a4-4bc7-b817-0b74be141531
 # ╠═bdb2415c-bef7-4d31-81cf-4175679b8814
 # ╠═cfeb0f48-8879-4c32-882a-6cfc5fbe5e78
-# ╠═1f1adb0c-446c-4b17-abb0-06b45892c237
 # ╠═b64e92eb-2505-4203-a512-6292235ccea5
 # ╠═238fc1ab-c208-4f54-9d48-552fba424020
 # ╠═fa569771-87e4-4534-83d3-22da3fe425f7
 # ╠═2d924161-974a-4209-bf72-5632dcc3e5b5
-# ╠═736dc654-d890-4bd5-8669-26ab00feae99
 # ╠═e3e5aa80-54bf-4d7d-912a-00d1d7061ea7
 # ╠═ea5f89aa-012b-4d23-8516-3d26269e27c5
 # ╠═41e0a047-f7a4-4e7c-a9b8-6a3891e52465
 # ╠═175908f4-2ef8-44a9-81c0-fb21e4bc10b7
+# ╠═184bb620-2d32-4b98-a02d-f5b64ae88eb6
 # ╠═9840d540-607e-47d3-874c-9df7ec814d51
+# ╟─8ada2165-6667-4850-8131-e56b1fde7abe
+# ╟─b3b7099c-b2c2-4ff4-b5c2-dfa6ec3cda87
+# ╠═eea139c9-3d08-499a-a9fb-df4f20bd129a
+# ╠═ee1b5584-8e75-4ebf-9514-0e5985b9869f
+# ╠═13f0e9af-d1dd-40ec-99a8-c56b91ab6ce8
+# ╠═7b0a6f85-0637-4ec0-8d17-3984bd9d8969
+# ╠═4d5a5013-fd59-4fea-8f73-396fba062fc5
+# ╠═fbae4e2b-2ea5-414a-b3fd-01cd5630bfda
+# ╠═f245c971-fa2d-482e-a355-67a51963c0cb
+# ╟─0f036ef3-4901-42e4-bf0c-0580215b20cb
