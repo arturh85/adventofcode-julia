@@ -8,7 +8,7 @@ using InteractiveUtils
 begin
 	import Pkg
 	Pkg.activate(mktempdir())
-	Pkg.add(["Plots"])	
+	Pkg.add(["Plots"])
 	
 	using Plots
 	plotly()
