@@ -414,6 +414,7 @@ function eval_expr(expr::AbstractString, state::Dict)
 			return parse(UInt16, right)
 		else
 			value = eval_expr(state[right], state)
+			# cache result to prevent infinite loop
 			state[right] = string(Int(value))
 			return value
 		end
