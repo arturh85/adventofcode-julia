@@ -9,8 +9,9 @@ begin
 	import Pkg
 	Pkg.activate(mktempdir())
 	Pkg.add(["Plots"])	
+	Pkg.add(Pkg.PackageSpec(url="https://github.com/JuliaPluto/PlutoTest.jl"))	
 	
-	using Plots
+	using Plots, PlutoTest
 	plotly()
 end
 
@@ -66,6 +67,9 @@ end
 # ╔═╡ 2b2592b1-a5b8-4e88-9353-af472936b40c
 @assert length(read_input("^v^v^v^v^v")) == 2
 
+# ╔═╡ 4434d480-bf52-4f97-a359-9c338f023742
+grid1 = read_input(puzzle_input)
+
 # ╔═╡ df8c0698-8b30-435e-a134-fc477c9e27f8
 function visualize_grid(grid::Dict) 
 	min_x = min_y = max_x = max_y = 0
@@ -83,9 +87,6 @@ function visualize_grid(grid::Dict)
 	end	
 	heatmap(matrix)
 end
-
-# ╔═╡ 4434d480-bf52-4f97-a359-9c338f023742
-grid1 = read_input(puzzle_input)
 
 # ╔═╡ 062672eb-cb2b-401f-adfe-a278c2604311
 visualize_grid(grid1)
@@ -111,15 +112,6 @@ For example:
 -   `^>v<` now delivers presents to `3` houses, and Santa and Robo-Santa end up back where they started.
 -   `^v^v^v^v^v` now delivers presents to `11` houses, with Santa going one direction and Robo-Santa going the other.
 """
-
-# ╔═╡ 9cd0337e-c468-4dd5-9d8c-7d0617772e9b
-puzzle_array = collect(puzzle_input)
-
-# ╔═╡ 343a1d30-0553-479c-bd33-903f2f8a5821
-santa = puzzle_array[keys(puzzle_array) |> Base.Fix1(filter, iseven)] |> join
-
-# ╔═╡ 461d70b8-c508-4366-9236-0774c29bf263
-robosanta = puzzle_array[keys(puzzle_array) |> Base.Fix1(filter, isodd)] |> join
 
 # ╔═╡ 63128fe3-993d-48bc-b2c4-edce7c86db63
 function merge_grids(a, b) 
@@ -180,9 +172,6 @@ md"""Your puzzle answer was `2639`."""
 # ╠═3ffcafa7-fdcd-4e5a-8b7b-7b562bdb7e59
 # ╟─2741702a-5941-46dd-9765-bcd6cae92194
 # ╟─1237b6c7-a70c-48e6-bc87-c717ab42c509
-# ╠═9cd0337e-c468-4dd5-9d8c-7d0617772e9b
-# ╠═343a1d30-0553-479c-bd33-903f2f8a5821
-# ╠═461d70b8-c508-4366-9236-0774c29bf263
 # ╠═63128fe3-993d-48bc-b2c4-edce7c86db63
 # ╠═03cdb8b4-f9e2-4b56-95f9-dea9d36ca9b0
 # ╠═3320325e-e4bb-4eb5-8489-b0829af0105e

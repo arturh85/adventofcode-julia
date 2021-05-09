@@ -9,8 +9,10 @@ begin
 	import Pkg
 	Pkg.activate(mktempdir())
 	Pkg.add(["Plots"])	
+	Pkg.add(Pkg.PackageSpec(url="https://github.com/JuliaPluto/PlutoTest.jl"))	
 	
-	using Plots
+	
+	using Plots, PlutoTest
 	plotly()
 end
 
@@ -379,16 +381,16 @@ end
 puzzle_commands = parse_input(puzzle_input)
 
 # ╔═╡ fa569771-87e4-4534-83d3-22da3fe425f7
-@assert sum(apply1!(falses(dims), "turn on 0,0 through 999,999")) == 1000*1000
+@test sum(apply1!(falses(dims), "turn on 0,0 through 999,999")) == 1000*1000
 
 # ╔═╡ 2d924161-974a-4209-bf72-5632dcc3e5b5
-@assert sum(apply1!(falses(dims), "toggle 0,0 through 999,0")) == 1000
+@test sum(apply1!(falses(dims), "toggle 0,0 through 999,0")) == 1000
 
 # ╔═╡ e3e5aa80-54bf-4d7d-912a-00d1d7061ea7
-@assert sum(apply1!(trues(dims), "toggle 0,0 through 999,0")) == 1000*1000-1000
+@test sum(apply1!(trues(dims), "toggle 0,0 through 999,0")) == 1000*1000-1000
 
 # ╔═╡ ea5f89aa-012b-4d23-8516-3d26269e27c5
-@assert sum(apply1!(trues(dims), "turn off 499,499 through 500,500")) == 1000*1000-4
+@test sum(apply1!(trues(dims), "turn off 499,499 through 500,500")) == 1000*1000-4
 
 # ╔═╡ 41e0a047-f7a4-4e7c-a9b8-6a3891e52465
 function mass_apply1(commands::Vector) 
@@ -465,10 +467,10 @@ apply2!(grid::Matrix, command::AbstractString) = begin
 end
 
 # ╔═╡ ee1b5584-8e75-4ebf-9514-0e5985b9869f
-@assert sum(apply2!(zeros(dims), "turn on 0,0 through 0,0")) == 1
+@test sum(apply2!(zeros(dims), "turn on 0,0 through 0,0")) == 1
 
 # ╔═╡ 13f0e9af-d1dd-40ec-99a8-c56b91ab6ce8
-@assert sum(apply2!(zeros(dims), "toggle 0,0 through 999,999")) == 1000*1000*2
+@test sum(apply2!(zeros(dims), "toggle 0,0 through 999,999")) == 1000*1000*2
 
 # ╔═╡ 7b0a6f85-0637-4ec0-8d17-3984bd9d8969
 function mass_apply2(commands::Vector) 

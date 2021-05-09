@@ -8,9 +8,10 @@ using InteractiveUtils
 begin
 	import Pkg
 	Pkg.activate(mktempdir())
-	Pkg.add(["Plots"])	
+	Pkg.add(["Plots"])
+	Pkg.add(Pkg.PackageSpec(url="https://github.com/JuliaPluto/PlutoTest.jl"))	
 	
-	using Plots
+	using Plots, PlutoTest
 	plotly()
 end
 
@@ -48,19 +49,31 @@ read_movements(movements::AbstractString) =
 	map(x -> x == '(' ? 1 : -1, collect(movements))
 
 # ╔═╡ 6fee2f51-f7a7-46a9-a54d-33552394e525
-@assert sum(read_movements("(())")) == sum(read_movements("()()")) == 0
+@test sum(read_movements("(())")) == 0
+
+# ╔═╡ 6bad88a8-168a-4710-bc8f-7953d5779165
+@test sum(read_movements("()()")) == 0
 
 # ╔═╡ 6e36a546-357e-483f-bd2d-d87bb97edddb
-@assert sum(read_movements("(((")) == sum(read_movements("(()(()(")) == 3
+@test sum(read_movements("(((")) == 3
+
+# ╔═╡ 4d6bd12a-d7b0-4084-affa-38cbb3554928
+@test sum(read_movements("(()(()(")) == 3
 
 # ╔═╡ d42a1ec4-6ddb-476e-a259-54175b7d8a6e
-@assert sum(read_movements("))(((((")) == 3
+@test sum(read_movements("))(((((")) == 3
 
 # ╔═╡ f23b09a3-b95c-4d72-8195-1cc36acce0cf
-@assert sum(read_movements("())")) == sum(read_movements("))(")) == -1
+@test sum(read_movements("())")) == -1
+
+# ╔═╡ f4e781f0-6331-4750-8908-8be6f6645a9d
+@test sum(read_movements("))(")) == -1
 
 # ╔═╡ 54a7cd1f-e4de-4064-a6f4-fd09f4e5730c
-@assert sum(read_movements(")))")) == sum(read_movements(")())())")) == -3
+@test sum(read_movements(")))")) == -3
+
+# ╔═╡ aa539a5f-6140-4bc6-bfac-2ba208508e04
+@test sum(read_movements(")())())")) == -3
 
 # ╔═╡ 0d0133fc-e7f2-4776-8a87-0ab75fc06f70
 puzzle_movements = read_movements(puzzle_input)
@@ -102,10 +115,10 @@ function below_zero_index(movements::Vector)::Int
 end
 
 # ╔═╡ 759a6fbf-8875-42b7-a657-63054c61da3e
-@assert below_zero_index(read_movements(")")) == 1
+@test below_zero_index(read_movements(")")) == 1
 
 # ╔═╡ 2368ed8d-bae9-4878-bcdb-85277c8b26d3
-@assert below_zero_index(read_movements("()())")) == 5
+@test below_zero_index(read_movements("()())")) == 5
 
 # ╔═╡ 16580bf5-0eaa-4023-b315-7ac09d3d81b1
 part2 = below_zero_index(puzzle_movements)
@@ -119,10 +132,14 @@ md"Your puzzle answer was `1783`."
 # ╟─014cabcd-e65d-42ab-b2ce-ec42d233c5e7
 # ╠═febdc2a5-b736-4c4d-81f7-bccd7c68d725
 # ╠═6fee2f51-f7a7-46a9-a54d-33552394e525
+# ╠═6bad88a8-168a-4710-bc8f-7953d5779165
 # ╠═6e36a546-357e-483f-bd2d-d87bb97edddb
+# ╠═4d6bd12a-d7b0-4084-affa-38cbb3554928
 # ╠═d42a1ec4-6ddb-476e-a259-54175b7d8a6e
 # ╠═f23b09a3-b95c-4d72-8195-1cc36acce0cf
+# ╠═f4e781f0-6331-4750-8908-8be6f6645a9d
 # ╠═54a7cd1f-e4de-4064-a6f4-fd09f4e5730c
+# ╠═aa539a5f-6140-4bc6-bfac-2ba208508e04
 # ╠═0d0133fc-e7f2-4776-8a87-0ab75fc06f70
 # ╠═647d7f09-2ba8-40e0-8e78-168099e5e8b1
 # ╟─c039b088-9f32-4381-8128-21f5ffb9d5b4
