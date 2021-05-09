@@ -1,0 +1,39 @@
+‹¥bonds€¬cell_resultsƒÙ$7b3cffcf-5c04-4d13-9714-8dad9e4956f3‡¦queuedÂ±published_objects€§runningÂ¦output…¤bodyÚŸ"Vixen can fly 19 km/s for 7 seconds, but then must rest for 124 seconds.\nRudolph can fly 3 km/s for 15 seconds, but then must rest for 28 seconds.\nDonner can fly 19 km/s for 9 seconds, but then must rest for 164 seconds.\nBlitzen can fly 19 km/s for 9 seconds, but then must rest for 158 seconds.\nComet can fly 13 km/s for 7 seconds, but then must rest for 82 seconds.\nCupid can fly 25 km/s for 6 seconds, but then must rest for 145 seconds.\nDasher can fly 14 km/s for 3 seconds, but then must rest for 38 seconds.\nDancer can fly 3 km/s for 16 seconds, but then must rest for 37 seconds.\nPrancer can fly 25 km/s for 6 seconds, but then must rest for 143 seconds."°persist_js_stateÂ¤mimeªtext/plain²last_run_timestampËAØ&²’¡¬rootassignee¬puzzle_input§cell_idÙ$7b3cffcf-5c04-4d13-9714-8dad9e4956f3§runtimeÌÈ§erroredÂÙ$4c30acd3-078f-40a6-8e22-c90704abef38‡¦queuedÂ±published_objects€§runningÂ¦output…¤body °persist_js_stateÂ¤mimeªtext/plain²last_run_timestampËAØ&¯ XC¬rootassigneeÀ§cell_idÙ$4c30acd3-078f-40a6-8e22-c90704abef38§runtimeÌÈ§erroredÂÙ$76d27f60-b0e8-11eb-3fd3-a7b73d0d4cfe‡¦queuedÂ±published_objects€§runningÂ¦output…¤bodyÚª<div class="markdown"><h1><a href="https://adventofcode.com/2015/day/14">Day 14: Reindeer Olympics</a></h1>
+<p>This year is the Reindeer Olympics&#33; Reindeer can fly at high speeds, but must rest occasionally to recover their energy. Santa would like to know which of his reindeer is fastest, and so he has them race.</p>
+<p>Reindeer can only either beÂ flyingÂ &#40;always at their top speed&#41; orÂ restingÂ &#40;not moving at all&#41;, and always spend whole seconds in either state.</p>
+<p>For example, suppose you have the following Reindeer:</p>
+<ul>
+<li><p>Comet can flyÂ 14 km/s for 10 seconds, but then must rest forÂ 127 seconds.</p>
+</li>
+<li><p>Dancer can flyÂ 16 km/s for 11 seconds, but then must rest forÂ 162 seconds.</p>
+</li>
+</ul>
+<p>After one second, Comet has gone 14 km, while Dancer has gone 16 km. After ten seconds, Comet has gone 140 km, while Dancer has gone 160 km. On the eleventh second, Comet begins resting &#40;staying at 140 km&#41;, and Dancer continues on for a total distance of 176 km. On the 12th second, both reindeer are resting. They continue to rest until the 138th second, when Comet flies for another ten seconds. On the 174th second, Dancer flies for another 11 seconds.</p>
+<p>In this example, after the 1000th second, both reindeer are resting, and Comet is in the lead atÂ <code>1120</code>Â km &#40;poor Dancer has only gottenÂ <code>1056</code>Â km by that point&#41;. So, in this situation, Comet would win &#40;if the race ended at 1000 seconds&#41;.</p>
+<p>Given the descriptions of each reindeer &#40;in your puzzle input&#41;, after exactlyÂ <code>2503</code>Â seconds,Â <strong>what distance has the winning reindeer traveled?</strong></p>
+</div>°persist_js_stateÂ¤mime©text/html²last_run_timestampËAØ&¯ 5¬rootassigneeÀ§cell_idÙ$76d27f60-b0e8-11eb-3fd3-a7b73d0d4cfe§runtimeÍ^‰§erroredÂ±cell_dependenciesƒÙ$7b3cffcf-5c04-4d13-9714-8dad9e4956f3„´precedence_heuristic§cell_idÙ$7b3cffcf-5c04-4d13-9714-8dad9e4956f3´downstream_cells_map¬puzzle_input²upstream_cells_map€Ù$4c30acd3-078f-40a6-8e22-c90704abef38„´precedence_heuristic§cell_idÙ$4c30acd3-078f-40a6-8e22-c90704abef38´downstream_cells_map€²upstream_cells_map€Ù$76d27f60-b0e8-11eb-3fd3-a7b73d0d4cfe„´precedence_heuristic§cell_idÙ$76d27f60-b0e8-11eb-3fd3-a7b73d0d4cfe´downstream_cells_map€²upstream_cells_map‚§@md_str¨getindex´cell_execution_order“Ù$76d27f60-b0e8-11eb-3fd3-a7b73d0d4cfeÙ$7b3cffcf-5c04-4d13-9714-8dad9e4956f3Ù$4c30acd3-078f-40a6-8e22-c90704abef38©shortpath©Day 14.jl®process_status¥ready¤pathÙF/home/runner/work/adventofcode-julia/adventofcode-julia/2015/Day 14.jlªcell_order“Ù$76d27f60-b0e8-11eb-3fd3-a7b73d0d4cfeÙ$7b3cffcf-5c04-4d13-9714-8dad9e4956f3Ù$4c30acd3-078f-40a6-8e22-c90704abef38«cell_inputsƒÙ$7b3cffcf-5c04-4d13-9714-8dad9e4956f3ƒ§cell_idÙ$7b3cffcf-5c04-4d13-9714-8dad9e4956f3¤codeÚ¦puzzle_input = "Vixen can fly 19 km/s for 7 seconds, but then must rest for 124 seconds.
+Rudolph can fly 3 km/s for 15 seconds, but then must rest for 28 seconds.
+Donner can fly 19 km/s for 9 seconds, but then must rest for 164 seconds.
+Blitzen can fly 19 km/s for 9 seconds, but then must rest for 158 seconds.
+Comet can fly 13 km/s for 7 seconds, but then must rest for 82 seconds.
+Cupid can fly 25 km/s for 6 seconds, but then must rest for 145 seconds.
+Dasher can fly 14 km/s for 3 seconds, but then must rest for 38 seconds.
+Dancer can fly 3 km/s for 16 seconds, but then must rest for 37 seconds.
+Prancer can fly 25 km/s for 6 seconds, but then must rest for 143 seconds."«code_foldedÃÙ$4c30acd3-078f-40a6-8e22-c90704abef38ƒ§cell_idÙ$4c30acd3-078f-40a6-8e22-c90704abef38¤code «code_foldedÂÙ$76d27f60-b0e8-11eb-3fd3-a7b73d0d4cfeƒ§cell_idÙ$76d27f60-b0e8-11eb-3fd3-a7b73d0d4cfe¤codeÚÛmd"""
+# [Day 14: Reindeer Olympics](https://adventofcode.com/2015/day/14)
+
+This year is the Reindeer Olympics! Reindeer can fly at high speeds, but must rest occasionally to recover their energy. Santa would like to know which of his reindeer is fastest, and so he has them race.
+
+Reindeer can only either beÂ flyingÂ (always at their top speed) orÂ restingÂ (not moving at all), and always spend whole seconds in either state.
+
+For example, suppose you have the following Reindeer:
+
+-   Comet can flyÂ 14 km/s for 10 seconds, but then must rest forÂ 127 seconds.
+-   Dancer can flyÂ 16 km/s for 11 seconds, but then must rest forÂ 162 seconds.
+
+After one second, Comet has gone 14 km, while Dancer has gone 16 km. After ten seconds, Comet has gone 140 km, while Dancer has gone 160 km. On the eleventh second, Comet begins resting (staying at 140 km), and Dancer continues on for a total distance of 176 km. On the 12th second, both reindeer are resting. They continue to rest until the 138th second, when Comet flies for another ten seconds. On the 174th second, Dancer flies for another 11 seconds.
+
+In this example, after the 1000th second, both reindeer are resting, and Comet is in the lead atÂ `1120`Â km (poor Dancer has only gottenÂ `1056`Â km by that point). So, in this situation, Comet would win (if the race ended at 1000 seconds).
+
+Given the descriptions of each reindeer (in your puzzle input), after exactlyÂ `2503`Â seconds,Â **what distance has the winning reindeer traveled?**
+"""«code_foldedÃ«notebook_idÙ$604b8f18-b0eb-11eb-307e-bb16b1c08eec«in_temp_dirÂ

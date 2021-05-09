@@ -1,0 +1,227 @@
+‹¥bonds€¬cell_results‚Ù$f38350b0-b0e9-11eb-14c1-0b087fed8be4‡¦queuedÂ±published_objects€§runningÂ¦output…¤bodyÚ<div class="markdown"><h1><a href="https://adventofcode.com/2015/day/22">Day 22: Wizard Simulator 20XX</a></h1>
+<p>Little Henry Case decides that defeating bosses withÂ <a href="https://adventofcode.com/2015/day/21">swords and stuff</a>Â is boring. Now he&#39;s playing the game with aÂ wizard. Of course, he gets stuck on another boss and needs your help again.</p>
+<p>In this version, combat still proceeds with the player and the boss taking alternating turns. The player still goes first. Now, however, you don&#39;t get any equipment; instead, you must choose one of your spells to cast. The first character at or belowÂ <code>0</code>Â hit points loses.</p>
+<p>Since you&#39;re a wizard, you don&#39;t get to wear armor, and you can&#39;t attack normally. However, since you doÂ magic damage, your opponent&#39;s armor is ignored, and so the boss effectively has zero armor as well. As before, if armor &#40;from a spell, in this case&#41; would reduce damage belowÂ <code>1</code>, it becomesÂ <code>1</code>Â instead - that is, the boss&#39; attacks always deal at leastÂ <code>1</code>Â damage.</p>
+<p>On each of your turns, you must select one of your spells to cast. If you cannot afford to cast any spell, you lose. Spells costÂ mana; you start withÂ 500Â mana, but have no maximum limit. You must have enough mana to cast a spell, and its cost is immediately deducted when you cast it. Your spells are Magic Missile, Drain, Shield, Poison, and Recharge.</p>
+<ul>
+<li><p>Magic MissileÂ costsÂ <code>53</code>Â mana. It instantly doesÂ <code>4</code>Â damage.</p>
+</li>
+<li><p>DrainÂ costsÂ <code>73</code>Â mana. It instantly doesÂ <code>2</code>Â damage and heals you forÂ <code>2</code>Â hit points.</p>
+</li>
+<li><p>ShieldÂ costsÂ <code>113</code>Â mana. It starts anÂ effectÂ that lasts forÂ <code>6</code>Â turns. While it is active, your armor is increased byÂ <code>7</code>.</p>
+</li>
+<li><p>PoisonÂ costsÂ <code>173</code>Â mana. It starts anÂ effectÂ that lasts forÂ <code>6</code>Â turns. At the start of each turn while it is active, it deals the bossÂ <code>3</code>Â damage.</p>
+</li>
+<li><p>RechargeÂ costsÂ <code>229</code>Â mana. It starts anÂ effectÂ that lasts forÂ <code>5</code>Â turns. At the start of each turn while it is active, it gives youÂ <code>101</code>Â new mana.</p>
+</li>
+</ul>
+<p>EffectsÂ all work the same way. Effects apply at the start of both the player&#39;s turns and the boss&#39; turns. Effects are created with a timer &#40;the number of turns they last&#41;; at the start of each turn, after they apply any effect they have, their timer is decreased by one. If this decreases the timer to zero, the effect ends. You cannot cast a spell that would start an effect which is already active. However, effects can be started on the same turn they end.</p>
+<p>For example, suppose the player hasÂ <code>10</code>Â hit points andÂ <code>250</code>Â mana, and that the boss hasÂ <code>13</code>Â hit points andÂ <code>8</code>Â damage:</p>
+<pre><code>-- Player turn --
+- Player has 10 hit points, 0 armor, 250 mana
+- Boss has 13 hit points
+Player casts Poison.
+
+-- Boss turn --
+- Player has 10 hit points, 0 armor, 77 mana
+- Boss has 13 hit points
+Poison deals 3 damage; its timer is now 5.
+Boss attacks for 8 damage.
+
+-- Player turn --
+- Player has 2 hit points, 0 armor, 77 mana
+- Boss has 10 hit points
+Poison deals 3 damage; its timer is now 4.
+Player casts Magic Missile, dealing 4 damage.
+
+-- Boss turn --
+- Player has 2 hit points, 0 armor, 24 mana
+- Boss has 3 hit points
+Poison deals 3 damage. This kills the boss, and the player wins.
+</code></pre>
+<p>Now, suppose the same initial conditions, except that the boss hasÂ <code>14</code>Â hit points instead:</p>
+<pre><code>-- Player turn --
+- Player has 10 hit points, 0 armor, 250 mana
+- Boss has 14 hit points
+Player casts Recharge.
+
+-- Boss turn --
+- Player has 10 hit points, 0 armor, 21 mana
+- Boss has 14 hit points
+Recharge provides 101 mana; its timer is now 4.
+Boss attacks for 8 damage&#33;
+
+-- Player turn --
+- Player has 2 hit points, 0 armor, 122 mana
+- Boss has 14 hit points
+Recharge provides 101 mana; its timer is now 3.
+Player casts Shield, increasing armor by 7.
+
+-- Boss turn --
+- Player has 2 hit points, 7 armor, 110 mana
+- Boss has 14 hit points
+Shield&#39;s timer is now 5.
+Recharge provides 101 mana; its timer is now 2.
+Boss attacks for 8 - 7 &#61; 1 damage&#33;
+
+-- Player turn --
+- Player has 1 hit point, 7 armor, 211 mana
+- Boss has 14 hit points
+Shield&#39;s timer is now 4.
+Recharge provides 101 mana; its timer is now 1.
+Player casts Drain, dealing 2 damage, and healing 2 hit points.
+
+-- Boss turn --
+- Player has 3 hit points, 7 armor, 239 mana
+- Boss has 12 hit points
+Shield&#39;s timer is now 3.
+Recharge provides 101 mana; its timer is now 0.
+Recharge wears off.
+Boss attacks for 8 - 7 &#61; 1 damage&#33;
+
+-- Player turn --
+- Player has 2 hit points, 7 armor, 340 mana
+- Boss has 12 hit points
+Shield&#39;s timer is now 2.
+Player casts Poison.
+
+-- Boss turn --
+- Player has 2 hit points, 7 armor, 167 mana
+- Boss has 12 hit points
+Shield&#39;s timer is now 1.
+Poison deals 3 damage; its timer is now 5.
+Boss attacks for 8 - 7 &#61; 1 damage&#33;
+
+-- Player turn --
+- Player has 1 hit point, 7 armor, 167 mana
+- Boss has 9 hit points
+Shield&#39;s timer is now 0.
+Shield wears off, decreasing armor by 7.
+Poison deals 3 damage; its timer is now 4.
+Player casts Magic Missile, dealing 4 damage.
+
+-- Boss turn --
+- Player has 1 hit point, 0 armor, 114 mana
+- Boss has 2 hit points
+Poison deals 3 damage. This kills the boss, and the player wins.
+</code></pre>
+<p>You start withÂ 50 hit pointsÂ andÂ 500 mana points. The boss&#39;s actual stats are in your puzzle input. <strong>What is theÂ least amount of manaÂ you can spend and still win the fight?</strong> &#40;Do not include mana recharge effects as &quot;spending&quot; negative mana.&#41;</p>
+</div>°persist_js_stateÂ¤mime©text/html²last_run_timestampËAØ&—ú¬rootassigneeÀ§cell_idÙ$f38350b0-b0e9-11eb-14c1-0b087fed8be4§runtimeÍ}§erroredÂÙ$77d2e090-c3da-46cd-b6e5-a3cb403d73e0‡¦queuedÂ±published_objects€§runningÂ¦output…¤body»"Hit Points: 58\nDamage: 9"°persist_js_stateÂ¤mimeªtext/plain²last_run_timestampËAØ&šşø¬rootassignee¬puzzle_input§cell_idÙ$77d2e090-c3da-46cd-b6e5-a3cb403d73e0§runtimeÌÈ§erroredÂ±cell_dependencies‚Ù$f38350b0-b0e9-11eb-14c1-0b087fed8be4„´precedence_heuristic§cell_idÙ$f38350b0-b0e9-11eb-14c1-0b087fed8be4´downstream_cells_map€²upstream_cells_map‚§@md_str¨getindexÙ$77d2e090-c3da-46cd-b6e5-a3cb403d73e0„´precedence_heuristic§cell_idÙ$77d2e090-c3da-46cd-b6e5-a3cb403d73e0´downstream_cells_map¬puzzle_input²upstream_cells_map€´cell_execution_order’Ù$f38350b0-b0e9-11eb-14c1-0b087fed8be4Ù$77d2e090-c3da-46cd-b6e5-a3cb403d73e0©shortpath©Day 22.jl®process_status¥ready¤pathÙF/home/runner/work/adventofcode-julia/adventofcode-julia/2015/Day 22.jlªcell_order’Ù$f38350b0-b0e9-11eb-14c1-0b087fed8be4Ù$77d2e090-c3da-46cd-b6e5-a3cb403d73e0«cell_inputs‚Ù$f38350b0-b0e9-11eb-14c1-0b087fed8be4ƒ§cell_idÙ$f38350b0-b0e9-11eb-14c1-0b087fed8be4¤codeÚ¼md"""
+# [Day 22: Wizard Simulator 20XX](https://adventofcode.com/2015/day/22)
+
+Little Henry Case decides that defeating bosses withÂ [swords and stuff](https://adventofcode.com/2015/day/21)Â is boring. Now he's playing the game with aÂ wizard. Of course, he gets stuck on another boss and needs your help again.
+
+In this version, combat still proceeds with the player and the boss taking alternating turns. The player still goes first. Now, however, you don't get any equipment; instead, you must choose one of your spells to cast. The first character at or belowÂ `0`Â hit points loses.
+
+Since you're a wizard, you don't get to wear armor, and you can't attack normally. However, since you doÂ magic damage, your opponent's armor is ignored, and so the boss effectively has zero armor as well. As before, if armor (from a spell, in this case) would reduce damage belowÂ `1`, it becomesÂ `1`Â instead - that is, the boss' attacks always deal at leastÂ `1`Â damage.
+
+On each of your turns, you must select one of your spells to cast. If you cannot afford to cast any spell, you lose. Spells costÂ mana; you start withÂ 500Â mana, but have no maximum limit. You must have enough mana to cast a spell, and its cost is immediately deducted when you cast it. Your spells are Magic Missile, Drain, Shield, Poison, and Recharge.
+
+-   Magic MissileÂ costsÂ `53`Â mana. It instantly doesÂ `4`Â damage.
+-   DrainÂ costsÂ `73`Â mana. It instantly doesÂ `2`Â damage and heals you forÂ `2`Â hit points.
+-   ShieldÂ costsÂ `113`Â mana. It starts anÂ effectÂ that lasts forÂ `6`Â turns. While it is active, your armor is increased byÂ `7`.
+-   PoisonÂ costsÂ `173`Â mana. It starts anÂ effectÂ that lasts forÂ `6`Â turns. At the start of each turn while it is active, it deals the bossÂ `3`Â damage.
+-   RechargeÂ costsÂ `229`Â mana. It starts anÂ effectÂ that lasts forÂ `5`Â turns. At the start of each turn while it is active, it gives youÂ `101`Â new mana.
+
+EffectsÂ all work the same way. Effects apply at the start of both the player's turns and the boss' turns. Effects are created with a timer (the number of turns they last); at the start of each turn, after they apply any effect they have, their timer is decreased by one. If this decreases the timer to zero, the effect ends. You cannot cast a spell that would start an effect which is already active. However, effects can be started on the same turn they end.
+
+For example, suppose the player hasÂ `10`Â hit points andÂ `250`Â mana, and that the boss hasÂ `13`Â hit points andÂ `8`Â damage:
+
+```
+-- Player turn --
+- Player has 10 hit points, 0 armor, 250 mana
+- Boss has 13 hit points
+Player casts Poison.
+
+-- Boss turn --
+- Player has 10 hit points, 0 armor, 77 mana
+- Boss has 13 hit points
+Poison deals 3 damage; its timer is now 5.
+Boss attacks for 8 damage.
+
+-- Player turn --
+- Player has 2 hit points, 0 armor, 77 mana
+- Boss has 10 hit points
+Poison deals 3 damage; its timer is now 4.
+Player casts Magic Missile, dealing 4 damage.
+
+-- Boss turn --
+- Player has 2 hit points, 0 armor, 24 mana
+- Boss has 3 hit points
+Poison deals 3 damage. This kills the boss, and the player wins.
+
+```
+
+Now, suppose the same initial conditions, except that the boss hasÂ `14`Â hit points instead:
+
+```
+-- Player turn --
+- Player has 10 hit points, 0 armor, 250 mana
+- Boss has 14 hit points
+Player casts Recharge.
+
+-- Boss turn --
+- Player has 10 hit points, 0 armor, 21 mana
+- Boss has 14 hit points
+Recharge provides 101 mana; its timer is now 4.
+Boss attacks for 8 damage!
+
+-- Player turn --
+- Player has 2 hit points, 0 armor, 122 mana
+- Boss has 14 hit points
+Recharge provides 101 mana; its timer is now 3.
+Player casts Shield, increasing armor by 7.
+
+-- Boss turn --
+- Player has 2 hit points, 7 armor, 110 mana
+- Boss has 14 hit points
+Shield's timer is now 5.
+Recharge provides 101 mana; its timer is now 2.
+Boss attacks for 8 - 7 = 1 damage!
+
+-- Player turn --
+- Player has 1 hit point, 7 armor, 211 mana
+- Boss has 14 hit points
+Shield's timer is now 4.
+Recharge provides 101 mana; its timer is now 1.
+Player casts Drain, dealing 2 damage, and healing 2 hit points.
+
+-- Boss turn --
+- Player has 3 hit points, 7 armor, 239 mana
+- Boss has 12 hit points
+Shield's timer is now 3.
+Recharge provides 101 mana; its timer is now 0.
+Recharge wears off.
+Boss attacks for 8 - 7 = 1 damage!
+
+-- Player turn --
+- Player has 2 hit points, 7 armor, 340 mana
+- Boss has 12 hit points
+Shield's timer is now 2.
+Player casts Poison.
+
+-- Boss turn --
+- Player has 2 hit points, 7 armor, 167 mana
+- Boss has 12 hit points
+Shield's timer is now 1.
+Poison deals 3 damage; its timer is now 5.
+Boss attacks for 8 - 7 = 1 damage!
+
+-- Player turn --
+- Player has 1 hit point, 7 armor, 167 mana
+- Boss has 9 hit points
+Shield's timer is now 0.
+Shield wears off, decreasing armor by 7.
+Poison deals 3 damage; its timer is now 4.
+Player casts Magic Missile, dealing 4 damage.
+
+-- Boss turn --
+- Player has 1 hit point, 0 armor, 114 mana
+- Boss has 2 hit points
+Poison deals 3 damage. This kills the boss, and the player wins.
+
+```
+
+You start withÂ 50 hit pointsÂ andÂ 500 mana points. The boss's actual stats are in your puzzle input. **What is theÂ least amount of manaÂ you can spend and still win the fight?** (Do not include mana recharge effects as "spending" negative mana.)
+"""«code_foldedÃÙ$77d2e090-c3da-46cd-b6e5-a3cb403d73e0ƒ§cell_idÙ$77d2e090-c3da-46cd-b6e5-a3cb403d73e0¤codeÙ)puzzle_input = "Hit Points: 58
+Damage: 9"«code_foldedÃ«notebook_idÙ$25c14888-b0eb-11eb-39d0-613f34bdd5b3«in_temp_dirÂ

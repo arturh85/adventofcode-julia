@@ -1,0 +1,104 @@
+‹¥bonds€¬cell_results‚Ù$61ef7fce-2cd7-42d8-825a-3337a726ee78‡¦queuedÂ±published_objects€§runningÂ¦output…¤bodyÙ&"Hit Points: 103\nDamage: 9\nArmor: 2"°persist_js_stateÂ¤mimeªtext/plain²last_run_timestampËAØ&„Ó¬rootassignee¬puzzle_input§cell_idÙ$61ef7fce-2cd7-42d8-825a-3337a726ee78§runtimeÌÈ§erroredÂÙ$acd87eb2-b0e9-11eb-3bf7-bde51637d662‡¦queuedÂ±published_objects€§runningÂ¦output…¤bodyÚI<div class="markdown"><h1><a href="https://adventofcode.com/2015/day/21">Day 21: RPG Simulator 20XX</a></h1>
+<p>LittleÂ Henry CaseÂ got a new video game for Christmas. It&#39;s anÂ <a href="https://en.wikipedia.org/wiki/Role-playing_video_game">RPG</a>, and he&#39;s stuck on a boss. He needs to know what equipment to buy at the shop. He hands you theÂ <a href="https://en.wikipedia.org/wiki/Game_controller">controller</a>.</p>
+<p>In this game, the player &#40;you&#41; and the enemy &#40;the boss&#41; take turns attacking. The player always goes first. Each attack reduces the opponent&#39;s hit points by at leastÂ <code>1</code>. The first character at or belowÂ <code>0</code>Â hit points loses.</p>
+<p>Damage dealt by an attacker each turn is equal to the attacker&#39;s damage score minus the defender&#39;s armor score. An attacker always does at leastÂ <code>1</code>Â damage. So, if the attacker has a damage score ofÂ <code>8</code>, and the defender has an armor score ofÂ <code>3</code>, the defender losesÂ <code>5</code>Â hit points. If the defender had an armor score ofÂ <code>300</code>, the defender would still loseÂ <code>1</code>Â hit point.</p>
+<p>Your damage score and armor score both start at zero. They can be increased by buying items in exchange for gold. You start with no items and have as much gold as you need. Your total damage or armor is equal to the sum of those stats from all of your items. You haveÂ 100 hit points.</p>
+<p>Here is what the item shop is selling:</p>
+<pre><code>Weapons:    Cost  Damage  Armor
+Dagger        8     4       0
+Shortsword   10     5       0
+Warhammer    25     6       0
+Longsword    40     7       0
+Greataxe     74     8       0
+
+Armor:      Cost  Damage  Armor
+Leather      13     0       1
+Chainmail    31     0       2
+Splintmail   53     0       3
+Bandedmail   75     0       4
+Platemail   102     0       5
+
+Rings:      Cost  Damage  Armor
+Damage &#43;1    25     1       0
+Damage &#43;2    50     2       0
+Damage &#43;3   100     3       0
+Defense &#43;1   20     0       1
+Defense &#43;2   40     0       2
+Defense &#43;3   80     0       3
+</code></pre>
+<p>You must buy exactly one weapon; no dual-wielding. Armor is optional, but you can&#39;t use more than one. You can buy 0-2 rings &#40;at most one for each hand&#41;. You must use any items you buy. The shop only has one of each item, so you can&#39;t buy, for example, two rings of Damage &#43;3.</p>
+<p>For example, suppose you haveÂ <code>8</code>Â hit points,Â <code>5</code>Â damage, andÂ <code>5</code>Â armor, and that the boss hasÂ <code>12</code>Â hit points,Â <code>7</code>Â damage, andÂ <code>2</code>Â armor:</p>
+<ul>
+<li><p>The player dealsÂ <code>5-2 &#61; 3</code>Â damage; the boss goes down to 9 hit points.</p>
+</li>
+<li><p>The boss dealsÂ <code>7-5 &#61; 2</code>Â damage; the player goes down to 6 hit points.</p>
+</li>
+<li><p>The player dealsÂ <code>5-2 &#61; 3</code>Â damage; the boss goes down to 6 hit points.</p>
+</li>
+<li><p>The boss dealsÂ <code>7-5 &#61; 2</code>Â damage; the player goes down to 4 hit points.</p>
+</li>
+<li><p>The player dealsÂ <code>5-2 &#61; 3</code>Â damage; the boss goes down to 3 hit points.</p>
+</li>
+<li><p>The boss dealsÂ <code>7-5 &#61; 2</code>Â damage; the player goes down to 2 hit points.</p>
+</li>
+<li><p>The player dealsÂ <code>5-2 &#61; 3</code>Â damage; the boss goes down to 0 hit points.</p>
+</li>
+</ul>
+<p>In this scenario, the player wins&#33; &#40;Barely.&#41;</p>
+<p>You haveÂ 100 hit points. The boss&#39;s actual stats are in your puzzle input. <strong>What isÂ the least amount of gold you can spendÂ and still win the fight?</strong></p>
+</div>°persist_js_stateÂ¤mime©text/html²last_run_timestampËAØ&š#¾ƒ¬rootassigneeÀ§cell_idÙ$acd87eb2-b0e9-11eb-3bf7-bde51637d662§runtimeÍ¿§erroredÂ±cell_dependencies‚Ù$61ef7fce-2cd7-42d8-825a-3337a726ee78„´precedence_heuristic§cell_idÙ$61ef7fce-2cd7-42d8-825a-3337a726ee78´downstream_cells_map¬puzzle_input²upstream_cells_map€Ù$acd87eb2-b0e9-11eb-3bf7-bde51637d662„´precedence_heuristic§cell_idÙ$acd87eb2-b0e9-11eb-3bf7-bde51637d662´downstream_cells_map€²upstream_cells_map‚§@md_str¨getindex´cell_execution_order’Ù$acd87eb2-b0e9-11eb-3bf7-bde51637d662Ù$61ef7fce-2cd7-42d8-825a-3337a726ee78©shortpath©Day 21.jl®process_status¥ready¤pathÙF/home/runner/work/adventofcode-julia/adventofcode-julia/2015/Day 21.jlªcell_order’Ù$acd87eb2-b0e9-11eb-3bf7-bde51637d662Ù$61ef7fce-2cd7-42d8-825a-3337a726ee78«cell_inputs‚Ù$61ef7fce-2cd7-42d8-825a-3337a726ee78ƒ§cell_idÙ$61ef7fce-2cd7-42d8-825a-3337a726ee78¤codeÙ3puzzle_input = "Hit Points: 103
+Damage: 9
+Armor: 2"«code_foldedÃÙ$acd87eb2-b0e9-11eb-3bf7-bde51637d662ƒ§cell_idÙ$acd87eb2-b0e9-11eb-3bf7-bde51637d662¤codeÚômd"""
+# [Day 21: RPG Simulator 20XX](https://adventofcode.com/2015/day/21)
+
+LittleÂ Henry CaseÂ got a new video game for Christmas. It's anÂ [RPG](https://en.wikipedia.org/wiki/Role-playing_video_game), and he's stuck on a boss. He needs to know what equipment to buy at the shop. He hands you theÂ [controller](https://en.wikipedia.org/wiki/Game_controller).
+
+In this game, the player (you) and the enemy (the boss) take turns attacking. The player always goes first. Each attack reduces the opponent's hit points by at leastÂ `1`. The first character at or belowÂ `0`Â hit points loses.
+
+Damage dealt by an attacker each turn is equal to the attacker's damage score minus the defender's armor score. An attacker always does at leastÂ `1`Â damage. So, if the attacker has a damage score ofÂ `8`, and the defender has an armor score ofÂ `3`, the defender losesÂ `5`Â hit points. If the defender had an armor score ofÂ `300`, the defender would still loseÂ `1`Â hit point.
+
+Your damage score and armor score both start at zero. They can be increased by buying items in exchange for gold. You start with no items and have as much gold as you need. Your total damage or armor is equal to the sum of those stats from all of your items. You haveÂ 100 hit points.
+
+Here is what the item shop is selling:
+
+```
+Weapons:    Cost  Damage  Armor
+Dagger        8     4       0
+Shortsword   10     5       0
+Warhammer    25     6       0
+Longsword    40     7       0
+Greataxe     74     8       0
+
+Armor:      Cost  Damage  Armor
+Leather      13     0       1
+Chainmail    31     0       2
+Splintmail   53     0       3
+Bandedmail   75     0       4
+Platemail   102     0       5
+
+Rings:      Cost  Damage  Armor
+Damage +1    25     1       0
+Damage +2    50     2       0
+Damage +3   100     3       0
+Defense +1   20     0       1
+Defense +2   40     0       2
+Defense +3   80     0       3
+
+```
+
+You must buy exactly one weapon; no dual-wielding. Armor is optional, but you can't use more than one. You can buy 0-2 rings (at most one for each hand). You must use any items you buy. The shop only has one of each item, so you can't buy, for example, two rings of Damage +3.
+
+For example, suppose you haveÂ `8`Â hit points,Â `5`Â damage, andÂ `5`Â armor, and that the boss hasÂ `12`Â hit points,Â `7`Â damage, andÂ `2`Â armor:
+
+-   The player dealsÂ `5-2 = 3`Â damage; the boss goes down to 9 hit points.
+-   The boss dealsÂ `7-5 = 2`Â damage; the player goes down to 6 hit points.
+-   The player dealsÂ `5-2 = 3`Â damage; the boss goes down to 6 hit points.
+-   The boss dealsÂ `7-5 = 2`Â damage; the player goes down to 4 hit points.
+-   The player dealsÂ `5-2 = 3`Â damage; the boss goes down to 3 hit points.
+-   The boss dealsÂ `7-5 = 2`Â damage; the player goes down to 2 hit points.
+-   The player dealsÂ `5-2 = 3`Â damage; the boss goes down to 0 hit points.
+
+In this scenario, the player wins! (Barely.)
+
+You haveÂ 100 hit points. The boss's actual stats are in your puzzle input. **What isÂ the least amount of gold you can spendÂ and still win the fight?**
+"""«code_foldedÃ«notebook_idÙ$2d114ab6-b0eb-11eb-0f72-47623b0164d6«in_temp_dirÂ

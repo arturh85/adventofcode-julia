@@ -1,0 +1,126 @@
+‹¥bonds€¬cell_resultsƒÙ$994bd490-a709-4b8a-ad86-6c1ca350e203‡¦queuedÂ±published_objects€§runningÂ¦output…¤body °persist_js_stateÂ¤mimeªtext/plain²last_run_timestampËAØ&²¥•J¬rootassigneeÀ§cell_idÙ$994bd490-a709-4b8a-ad86-6c1ca350e203§runtimeÌÈ§erroredÂÙ$99e72bde-a1fd-40b7-b404-7888e39507bb‡¦queuedÂ±published_objects€§runningÂ¦output…¤bodyÚÃ"\nAlice would gain 54 happiness units by sitting next to Bob.\nAlice would lose 81 happiness units by sitting next to Carol.\nAlice would lose 42 happiness units by sitting next to David.\nAlice would gain 89 happiness units by sitting next to Eric.\nAlice would lose 89 happiness units by sitting next to Frank.\nAlice would gain 97 happiness units by sitting next to George.\nAlice would lose 94 happiness units by sitting next to Mallory.\nBob would gain 3 happiness units by sitting next to Alice.\nBob would lose 70 happiness units by sitting next to Carol.\nBob would lose 31 happiness units by sitting next to David.\nBob would gain 72 happiness units by sitting next to Eric.\nBob would lose 25 happiness units by sitting next to Frank.\nBob would lose 95 happiness units by sitting next to George.\nBob would gain 11 happiness units by sitting next to Mallory.\nCarol would lose 83 happiness units by sitting next to Alice.\nCarol would gain 8 happiness units by sitting next to Bob.\nCarol would gain 35 happiness units by sitting next to David.\nCarol would gain 10 happiness units by sitting next to Eric.\nCarol would gain 61 happiness units by sitting next to Frank.\nCarol would gain 10 happiness units by sitting next to George.\nCarol would gain 29 happiness units by sitting next to Mallory.\nDavid would gain 67 happiness units by sitting next to Alice.\nDavid would gain 25 happiness units by sitting next to Bob.\nDavid would gain 48 happiness units by sitting next to Carol.\nDavid would lose 65 happiness units by sitting next to Eric.\nDavid would gain 8 happiness units by sitting next to Frank.\nDavid would gain 84 happiness units by sitting next to George.\nDavid would gain 9 happiness units by sitting next to Mallory.\nEric would lose 51 happiness units by sitting next to Alice.\nEric would lose 39 happiness units by sitting next to Bob.\nEric would gain 84 happiness units by sitting next to Carol.\nEric would lose 98 happiness units by sitting next to David.\nEric would lose 20 happiness units by sitting next to Frank.\nEric would lose 6 happiness units by sitting next to George.\nEric would gain 60 happiness units by sitting next to Mallory.\nFrank would gain 51 happiness units by sitting next to Alice.\nFrank would gain 79 happiness units by sitting next to Bob.\nFrank would gain 88 happiness units by sitting next to Carol.\nFrank would gain 33 happiness units by sitting next to David.\nFrank would gain 43 happiness units by sitting next to Eric.\nFrank would gain 77 happiness units by sitting next to George.\nFrank would lose 3 happiness units by sitting next to Mallory.\nGeorge would lose 14 happiness units by sitting next to Alice.\nGeorge would lose 12 happiness units by sitting next to Bob.\nGeorge would lose 52 happiness units by sitting next to Carol.\nGeorge would gain 14 happiness units by sitting next to David.\nGeorge would lose 62 happiness units by sitting next to Eric.\nGeorge would lose 18 happiness units by sitting next to Frank.\nGeorge would lose 17 happiness units by sitting next to Mallory.\nMallory would lose 36 happiness units by sitting next to Alice.\nMallory would gain 76 happiness units by sitting next to Bob.\nMallory would lose 34 happiness units by sitting next to Carol.\nMallory would gain 37 happiness units by sitting next to David.\nMallory would gain 40 happiness units by sitting next to Eric.\nMallory would gain 18 happiness units by sitting next to Frank.\nMallory would gain 7 happiness units by sitting next to George."°persist_js_stateÂ¤mimeªtext/plain²last_run_timestampËAØ&µšøÂ¬rootassignee¬puzzle_input§cell_idÙ$99e72bde-a1fd-40b7-b404-7888e39507bb§runtimed§erroredÂÙ$4bacd010-b0e8-11eb-2df6-6ffa252d136a‡¦queuedÂ±published_objects€§runningÂ¦output…¤bodyÚ
+e<div class="markdown"><h1><a href="https://adventofcode.com/2015/day/13">Day 13: Knights of the Dinner Table</a></h1>
+<p>In years past, the holiday feast with your family hasn&#39;t gone so well. Not everyone gets along&#33; This year, you resolve, will be different. You&#39;re going to find theÂ optimal seating arrangementÂ and avoid all those awkward conversations.</p>
+<p>You start by writing up a list of everyone invited and the amount their happiness would increase or decrease if they were to find themselves sitting next to each other person. You have a circular table that will be just big enough to fit everyone comfortably, and so each person will have exactly two neighbors.</p>
+<p>For example, suppose you have only four attendees planned, and youÂ calculateÂ their potential happiness as follows:</p>
+<pre><code>Alice would gain 54 happiness units by sitting next to Bob.
+Alice would lose 79 happiness units by sitting next to Carol.
+Alice would lose 2 happiness units by sitting next to David.
+Bob would gain 83 happiness units by sitting next to Alice.
+Bob would lose 7 happiness units by sitting next to Carol.
+Bob would lose 63 happiness units by sitting next to David.
+Carol would lose 62 happiness units by sitting next to Alice.
+Carol would gain 60 happiness units by sitting next to Bob.
+Carol would gain 55 happiness units by sitting next to David.
+David would gain 46 happiness units by sitting next to Alice.
+David would lose 7 happiness units by sitting next to Bob.
+David would gain 41 happiness units by sitting next to Carol.
+</code></pre>
+<p>Then, if you seat Alice next to David, Alice would loseÂ <code>2</code>Â happiness units &#40;because David talks so much&#41;, but David would gainÂ <code>46</code>Â happiness units &#40;because Alice is such a good listener&#41;, for a total change ofÂ <code>44</code>.</p>
+<p>If you continue around the table, you could then seat Bob next to Alice &#40;Bob gainsÂ <code>83</code>, Alice gainsÂ <code>54</code>&#41;. Finally, seat Carol, who sits next to Bob &#40;Carol gainsÂ <code>60</code>, Bob losesÂ <code>7</code>&#41; and David &#40;Carol gainsÂ <code>55</code>, David gainsÂ <code>41</code>&#41;. The arrangement looks like this:</p>
+<pre><code>     &#43;41 &#43;46
+&#43;55   David    -2
+Carol       Alice
+&#43;60    Bob    &#43;54
+     -7  &#43;83
+</code></pre>
+<p>After trying every other seating arrangement in this hypothetical scenario, you find that this one is the most optimal, with a total change in happiness ofÂ <code>330</code>.</p>
+<p><strong>What is theÂ total change in happinessÂ for the optimal seating arrangement of the actual guest list?</strong></p>
+</div>°persist_js_stateÂ¤mime©text/html²last_run_timestampËAØ&²¥E ¬rootassigneeÀ§cell_idÙ$4bacd010-b0e8-11eb-2df6-6ffa252d136a§runtimeÍUñ§erroredÂ±cell_dependenciesƒÙ$994bd490-a709-4b8a-ad86-6c1ca350e203„´precedence_heuristic§cell_idÙ$994bd490-a709-4b8a-ad86-6c1ca350e203´downstream_cells_map€²upstream_cells_map€Ù$99e72bde-a1fd-40b7-b404-7888e39507bb„´precedence_heuristic§cell_idÙ$99e72bde-a1fd-40b7-b404-7888e39507bb´downstream_cells_map¬puzzle_input²upstream_cells_map€Ù$4bacd010-b0e8-11eb-2df6-6ffa252d136a„´precedence_heuristic§cell_idÙ$4bacd010-b0e8-11eb-2df6-6ffa252d136a´downstream_cells_map€²upstream_cells_map‚§@md_str¨getindex´cell_execution_order“Ù$4bacd010-b0e8-11eb-2df6-6ffa252d136aÙ$99e72bde-a1fd-40b7-b404-7888e39507bbÙ$994bd490-a709-4b8a-ad86-6c1ca350e203©shortpath©Day 13.jl®process_status¥ready¤pathÙF/home/runner/work/adventofcode-julia/adventofcode-julia/2015/Day 13.jlªcell_order“Ù$4bacd010-b0e8-11eb-2df6-6ffa252d136aÙ$99e72bde-a1fd-40b7-b404-7888e39507bbÙ$994bd490-a709-4b8a-ad86-6c1ca350e203«cell_inputsƒÙ$994bd490-a709-4b8a-ad86-6c1ca350e203ƒ§cell_idÙ$994bd490-a709-4b8a-ad86-6c1ca350e203¤code «code_foldedÂÙ$99e72bde-a1fd-40b7-b404-7888e39507bbƒ§cell_idÙ$99e72bde-a1fd-40b7-b404-7888e39507bb¤codeÚšpuzzle_input = "
+Alice would gain 54 happiness units by sitting next to Bob.
+Alice would lose 81 happiness units by sitting next to Carol.
+Alice would lose 42 happiness units by sitting next to David.
+Alice would gain 89 happiness units by sitting next to Eric.
+Alice would lose 89 happiness units by sitting next to Frank.
+Alice would gain 97 happiness units by sitting next to George.
+Alice would lose 94 happiness units by sitting next to Mallory.
+Bob would gain 3 happiness units by sitting next to Alice.
+Bob would lose 70 happiness units by sitting next to Carol.
+Bob would lose 31 happiness units by sitting next to David.
+Bob would gain 72 happiness units by sitting next to Eric.
+Bob would lose 25 happiness units by sitting next to Frank.
+Bob would lose 95 happiness units by sitting next to George.
+Bob would gain 11 happiness units by sitting next to Mallory.
+Carol would lose 83 happiness units by sitting next to Alice.
+Carol would gain 8 happiness units by sitting next to Bob.
+Carol would gain 35 happiness units by sitting next to David.
+Carol would gain 10 happiness units by sitting next to Eric.
+Carol would gain 61 happiness units by sitting next to Frank.
+Carol would gain 10 happiness units by sitting next to George.
+Carol would gain 29 happiness units by sitting next to Mallory.
+David would gain 67 happiness units by sitting next to Alice.
+David would gain 25 happiness units by sitting next to Bob.
+David would gain 48 happiness units by sitting next to Carol.
+David would lose 65 happiness units by sitting next to Eric.
+David would gain 8 happiness units by sitting next to Frank.
+David would gain 84 happiness units by sitting next to George.
+David would gain 9 happiness units by sitting next to Mallory.
+Eric would lose 51 happiness units by sitting next to Alice.
+Eric would lose 39 happiness units by sitting next to Bob.
+Eric would gain 84 happiness units by sitting next to Carol.
+Eric would lose 98 happiness units by sitting next to David.
+Eric would lose 20 happiness units by sitting next to Frank.
+Eric would lose 6 happiness units by sitting next to George.
+Eric would gain 60 happiness units by sitting next to Mallory.
+Frank would gain 51 happiness units by sitting next to Alice.
+Frank would gain 79 happiness units by sitting next to Bob.
+Frank would gain 88 happiness units by sitting next to Carol.
+Frank would gain 33 happiness units by sitting next to David.
+Frank would gain 43 happiness units by sitting next to Eric.
+Frank would gain 77 happiness units by sitting next to George.
+Frank would lose 3 happiness units by sitting next to Mallory.
+George would lose 14 happiness units by sitting next to Alice.
+George would lose 12 happiness units by sitting next to Bob.
+George would lose 52 happiness units by sitting next to Carol.
+George would gain 14 happiness units by sitting next to David.
+George would lose 62 happiness units by sitting next to Eric.
+George would lose 18 happiness units by sitting next to Frank.
+George would lose 17 happiness units by sitting next to Mallory.
+Mallory would lose 36 happiness units by sitting next to Alice.
+Mallory would gain 76 happiness units by sitting next to Bob.
+Mallory would lose 34 happiness units by sitting next to Carol.
+Mallory would gain 37 happiness units by sitting next to David.
+Mallory would gain 40 happiness units by sitting next to Eric.
+Mallory would gain 18 happiness units by sitting next to Frank.
+Mallory would gain 7 happiness units by sitting next to George."«code_foldedÃÙ$4bacd010-b0e8-11eb-2df6-6ffa252d136aƒ§cell_idÙ$4bacd010-b0e8-11eb-2df6-6ffa252d136a¤codeÚ	1md"""
+# [Day 13: Knights of the Dinner Table](https://adventofcode.com/2015/day/13)
+
+In years past, the holiday feast with your family hasn't gone so well. Not everyone gets along! This year, you resolve, will be different. You're going to find theÂ optimal seating arrangementÂ and avoid all those awkward conversations.
+
+You start by writing up a list of everyone invited and the amount their happiness would increase or decrease if they were to find themselves sitting next to each other person. You have a circular table that will be just big enough to fit everyone comfortably, and so each person will have exactly two neighbors.
+
+For example, suppose you have only four attendees planned, and youÂ calculateÂ their potential happiness as follows:
+
+```
+Alice would gain 54 happiness units by sitting next to Bob.
+Alice would lose 79 happiness units by sitting next to Carol.
+Alice would lose 2 happiness units by sitting next to David.
+Bob would gain 83 happiness units by sitting next to Alice.
+Bob would lose 7 happiness units by sitting next to Carol.
+Bob would lose 63 happiness units by sitting next to David.
+Carol would lose 62 happiness units by sitting next to Alice.
+Carol would gain 60 happiness units by sitting next to Bob.
+Carol would gain 55 happiness units by sitting next to David.
+David would gain 46 happiness units by sitting next to Alice.
+David would lose 7 happiness units by sitting next to Bob.
+David would gain 41 happiness units by sitting next to Carol.
+
+```
+
+Then, if you seat Alice next to David, Alice would loseÂ `2`Â happiness units (because David talks so much), but David would gainÂ `46`Â happiness units (because Alice is such a good listener), for a total change ofÂ `44`.
+
+If you continue around the table, you could then seat Bob next to Alice (Bob gainsÂ `83`, Alice gainsÂ `54`). Finally, seat Carol, who sits next to Bob (Carol gainsÂ `60`, Bob losesÂ `7`) and David (Carol gainsÂ `55`, David gainsÂ `41`). The arrangement looks like this:
+
+```
+     +41 +46
++55   David    -2
+Carol       Alice
++60    Bob    +54
+     -7  +83
+
+```
+
+After trying every other seating arrangement in this hypothetical scenario, you find that this one is the most optimal, with a total change in happiness ofÂ `330`.
+
+**What is theÂ total change in happinessÂ for the optimal seating arrangement of the actual guest list?**
+"""«code_foldedÃ«notebook_idÙ$677e8e32-b0eb-11eb-353d-0dc41b453b7f«in_temp_dirÂ

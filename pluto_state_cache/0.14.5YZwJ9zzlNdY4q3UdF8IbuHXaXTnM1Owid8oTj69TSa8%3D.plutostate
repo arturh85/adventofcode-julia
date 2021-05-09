@@ -1,0 +1,57 @@
+‹¥bonds€¬cell_resultsƒÙ$70139d68-0c2f-4d14-a753-fa6c5e573f35‡¦queuedÂ±published_objects€§runningÂ¦output…¤body °persist_js_stateÂ¤mimeªtext/plain²last_run_timestampËAØ&SÆ¬rootassigneeÀ§cell_idÙ$70139d68-0c2f-4d14-a753-fa6c5e573f35§runtimed§erroredÂÙ$3508f641-2704-4bd5-9d44-987b29e87cf2‡¦queuedÂ±published_objects€§runningÂ¦output…¤bodyª"36000000"°persist_js_stateÂ¤mimeªtext/plain²last_run_timestampËAØ& L~5¬rootassignee¬puzzle_input§cell_idÙ$3508f641-2704-4bd5-9d44-987b29e87cf2§runtimeÌÈ§erroredÂÙ$8df38f30-b0e9-11eb-2f2a-1bb2f968d206‡¦queuedÂ±published_objects€§runningÂ¦output…¤bodyÚù<div class="markdown"><h1><a href="https://adventofcode.com/2015/day/20">Day 20: Infinite Elves and Infinite Houses</a></h1>
+<p>To keep the Elves busy, Santa has them deliver some presentsÂ by hand, door-to-door. He sends them down a street with infinite houses numbered sequentially:Â <code>1</code>,Â <code>2</code>,Â <code>3</code>,Â <code>4</code>,Â <code>5</code>, and so on.</p>
+<p>Each Elf is assigned a number, too, and delivers presents to houses based on that number:</p>
+<ul>
+<li><p>The first Elf &#40;numberÂ <code>1</code>&#41; delivers presents to every house:Â <code>1</code>,Â <code>2</code>,Â <code>3</code>,Â <code>4</code>,Â <code>5</code>, ....</p>
+</li>
+<li><p>The second Elf &#40;numberÂ <code>2</code>&#41; delivers presents to every second house:Â <code>2</code>,Â <code>4</code>,Â <code>6</code>,Â <code>8</code>,Â <code>10</code>, ....</p>
+</li>
+<li><p>Elf numberÂ <code>3</code>Â delivers presents to every third house:Â <code>3</code>,Â <code>6</code>,Â <code>9</code>,Â <code>12</code>,Â <code>15</code>, ....</p>
+</li>
+</ul>
+<p>There are infinitely many Elves, numbered starting withÂ <code>1</code>. Each Elf delivers presents equal toÂ ten timesÂ his or her number at each house.</p>
+<p>So, the first nine houses on the street end up like this:</p>
+<pre><code>House 1 got 10 presents.
+House 2 got 30 presents.
+House 3 got 40 presents.
+House 4 got 70 presents.
+House 5 got 60 presents.
+House 6 got 120 presents.
+House 7 got 80 presents.
+House 8 got 150 presents.
+House 9 got 130 presents.
+</code></pre>
+<p>The first house getsÂ <code>10</code>Â presents: it is visited only by ElfÂ <code>1</code>, which deliversÂ <code>1 * 10 &#61; 10</code>Â presents. The fourth house getsÂ <code>70</code>Â presents, because it is visited by ElvesÂ <code>1</code>,Â <code>2</code>, andÂ <code>4</code>, for a total ofÂ <code>10 &#43; 20 &#43; 40 &#61; 70</code>Â presents.</p>
+<p><strong>What is theÂ lowest house numberÂ of the house to get at least as many presents as the number in your puzzle input?</strong></p>
+</div>°persist_js_stateÂ¤mime©text/html²last_run_timestampËAØ&1Ò·¬rootassigneeÀ§cell_idÙ$8df38f30-b0e9-11eb-2f2a-1bb2f968d206§runtimeÍk	§erroredÂ±cell_dependenciesƒÙ$70139d68-0c2f-4d14-a753-fa6c5e573f35„´precedence_heuristic§cell_idÙ$70139d68-0c2f-4d14-a753-fa6c5e573f35´downstream_cells_map€²upstream_cells_map€Ù$3508f641-2704-4bd5-9d44-987b29e87cf2„´precedence_heuristic§cell_idÙ$3508f641-2704-4bd5-9d44-987b29e87cf2´downstream_cells_map¬puzzle_input²upstream_cells_map€Ù$8df38f30-b0e9-11eb-2f2a-1bb2f968d206„´precedence_heuristic§cell_idÙ$8df38f30-b0e9-11eb-2f2a-1bb2f968d206´downstream_cells_map€²upstream_cells_map‚§@md_str¨getindex´cell_execution_order“Ù$8df38f30-b0e9-11eb-2f2a-1bb2f968d206Ù$3508f641-2704-4bd5-9d44-987b29e87cf2Ù$70139d68-0c2f-4d14-a753-fa6c5e573f35©shortpath©Day 20.jl®process_status¥ready¤pathÙF/home/runner/work/adventofcode-julia/adventofcode-julia/2015/Day 20.jlªcell_order“Ù$8df38f30-b0e9-11eb-2f2a-1bb2f968d206Ù$3508f641-2704-4bd5-9d44-987b29e87cf2Ù$70139d68-0c2f-4d14-a753-fa6c5e573f35«cell_inputsƒÙ$70139d68-0c2f-4d14-a753-fa6c5e573f35ƒ§cell_idÙ$70139d68-0c2f-4d14-a753-fa6c5e573f35¤code «code_foldedÂÙ$3508f641-2704-4bd5-9d44-987b29e87cf2ƒ§cell_idÙ$3508f641-2704-4bd5-9d44-987b29e87cf2¤code¹puzzle_input = "36000000"«code_foldedÃÙ$8df38f30-b0e9-11eb-2f2a-1bb2f968d206ƒ§cell_idÙ$8df38f30-b0e9-11eb-2f2a-1bb2f968d206¤codeÚãmd"""
+# [Day 20: Infinite Elves and Infinite Houses](https://adventofcode.com/2015/day/20)
+
+To keep the Elves busy, Santa has them deliver some presentsÂ by hand, door-to-door. He sends them down a street with infinite houses numbered sequentially:Â `1`,Â `2`,Â `3`,Â `4`,Â `5`, and so on.
+
+Each Elf is assigned a number, too, and delivers presents to houses based on that number:
+
+-   The first Elf (numberÂ `1`) delivers presents to every house:Â `1`,Â `2`,Â `3`,Â `4`,Â `5`, ....
+-   The second Elf (numberÂ `2`) delivers presents to every second house:Â `2`,Â `4`,Â `6`,Â `8`,Â `10`, ....
+-   Elf numberÂ `3`Â delivers presents to every third house:Â `3`,Â `6`,Â `9`,Â `12`,Â `15`, ....
+
+There are infinitely many Elves, numbered starting withÂ `1`. Each Elf delivers presents equal toÂ ten timesÂ his or her number at each house.
+
+So, the first nine houses on the street end up like this:
+
+```
+House 1 got 10 presents.
+House 2 got 30 presents.
+House 3 got 40 presents.
+House 4 got 70 presents.
+House 5 got 60 presents.
+House 6 got 120 presents.
+House 7 got 80 presents.
+House 8 got 150 presents.
+House 9 got 130 presents.
+
+```
+
+The first house getsÂ `10`Â presents: it is visited only by ElfÂ `1`, which deliversÂ `1 * 10 = 10`Â presents. The fourth house getsÂ `70`Â presents, because it is visited by ElvesÂ `1`,Â `2`, andÂ `4`, for a total ofÂ `10 + 20 + 40 = 70`Â presents.
+
+**What is theÂ lowest house numberÂ of the house to get at least as many presents as the number in your puzzle input?**
+"""«code_foldedÃ«notebook_idÙ$344ef580-b0eb-11eb-1960-a9e5d70e16c1«in_temp_dirÂ

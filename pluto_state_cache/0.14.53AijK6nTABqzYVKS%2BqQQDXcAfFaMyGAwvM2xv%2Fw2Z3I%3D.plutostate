@@ -1,0 +1,71 @@
+‹¥bonds€¬cell_resultsƒÙ$861a2d99-e0a6-44a9-9b18-ca1b25d1eabd‡¦queuedÂ±published_objects€§runningÂ¦output…¤bodyÚ"Sprinkles: capacity 5, durability -1, flavor 0, texture 0, calories 5\nPeanutButter: capacity -1, durability 3, flavor 0, texture 0, calories 1\nFrosting: capacity 0, durability -1, flavor 4, texture 0, calories 6\nSugar: capacity -1, durability 0, flavor 0, texture 2, calories 8"°persist_js_stateÂ¤mimeªtext/plain²last_run_timestampËAØ&¯‰”¬rootassignee¬puzzle_input§cell_idÙ$861a2d99-e0a6-44a9-9b18-ca1b25d1eabd§runtimed§erroredÂÙ$ad735981-4fdb-4527-9869-a6a748e2e5dd‡¦queuedÂ±published_objects€§runningÂ¦output…¤body °persist_js_stateÂ¤mimeªtext/plain²last_run_timestampËAØ&¬Œ}¬rootassigneeÀ§cell_idÙ$ad735981-4fdb-4527-9869-a6a748e2e5dd§runtimeÌÈ§erroredÂÙ$aa7f1ad0-b0e8-11eb-3904-bb242d044d08‡¦queuedÂ±published_objects€§runningÂ¦output…¤bodyÚ
+n<div class="markdown"><h1><a href="https://adventofcode.com/2015/day/15">Day 15: Science for Hungry People</a></h1>
+<p>Today, you set out on the task of perfecting your milk-dunking cookie recipe. All you have to do is find the right balance of ingredients.</p>
+<p>Your recipe leaves room for exactlyÂ <code>100</code>Â teaspoons of ingredients. You make a list of theÂ remaining ingredients you could use to finish the recipeÂ &#40;your puzzle input&#41; and theirÂ properties per teaspoon:</p>
+<ul>
+<li><p><code>capacity</code>Â &#40;how well it helps the cookie absorb milk&#41;</p>
+</li>
+<li><p><code>durability</code>Â &#40;how well it keeps the cookie intact when full of milk&#41;</p>
+</li>
+<li><p><code>flavor</code>Â &#40;how tasty it makes the cookie&#41;</p>
+</li>
+<li><p><code>texture</code>Â &#40;how it improves the feel of the cookie&#41;</p>
+</li>
+<li><p><code>calories</code>Â &#40;how many calories it adds to the cookie&#41;</p>
+</li>
+</ul>
+<p>You can only measure ingredients in whole-teaspoon amounts accurately, and you have to be accurate so you can reproduce your results in the future. TheÂ total scoreÂ of a cookie can be found by adding up each of the properties &#40;negative totals becomeÂ <code>0</code>&#41; and then multiplying together everything except calories.</p>
+<p>For instance, suppose you haveÂ these two ingredients:</p>
+<pre><code>Butterscotch: capacity -1, durability -2, flavor 6, texture 3, calories 8
+Cinnamon: capacity 2, durability 3, flavor -2, texture -1, calories 3
+</code></pre>
+<p>Then, choosing to useÂ <code>44</code>Â teaspoons of butterscotch andÂ <code>56</code>Â teaspoons of cinnamon &#40;because the amounts of each ingredient must add up toÂ <code>100</code>&#41; would result in a cookie with the following properties:</p>
+<ul>
+<li><p>AÂ <code>capacity</code>Â ofÂ <code>44*-1 &#43; 56*2 &#61; 68</code></p>
+</li>
+<li><p>AÂ <code>durability</code>Â ofÂ <code>44*-2 &#43; 56*3 &#61; 80</code></p>
+</li>
+<li><p>AÂ <code>flavor</code>Â ofÂ <code>44*6 &#43; 56*-2 &#61; 152</code></p>
+</li>
+<li><p>AÂ <code>texture</code>Â ofÂ <code>44*3 &#43; 56*-1 &#61; 76</code></p>
+</li>
+</ul>
+<p>Multiplying these together &#40;<code>68 * 80 * 152 * 76</code>, ignoringÂ <code>calories</code>Â for now&#41; results in a total score ofÂ <code>62842880</code>, which happens to be the best score possible given these ingredients. If any properties had produced a negative total, it would have instead become zero, causing the whole score to multiply to zero.</p>
+<p>Given the ingredients in your kitchen and their properties, <strong>what is theÂ total scoreÂ of the highest-scoring cookie you can make?</strong></p>
+</div>°persist_js_stateÂ¤mime©text/html²last_run_timestampËAØ&¬‹²Ä¬rootassigneeÀ§cell_idÙ$aa7f1ad0-b0e8-11eb-3904-bb242d044d08§runtimeÍ†Å§erroredÂ±cell_dependenciesƒÙ$861a2d99-e0a6-44a9-9b18-ca1b25d1eabd„´precedence_heuristic§cell_idÙ$861a2d99-e0a6-44a9-9b18-ca1b25d1eabd´downstream_cells_map¬puzzle_input²upstream_cells_map€Ù$ad735981-4fdb-4527-9869-a6a748e2e5dd„´precedence_heuristic§cell_idÙ$ad735981-4fdb-4527-9869-a6a748e2e5dd´downstream_cells_map€²upstream_cells_map€Ù$aa7f1ad0-b0e8-11eb-3904-bb242d044d08„´precedence_heuristic§cell_idÙ$aa7f1ad0-b0e8-11eb-3904-bb242d044d08´downstream_cells_map€²upstream_cells_map‚§@md_str¨getindex´cell_execution_order“Ù$aa7f1ad0-b0e8-11eb-3904-bb242d044d08Ù$861a2d99-e0a6-44a9-9b18-ca1b25d1eabdÙ$ad735981-4fdb-4527-9869-a6a748e2e5dd©shortpath©Day 15.jl®process_status¥ready¤pathÙF/home/runner/work/adventofcode-julia/adventofcode-julia/2015/Day 15.jlªcell_order“Ù$aa7f1ad0-b0e8-11eb-3904-bb242d044d08Ù$861a2d99-e0a6-44a9-9b18-ca1b25d1eabdÙ$ad735981-4fdb-4527-9869-a6a748e2e5dd«cell_inputsƒÙ$861a2d99-e0a6-44a9-9b18-ca1b25d1eabdƒ§cell_idÙ$861a2d99-e0a6-44a9-9b18-ca1b25d1eabd¤codeÚ&puzzle_input = "Sprinkles: capacity 5, durability -1, flavor 0, texture 0, calories 5
+PeanutButter: capacity -1, durability 3, flavor 0, texture 0, calories 1
+Frosting: capacity 0, durability -1, flavor 4, texture 0, calories 6
+Sugar: capacity -1, durability 0, flavor 0, texture 2, calories 8"«code_foldedÃÙ$ad735981-4fdb-4527-9869-a6a748e2e5ddƒ§cell_idÙ$ad735981-4fdb-4527-9869-a6a748e2e5dd¤code «code_foldedÂÙ$aa7f1ad0-b0e8-11eb-3904-bb242d044d08ƒ§cell_idÙ$aa7f1ad0-b0e8-11eb-3904-bb242d044d08¤codeÚ+md"""
+# [Day 15: Science for Hungry People](https://adventofcode.com/2015/day/15)
+
+Today, you set out on the task of perfecting your milk-dunking cookie recipe. All you have to do is find the right balance of ingredients.
+
+Your recipe leaves room for exactlyÂ `100`Â teaspoons of ingredients. You make a list of theÂ remaining ingredients you could use to finish the recipeÂ (your puzzle input) and theirÂ properties per teaspoon:
+
+-   `capacity`Â (how well it helps the cookie absorb milk)
+-   `durability`Â (how well it keeps the cookie intact when full of milk)
+-   `flavor`Â (how tasty it makes the cookie)
+-   `texture`Â (how it improves the feel of the cookie)
+-   `calories`Â (how many calories it adds to the cookie)
+
+You can only measure ingredients in whole-teaspoon amounts accurately, and you have to be accurate so you can reproduce your results in the future. TheÂ total scoreÂ of a cookie can be found by adding up each of the properties (negative totals becomeÂ `0`) and then multiplying together everything except calories.
+
+For instance, suppose you haveÂ these two ingredients:
+
+```
+Butterscotch: capacity -1, durability -2, flavor 6, texture 3, calories 8
+Cinnamon: capacity 2, durability 3, flavor -2, texture -1, calories 3
+
+```
+
+Then, choosing to useÂ `44`Â teaspoons of butterscotch andÂ `56`Â teaspoons of cinnamon (because the amounts of each ingredient must add up toÂ `100`) would result in a cookie with the following properties:
+
+-   AÂ `capacity`Â ofÂ `44*-1 + 56*2 = 68`
+-   AÂ `durability`Â ofÂ `44*-2 + 56*3 = 80`
+-   AÂ `flavor`Â ofÂ `44*6 + 56*-2 = 152`
+-   AÂ `texture`Â ofÂ `44*3 + 56*-1 = 76`
+
+Multiplying these together (`68 * 80 * 152 * 76`, ignoringÂ `calories`Â for now) results in a total score ofÂ `62842880`, which happens to be the best score possible given these ingredients. If any properties had produced a negative total, it would have instead become zero, causing the whole score to multiply to zero.
+
+Given the ingredients in your kitchen and their properties, **what is theÂ total scoreÂ of the highest-scoring cookie you can make?**
+"""«code_foldedÃ«notebook_idÙ$58f2f9f2-b0eb-11eb-00c1-2753c601cfe7«in_temp_dirÂ

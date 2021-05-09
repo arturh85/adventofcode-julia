@@ -1,0 +1,89 @@
+‹¥bonds€¬cell_results‚Ù$45a666a1-ffaa-4517-b79b-cc6b182505b1‡¦queuedÂ±published_objects€§runningÂ¦output…¤bodyÙu"1\n2\n3\n7\n11\n13\n17\n19\n23\n31\n37\n41\n43\n47\n53\n59\n61\n67\n71\n73\n79\n83\n89\n97\n101\n103\n107\n109\n113"°persist_js_stateÂ¤mimeªtext/plain²last_run_timestampËAØ&“åå;¬rootassignee¬puzzle_input§cell_idÙ$45a666a1-ffaa-4517-b79b-cc6b182505b1§runtimeÌÈ§erroredÂÙ$59750850-b0ea-11eb-2086-87707f76e327‡¦queuedÂ±published_objects€§runningÂ¦output…¤bodyÚƒ<div class="markdown"><h1><a href="https://adventofcode.com/2015/day/24">Day 24: It Hangs in the Balance</a></h1>
+<p>It&#39;s Christmas Eve, and Santa is loading up the sleigh for this year&#39;s deliveries. However, there&#39;s one small problem: he can&#39;t get the sleigh to balance. If it isn&#39;t balanced, he can&#39;t defy physics, and nobody gets presents this year.</p>
+<p>No pressure.</p>
+<p>Santa has provided you a list of the weights of every package he needs to fit on the sleigh. The packages need to be split intoÂ three groups of exactly the same weight, and every package has to fit. The first group goes in the passenger compartment of the sleigh, and the second and third go in containers on either side. Only when all three groups weigh exactly the same amount will the sleigh be able to fly. Defying physics has rules, you know&#33;</p>
+<p>Of course, that&#39;s not the only problem. The first group - the one going in the passenger compartment - needsÂ as few packages as possibleÂ so that Santa has some legroom left over. It doesn&#39;t matter how many packages are in either of the other two groups, so long as all of the groups weigh the same.</p>
+<p>Furthermore, Santa tells you, if there are multiple ways to arrange the packages such that the fewest possible are in the first group, you need to choose the way where the first group hasÂ the smallest quantum entanglementÂ to reduce the chance of anyÂ &quot;complications&quot;. The quantum entanglement of a group of packages is theÂ <a href="https://en.wikipedia.org/wiki/Product_&#37;28mathematics&#37;29">product</a>Â of their weights, that is, the value you get when you multiply their weights together. Only consider quantum entanglement if the first group has the fewest possible number of packages in it and all groups weigh the same amount.</p>
+<p>For example, suppose you have ten packages with weightsÂ <code>1</code>Â throughÂ <code>5</code>Â andÂ <code>7</code>Â throughÂ <code>11</code>. For this situation, some of the unique first groups, their quantum entanglements, and a way to divide the remaining packages are as follows:</p>
+<pre><code>Group 1;             Group 2; Group 3
+11 9       &#40;QE&#61; 99&#41;; 10 8 2;  7 5 4 3 1
+10 9 1     &#40;QE&#61; 90&#41;; 11 7 2;  8 5 4 3
+10 8 2     &#40;QE&#61;160&#41;; 11 9;    7 5 4 3 1
+10 7 3     &#40;QE&#61;210&#41;; 11 9;    8 5 4 2 1
+10 5 4 1   &#40;QE&#61;200&#41;; 11 9;    8 7 3 2
+10 5 3 2   &#40;QE&#61;300&#41;; 11 9;    8 7 4 1
+10 4 3 2 1 &#40;QE&#61;240&#41;; 11 9;    8 7 5
+9 8 3      &#40;QE&#61;216&#41;; 11 7 2;  10 5 4 1
+9 7 4      &#40;QE&#61;252&#41;; 11 8 1;  10 5 3 2
+9 5 4 2    &#40;QE&#61;360&#41;; 11 8 1;  10 7 3
+8 7 5      &#40;QE&#61;280&#41;; 11 9;    10 4 3 2 1
+8 5 4 3    &#40;QE&#61;480&#41;; 11 9;    10 7 2 1
+7 5 4 3 1  &#40;QE&#61;420&#41;; 11 9;    10 8 2
+</code></pre>
+<p>Of these, althoughÂ <code>10 9 1</code>Â has the smallest quantum entanglement &#40;<code>90</code>&#41;, the configuration with only two packages,Â <code>11 9</code>, in the passenger compartment gives Santa the most legroom and wins. In this situation, the quantum entanglement for the ideal configuration is thereforeÂ <code>99</code>. Had there been two configurations with only two packages in the first group, the one with the smaller quantum entanglement would be chosen.</p>
+<p><strong>What is theÂ quantum entanglementÂ of the first group of packages in the ideal configuration?</strong></p>
+</div>°persist_js_stateÂ¤mime©text/html²last_run_timestampËAØ&ìŞœ¬rootassigneeÀ§cell_idÙ$59750850-b0ea-11eb-2086-87707f76e327§runtimeÍZ=§erroredÂ±cell_dependencies‚Ù$45a666a1-ffaa-4517-b79b-cc6b182505b1„´precedence_heuristic§cell_idÙ$45a666a1-ffaa-4517-b79b-cc6b182505b1´downstream_cells_map¬puzzle_input²upstream_cells_map€Ù$59750850-b0ea-11eb-2086-87707f76e327„´precedence_heuristic§cell_idÙ$59750850-b0ea-11eb-2086-87707f76e327´downstream_cells_map€²upstream_cells_map‚§@md_str¨getindex´cell_execution_order’Ù$59750850-b0ea-11eb-2086-87707f76e327Ù$45a666a1-ffaa-4517-b79b-cc6b182505b1©shortpath©Day 24.jl®process_status¥ready¤pathÙF/home/runner/work/adventofcode-julia/adventofcode-julia/2015/Day 24.jlªcell_order’Ù$59750850-b0ea-11eb-2086-87707f76e327Ù$45a666a1-ffaa-4517-b79b-cc6b182505b1«cell_inputs‚Ù$45a666a1-ffaa-4517-b79b-cc6b182505b1ƒ§cell_idÙ$45a666a1-ffaa-4517-b79b-cc6b182505b1¤codeÙhpuzzle_input = "1
+2
+3
+7
+11
+13
+17
+19
+23
+31
+37
+41
+43
+47
+53
+59
+61
+67
+71
+73
+79
+83
+89
+97
+101
+103
+107
+109
+113"«code_foldedÃÙ$59750850-b0ea-11eb-2086-87707f76e327ƒ§cell_idÙ$59750850-b0ea-11eb-2086-87707f76e327¤codeÚÕmd"""
+# [Day 24: It Hangs in the Balance](https://adventofcode.com/2015/day/24)
+
+It's Christmas Eve, and Santa is loading up the sleigh for this year's deliveries. However, there's one small problem: he can't get the sleigh to balance. If it isn't balanced, he can't defy physics, and nobody gets presents this year.
+
+No pressure.
+
+Santa has provided you a list of the weights of every package he needs to fit on the sleigh. The packages need to be split intoÂ three groups of exactly the same weight, and every package has to fit. The first group goes in the passenger compartment of the sleigh, and the second and third go in containers on either side. Only when all three groups weigh exactly the same amount will the sleigh be able to fly. Defying physics has rules, you know!
+
+Of course, that's not the only problem. The first group - the one going in the passenger compartment - needsÂ as few packages as possibleÂ so that Santa has some legroom left over. It doesn't matter how many packages are in either of the other two groups, so long as all of the groups weigh the same.
+
+Furthermore, Santa tells you, if there are multiple ways to arrange the packages such that the fewest possible are in the first group, you need to choose the way where the first group hasÂ the smallest quantum entanglementÂ to reduce the chance of anyÂ "complications". The quantum entanglement of a group of packages is theÂ [product](https://en.wikipedia.org/wiki/Product_%28mathematics%29)Â of their weights, that is, the value you get when you multiply their weights together. Only consider quantum entanglement if the first group has the fewest possible number of packages in it and all groups weigh the same amount.
+
+For example, suppose you have ten packages with weightsÂ `1`Â throughÂ `5`Â andÂ `7`Â throughÂ `11`. For this situation, some of the unique first groups, their quantum entanglements, and a way to divide the remaining packages are as follows:
+
+```
+Group 1;             Group 2; Group 3
+11 9       (QE= 99); 10 8 2;  7 5 4 3 1
+10 9 1     (QE= 90); 11 7 2;  8 5 4 3
+10 8 2     (QE=160); 11 9;    7 5 4 3 1
+10 7 3     (QE=210); 11 9;    8 5 4 2 1
+10 5 4 1   (QE=200); 11 9;    8 7 3 2
+10 5 3 2   (QE=300); 11 9;    8 7 4 1
+10 4 3 2 1 (QE=240); 11 9;    8 7 5
+9 8 3      (QE=216); 11 7 2;  10 5 4 1
+9 7 4      (QE=252); 11 8 1;  10 5 3 2
+9 5 4 2    (QE=360); 11 8 1;  10 7 3
+8 7 5      (QE=280); 11 9;    10 4 3 2 1
+8 5 4 3    (QE=480); 11 9;    10 7 2 1
+7 5 4 3 1  (QE=420); 11 9;    10 8 2
+
+```
+
+Of these, althoughÂ `10 9 1`Â has the smallest quantum entanglement (`90`), the configuration with only two packages,Â `11 9`, in the passenger compartment gives Santa the most legroom and wins. In this situation, the quantum entanglement for the ideal configuration is thereforeÂ `99`. Had there been two configurations with only two packages in the first group, the one with the smaller quantum entanglement would be chosen.
+
+**What is theÂ quantum entanglementÂ of the first group of packages in the ideal configuration?**
+"""«code_foldedÃ«notebook_idÙ$1718edd6-b0eb-11eb-03f5-4bbd79e4b062«in_temp_dirÂ
