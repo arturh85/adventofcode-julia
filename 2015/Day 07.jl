@@ -395,96 +395,49 @@ gj RSHIFT 3 -> gl
 fo RSHIFT 3 -> fq
 he RSHIFT 2 -> hf"
 
-# ╔═╡ ca663fc6-f9be-41f2-9799-3e6930c34216
-as_uint16(val) = begin
-	if val isa UInt16 
-		val
-	elseif val isa Float64
-		UInt16(val)
-	else 
-		tryparse(UInt16, val)
-	end
-end
-
-# ╔═╡ f2597240-15e8-4b5f-93bd-3bd69fce798c
-function eval_expr(expr::AbstractString, state::Dict)
-	parts = split(expr, " ")
-	value = nothing
-	if length(parts) == 1
-		value = as_uint16(parts[1])
-	elseif length(parts) == 2
-		right = as_uint16(parts[2])
-		if right == nothing 
-			right = as_uint16(state[parts[2]])
-		end
-		if right == nothing
-			return nothing
-		end		
-		if parts[1] == "NOT"
-			value = UInt16(~ right))
-		else
-			throw(ErrorException("invalid syntax"))
-		end
-	elseif length(parts) == 3
-		left = as_uint16(parts[1])
-		if left == nothing
-			left = as_uint16(state[parts[1]])
-		end
-		right = as_uint16(parts[3])
-		if right == nothing 
-			right = as_uint16(state[parts[3]])
-		end
-		if left == nothing || right == nothing
-			return nothing
-		end
-		if parts[2] == "AND"
-			value = UInt16(left & right)
-		elseif parts[2] == "OR"
-			value = UInt16(left | right)
-		elseif parts[2] == "LSHIFT"
-			value = UInt16(left << right)
-		elseif parts[2] == "RSHIFT"
-			value = UInt16(left >> right)
-		else
-			throw(ErrorException("invalid syntax"))
-		end
-	else
-		throw(ErrorException("invalid syntax"))
-	end
-	
-	value
-end
-
 # ╔═╡ 6b6a90e8-880b-46f4-9e7d-6c72056441d1
 function interpret(commands)
 	state = Dict()
-	
 	for command in commands
 		parts = split(command, " -> ")
 		state[parts[2]] = parts[1] 
-	end
-		
-	while true
-		retry = false
-		for key in keys(state)
-			value = state[key]
-
-			if value isa AbstractString
-				newvalue = eval_expr(value, state)
-				if newvalue == nothing
-					#retry = true
-				else 
-					state[key] = newvalue
-				end
-			end
-		end
-		
-		if !retry
-			break
-		end
-	end
-		
+	end		
 	state
+end
+
+# ╔═╡ bb73bdf7-b4f2-4794-a269-d1862133db40
+function eval_expr(expr::AbstractString, state::Dict)
+	parts = split(expr, " ")
+	if length(parts) == 1
+		right = parts[1]
+		if occursin(r"\d+", right) 
+			return parse(UInt16, right)
+		else
+			value = eval_expr(state[right], state)
+			state[right] = string(Int(value))
+			return value
+		end
+	elseif length(parts) == 2
+		right = eval_expr(parts[2], state)
+		op = parts[1]
+		if op == "NOT"
+			return UInt16(~ right)
+		end
+	elseif length(parts) == 3
+		left = eval_expr(parts[1], state)
+		right = eval_expr(parts[3], state)
+		op = parts[2]
+		if op == "AND"
+			return UInt16(left & right)
+		elseif op == "OR"
+			return UInt16(left | right)
+		elseif op == "LSHIFT"
+			return UInt16(left << right)
+		elseif op == "RSHIFT"
+			return UInt16(left >> right)
+		end
+	end
+	throw(ErrorException("invalid syntax"))
 end
 
 # ╔═╡ 70a11986-1efc-4c06-939c-5c2489a1a2a9
@@ -498,47 +451,65 @@ NOT x -> h
 NOT y -> i"
 
 # ╔═╡ 5b0d40b2-04b1-43f4-bd7d-64d698b6db10
-example_outputs = interpret(split(example_input, "\n"))
+example_state = interpret(split(example_input, "\n"))
 
 # ╔═╡ 70c81a2b-32ed-4b04-968c-ab2f283d021b
-@assert example_outputs["d"] == 72
+@assert eval_expr("d", example_state) == 72
 
 # ╔═╡ 8d4dda38-f22c-476f-8b50-38e1d890ce4e
-@assert example_outputs["e"] == 507
+@assert eval_expr("e", example_state) == 507
 
 # ╔═╡ d16c8354-06ab-4307-b6a2-5e0f55c34379
-@assert example_outputs["f"] == 492
+@assert eval_expr("f", example_state) == 492
 
 # ╔═╡ a1cbba28-3794-4fe5-ac40-71a4ce17c4b4
-@assert example_outputs["g"] == 114
+@assert eval_expr("g", example_state) == 114
 
 # ╔═╡ 7a0a9d14-7624-43a9-8e31-7ddc238f5d87
-@assert example_outputs["h"] == 65412
+@assert eval_expr("h", example_state) == 65412
 
 # ╔═╡ 5895bb39-ef00-4d57-b970-baa298988564
-@assert example_outputs["i"] == 65079
+@assert eval_expr("i", example_state) == 65079
 
 # ╔═╡ e7dda86a-261b-4852-861f-db4d1062300b
-@assert example_outputs["x"] == 123
+@assert eval_expr("x", example_state) == 123
 
 # ╔═╡ 2de2b696-f8fa-4b5b-9c80-264e81e1d231
-@assert example_outputs["y"] == 456
+@assert eval_expr("y", example_state) == 456
 
 # ╔═╡ 789f6538-5bc5-48e1-a2d4-f16b6c520c55
-part1_outputs = interpret(split(puzzle_input, "\n"))
+part1_state = interpret(split(puzzle_input, "\n"))
 
 # ╔═╡ a45ae491-e3ee-4827-a111-cb195eb41ba5
-part1 = part1_outputs["e"]
+part1 = Int(eval_expr("a", part1_state))
 
-# ╔═╡ a4702a41-7eab-4a40-abdd-9af50b1027f4
-typeof("tst")
+# ╔═╡ 2db74e17-ea06-427a-b1cb-378aa4378580
+md"Your puzzle answer was `3176`."
+
+# ╔═╡ c393d2f4-548a-49e3-8aa8-df21a23da09e
+md"""
+# Part Two
+
+Now, take the signal you got on wire `a`, override wire `b` to that signal, and reset the other wires (including wire `a`). **What new signal is ultimately provided to wire `a`?**
+"""
+
+# ╔═╡ 9ce6d6a0-1a69-44d7-b15a-1d47017edba4
+part2_state = interpret(split(puzzle_input, "\n"))
+
+# ╔═╡ c04c298e-30c9-4bb4-b6a2-b70b1cf0c68d
+part2_state["b"] = "3176"
+
+# ╔═╡ 6bbe9474-4948-4b87-b638-e203a59143f0
+part2 = Int(eval_expr("a", part2_state))
+
+# ╔═╡ d23afbf6-3400-45e9-9e2b-5bfe1cfbf247
+md"Your puzzle answer was `14710`."
 
 # ╔═╡ Cell order:
 # ╟─efb28490-b023-11eb-04e4-db86b53af0fe
 # ╟─bc36e815-9b26-4e8b-aaae-599e06f95af3
-# ╠═ca663fc6-f9be-41f2-9799-3e6930c34216
-# ╠═f2597240-15e8-4b5f-93bd-3bd69fce798c
 # ╠═6b6a90e8-880b-46f4-9e7d-6c72056441d1
+# ╠═bb73bdf7-b4f2-4794-a269-d1862133db40
 # ╟─70a11986-1efc-4c06-939c-5c2489a1a2a9
 # ╠═5b0d40b2-04b1-43f4-bd7d-64d698b6db10
 # ╠═70c81a2b-32ed-4b04-968c-ab2f283d021b
@@ -551,4 +522,9 @@ typeof("tst")
 # ╠═2de2b696-f8fa-4b5b-9c80-264e81e1d231
 # ╠═789f6538-5bc5-48e1-a2d4-f16b6c520c55
 # ╠═a45ae491-e3ee-4827-a111-cb195eb41ba5
-# ╠═a4702a41-7eab-4a40-abdd-9af50b1027f4
+# ╟─2db74e17-ea06-427a-b1cb-378aa4378580
+# ╟─c393d2f4-548a-49e3-8aa8-df21a23da09e
+# ╠═9ce6d6a0-1a69-44d7-b15a-1d47017edba4
+# ╠═c04c298e-30c9-4bb4-b6a2-b70b1cf0c68d
+# ╠═6bbe9474-4948-4b87-b638-e203a59143f0
+# ╟─d23afbf6-3400-45e9-9e2b-5bfe1cfbf247
