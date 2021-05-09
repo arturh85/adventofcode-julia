@@ -26,6 +26,36 @@ Starting with the digits in your puzzle input, apply this process 40 times. **Wh
 # ╔═╡ 0353fa91-ea22-4446-a83d-bb43cb52048d
 puzzle_input = "3113322113"
 
+# ╔═╡ 32aabdc4-e704-4f7c-b3bd-89b76a9be3ee
+function lookandsay(s)
+	s
+end
+
+# ╔═╡ cc43c879-6720-4b47-906a-d37486fa5ea9
+@assert lookandsay("1") == "11"
+
+# ╔═╡ 547b7985-ed5b-4b25-93cd-21e05c54a563
+@assert lookandsay("11") == "21"
+
+# ╔═╡ 98f18475-0269-40e4-9cb8-85cb939a2b7d
+@assert lookandsay("21") == "1211"
+
+# ╔═╡ 2340661d-4f63-45ce-b4c9-a1cd314443ff
+@assert lookandsay("1211") == "111221"
+
+# ╔═╡ 0287d0bf-0870-4430-bb52-c7f6771b97dd
+@assert lookandsay("111221") == "312211"
+
+# ╔═╡ 43925c36-f5db-4895-9c6f-59c583af99b1
+
+
 # ╔═╡ Cell order:
 # ╟─b90cb740-b02c-11eb-3bda-67e10d023147
 # ╟─0353fa91-ea22-4446-a83d-bb43cb52048d
+# ╠═32aabdc4-e704-4f7c-b3bd-89b76a9be3ee
+# ╠═cc43c879-6720-4b47-906a-d37486fa5ea9
+# ╠═547b7985-ed5b-4b25-93cd-21e05c54a563
+# ╠═98f18475-0269-40e4-9cb8-85cb939a2b7d
+# ╠═2340661d-4f63-45ce-b4c9-a1cd314443ff
+# ╠═0287d0bf-0870-4430-bb52-c7f6771b97dd
+# ╠═43925c36-f5db-4895-9c6f-59c583af99b1

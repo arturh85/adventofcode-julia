@@ -395,6 +395,66 @@ gj RSHIFT 3 -> gl
 fo RSHIFT 3 -> fq
 he RSHIFT 2 -> hf"
 
+# ╔═╡ ca663fc6-f9be-41f2-9799-3e6930c34216
+as_uint16(val) = begin
+	if val isa UInt16 
+		val
+	elseif val isa Float64
+		UInt16(val)
+	else 
+		tryparse(UInt16, val)
+	end
+end
+
+# ╔═╡ f2597240-15e8-4b5f-93bd-3bd69fce798c
+function eval_expr(expr::AbstractString, state::Dict)
+	parts = split(expr, " ")
+	value = nothing
+	if length(parts) == 1
+		value = as_uint16(parts[1])
+	elseif length(parts) == 2
+		right = as_uint16(parts[2])
+		if right == nothing 
+			right = as_uint16(state[parts[2]])
+		end
+		if right == nothing
+			return nothing
+		end		
+		if parts[1] == "NOT"
+			value = UInt16(~ right))
+		else
+			throw(ErrorException("invalid syntax"))
+		end
+	elseif length(parts) == 3
+		left = as_uint16(parts[1])
+		if left == nothing
+			left = as_uint16(state[parts[1]])
+		end
+		right = as_uint16(parts[3])
+		if right == nothing 
+			right = as_uint16(state[parts[3]])
+		end
+		if left == nothing || right == nothing
+			return nothing
+		end
+		if parts[2] == "AND"
+			value = UInt16(left & right)
+		elseif parts[2] == "OR"
+			value = UInt16(left | right)
+		elseif parts[2] == "LSHIFT"
+			value = UInt16(left << right)
+		elseif parts[2] == "RSHIFT"
+			value = UInt16(left >> right)
+		else
+			throw(ErrorException("invalid syntax"))
+		end
+	else
+		throw(ErrorException("invalid syntax"))
+	end
+	
+	value
+end
+
 # ╔═╡ 6b6a90e8-880b-46f4-9e7d-6c72056441d1
 function interpret(commands)
 	state = Dict()
@@ -403,45 +463,28 @@ function interpret(commands)
 		parts = split(command, " -> ")
 		state[parts[2]] = parts[1] 
 	end
-	
-	outputs = Dict()
-	
-	for key in keys(state)
-		parts = split(state[key], " ")
-		if length(parts) == 1
-			outputs[key] = parse(UInt16, state[key])
-		elseif length(parts) == 2
-			if parts[1] == "NOT"
-				outputs[key] = ~ parse(UInt16, state[parts[2]])
-			else
-				throw(ErrorException("invalid syntax"))
+		
+	while true
+		retry = false
+		for key in keys(state)
+			value = state[key]
+
+			if value isa AbstractString
+				newvalue = eval_expr(value, state)
+				if newvalue == nothing
+					#retry = true
+				else 
+					state[key] = newvalue
+				end
 			end
-		elseif length(parts) == 3
-			left = tryparse(UInt16, parts[1]) 
-			if left == nothing
-				left = parse(UInt16, state[parts[1]])
-			end
-			right = tryparse(UInt16, parts[3])
-			if right == nothing 
-				right = parse(UInt16, state[parts[3]])
-			end
-			if parts[2] == "AND"
-				outputs[key] = left & right
-			elseif parts[2] == "OR"
-				outputs[key] = left | right
-			elseif parts[2] == "LSHIFT"
-				outputs[key] = left << right
-			elseif parts[2] == "RSHIFT"
-				outputs[key] = left >> right
-			else
-				throw(ErrorException("invalid syntax"))
-			end
-		else
-			throw(ErrorException("invalid syntax"))
+		end
+		
+		if !retry
+			break
 		end
 	end
-	
-	outputs
+		
+	state
 end
 
 # ╔═╡ 70a11986-1efc-4c06-939c-5c2489a1a2a9
@@ -484,9 +527,17 @@ example_outputs = interpret(split(example_input, "\n"))
 # ╔═╡ 789f6538-5bc5-48e1-a2d4-f16b6c520c55
 part1_outputs = interpret(split(puzzle_input, "\n"))
 
+# ╔═╡ a45ae491-e3ee-4827-a111-cb195eb41ba5
+part1 = part1_outputs["e"]
+
+# ╔═╡ a4702a41-7eab-4a40-abdd-9af50b1027f4
+typeof("tst")
+
 # ╔═╡ Cell order:
 # ╟─efb28490-b023-11eb-04e4-db86b53af0fe
 # ╟─bc36e815-9b26-4e8b-aaae-599e06f95af3
+# ╠═ca663fc6-f9be-41f2-9799-3e6930c34216
+# ╠═f2597240-15e8-4b5f-93bd-3bd69fce798c
 # ╠═6b6a90e8-880b-46f4-9e7d-6c72056441d1
 # ╟─70a11986-1efc-4c06-939c-5c2489a1a2a9
 # ╠═5b0d40b2-04b1-43f4-bd7d-64d698b6db10
@@ -499,3 +550,5 @@ part1_outputs = interpret(split(puzzle_input, "\n"))
 # ╠═e7dda86a-261b-4852-861f-db4d1062300b
 # ╠═2de2b696-f8fa-4b5b-9c80-264e81e1d231
 # ╠═789f6538-5bc5-48e1-a2d4-f16b6c520c55
+# ╠═a45ae491-e3ee-4827-a111-cb195eb41ba5
+# ╠═a4702a41-7eab-4a40-abdd-9af50b1027f4

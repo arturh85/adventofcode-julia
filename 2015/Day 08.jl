@@ -18,7 +18,7 @@ For example:
 
 -   `""` is `2` characters of code (the two double quotes), but the string contains zero characters.
 -   `"abc"` is `5` characters of code, but `3` characters in the string data.
--   `"aaa\"aaa"` is `10` characters of code, but the string itself contains six "a" characters and a single, escaped quote character, for a total of `7` characters in the string data.
+-   `"aaa\\"aaa"` is `10` characters of code, but the string itself contains six "a" characters and a single, escaped quote character, for a total of `7` characters in the string data.
 -   `"\x27"` is `6` characters of code, but the string itself contains just one - an apostrophe (`'`), escaped using hexadecimal notation.
 
 Santa's list is a file that contains many double-quoted string literals, one on each line. The only escape sequences used are `\\` (which represents a single backslash), `\"` (which represents a lone double-quote character), and `\x` plus two hexadecimal characters (which represents a single character with that ASCII code).
@@ -332,6 +332,71 @@ puzzle_input = """
 "njro\x68qgbx\xe4af\"\\suan"
 """
 
+# ╔═╡ 6a6cb1c1-6b76-4ae6-91f1-0a9f523106a5
+function analyse(input) 
+	content = input[2:end-1]
+	content = replace(content, "\\\"" => "\"")
+	content = replace(content, "\\\\" => "\\")
+	
+	while true
+		m = match(r"\\x(\d+)", content)
+		if m == nothing
+			break
+		end
+		code = m[1]
+		content = replace(content, "\\x" * code  => Char(parse(Int, code)))
+	end
+		
+	return (length(input), length(content))
+end
+
+# ╔═╡ 94efc347-bb75-498e-b132-c08b7b0d913f
+@assert analyse("\"\"") == (2,0)
+
+# ╔═╡ 0a077daf-0e6f-487d-b7e3-ed3a39ffcc57
+@assert analyse("\"abc\"") == (5,3)
+
+# ╔═╡ 5a12de6b-2a06-4a83-8aff-6adcaca2becf
+@assert analyse("\"aaa\\\"aaa\"") == (10,7)
+
+# ╔═╡ 6bbf3051-3577-48e3-830f-d0a0db92d44a
+@assert analyse("\"\\x27\"") == (6,1)
+
+# ╔═╡ a63c540e-f24f-488e-9180-6234f93d52b2
+puzzle_strings = split(rstrip(puzzle_input), "\n")
+
+# ╔═╡ f737a9ba-0814-490c-80ad-b13bd25fa6a1
+puzzle_values = map(analyse, puzzle_strings)
+
+# ╔═╡ c32ff503-ccb8-4b93-886d-afa2aa1ac998
+# Disregarding the whitespace in the file, what is 
+
+#- the number of characters of code for string literals 
+#	minus 
+#- the number of characters in memory for the values of the strings 
+		
+#in total for the entire file?
+
+# ╔═╡ b347bd98-aff4-4390-9f12-fc37ab8d88c6
+part1 = sum(map(((code, memory),)->code - memory, puzzle_values))
+
+# ╔═╡ 4520cf19-164c-4dc8-a5d8-f362e2b48d82
+md"607: That's not the right answer; your answer is too low. "
+
+# ╔═╡ 3a747d4d-3deb-4da9-809c-28be1491b6e2
+
+
 # ╔═╡ Cell order:
 # ╟─7728c7b0-b022-11eb-363f-5f51427038cb
 # ╟─1e37e13a-5f56-478c-8d50-d96ea1e32cd3
+# ╠═6a6cb1c1-6b76-4ae6-91f1-0a9f523106a5
+# ╠═94efc347-bb75-498e-b132-c08b7b0d913f
+# ╠═0a077daf-0e6f-487d-b7e3-ed3a39ffcc57
+# ╠═5a12de6b-2a06-4a83-8aff-6adcaca2becf
+# ╠═6bbf3051-3577-48e3-830f-d0a0db92d44a
+# ╠═a63c540e-f24f-488e-9180-6234f93d52b2
+# ╠═f737a9ba-0814-490c-80ad-b13bd25fa6a1
+# ╠═c32ff503-ccb8-4b93-886d-afa2aa1ac998
+# ╠═b347bd98-aff4-4390-9f12-fc37ab8d88c6
+# ╟─4520cf19-164c-4dc8-a5d8-f362e2b48d82
+# ╠═3a747d4d-3deb-4da9-809c-28be1491b6e2
