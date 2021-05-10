@@ -34,6 +34,43 @@ For example:
 # ╔═╡ ec540096-d9d1-4b5f-b6a2-16c470322424
 puzzle_input = "hxbxwxba"
 
+# ╔═╡ 4e20e380-e928-4764-a982-3c0ca6bb942c
+function next(str)
+	chars = collect(str)
+	vmin = Int('a')
+	vmax = Int('z')
+	
+	for idx in reverse(1:length(str))
+		v = Int(chars[idx]) + 1
+		if v > vmax
+			v -= vmax-vmin + 1
+			chars[idx] = v
+		else
+			chars[idx] = v
+			break
+		end		
+	end
+	
+	join(chars)
+end
+
+# ╔═╡ 7a68015d-0282-4cb0-bebc-c265d5ca72d3
+@assert next("xx") == "xy"
+
+# ╔═╡ c4d6ad5b-f500-4435-a8eb-76c1f33f9775
+@assert next("xy") == "xz"
+
+# ╔═╡ 8f2717d2-ed5e-4e4e-abcd-6ff2982d8cd6
+@assert next("xz") == "ya"
+
+# ╔═╡ 58f76b47-542f-438b-ac71-694a76d9d77b
+@assert next("ya") == "yb"
+
 # ╔═╡ Cell order:
 # ╟─e89c666e-b0e7-11eb-22cf-7f6fd1e299bb
 # ╠═ec540096-d9d1-4b5f-b6a2-16c470322424
+# ╠═4e20e380-e928-4764-a982-3c0ca6bb942c
+# ╠═7a68015d-0282-4cb0-bebc-c265d5ca72d3
+# ╠═c4d6ad5b-f500-4435-a8eb-76c1f33f9775
+# ╠═8f2717d2-ed5e-4e4e-abcd-6ff2982d8cd6
+# ╠═58f76b47-542f-438b-ac71-694a76d9d77b

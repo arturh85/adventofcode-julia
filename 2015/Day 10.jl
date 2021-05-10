@@ -28,8 +28,21 @@ puzzle_input = "3113322113"
 
 # ╔═╡ 32aabdc4-e704-4f7c-b3bd-89b76a9be3ee
 function lookandsay(s)
-	s
+	out = ""
+	
+	last = s[1]
+	last_idx = 1
+	for (idx, char) in s[1:length(s)-1]
+		if char !== last
+			out *= string(idx - last_idx) * last
+		end
+	end
+	out *= string(length(s) - last_idx+1 ) * last
+	out
 end
+
+# ╔═╡ 3c013416-13bf-4113-889b-b37b3f6bbd15
+lookandsay("11")
 
 # ╔═╡ cc43c879-6720-4b47-906a-d37486fa5ea9
 @assert lookandsay("1") == "11"
@@ -53,6 +66,7 @@ end
 # ╟─b90cb740-b02c-11eb-3bda-67e10d023147
 # ╟─0353fa91-ea22-4446-a83d-bb43cb52048d
 # ╠═32aabdc4-e704-4f7c-b3bd-89b76a9be3ee
+# ╠═3c013416-13bf-4113-889b-b37b3f6bbd15
 # ╠═cc43c879-6720-4b47-906a-d37486fa5ea9
 # ╠═547b7985-ed5b-4b25-93cd-21e05c54a563
 # ╠═98f18475-0269-40e4-9cb8-85cb939a2b7d
