@@ -49,7 +49,7 @@ After trying every other seating arrangement in this hypothetical scenario, you 
 """
 
 # ╔═╡ 99e72bde-a1fd-40b7-b404-7888e39507bb
-puzzle_input = "
+puzzle_input = """
 Alice would gain 54 happiness units by sitting next to Bob.
 Alice would lose 81 happiness units by sitting next to Carol.
 Alice would lose 42 happiness units by sitting next to David.
@@ -105,7 +105,7 @@ Mallory would lose 34 happiness units by sitting next to Carol.
 Mallory would gain 37 happiness units by sitting next to David.
 Mallory would gain 40 happiness units by sitting next to Eric.
 Mallory would gain 18 happiness units by sitting next to Frank.
-Mallory would gain 7 happiness units by sitting next to George."
+Mallory would gain 7 happiness units by sitting next to George."""
 
 # ╔═╡ 994bd490-a709-4b8a-ad86-6c1ca350e203
 

@@ -1,0 +1,70 @@
+‹¥bonds€¬cell_results‡Ù$ec540096-d9d1-4b5f-b6a2-16c470322424‡¦queuedÂ±published_objects€§runningÂ¦output…¤bodyª"hxbxwxba"°persist_js_stateÂ¤mimeªtext/plain²last_run_timestampËAØ&o8’¬rootassignee¬puzzle_input§cell_idÙ$ec540096-d9d1-4b5f-b6a2-16c470322424§runtimed§erroredÂÙ$e89c666e-b0e7-11eb-22cf-7f6fd1e299bb‡¦queuedÂ±published_objects€§runningÂ¦output…¤bodyÚ
+_<div class="markdown"><h1><a href="https://adventofcode.com/2015/day/11">Day 11: Corporate Policy</a></h1>
+<p>Santa&#39;s previous password expired, and he needs help choosing a new one.</p>
+<p>To help him remember his new password after the old one expires, Santa has devised a method of coming up with a password based on the previous one. Corporate policy dictates that passwords must be exactly eight lowercase letters &#40;for security reasons&#41;, so he finds his new password byÂ incrementingÂ his old password string repeatedly until it is valid.</p>
+<p>Incrementing is just like counting with numbers:Â <code>xx</code>,Â <code>xy</code>,Â <code>xz</code>,Â <code>ya</code>,Â <code>yb</code>, and so on. Increase the rightmost letter one step; if it wasÂ <code>z</code>, it wraps around toÂ <code>a</code>, and repeat with the next letter to the left until one doesn&#39;t wrap around.</p>
+<p>Unfortunately for Santa, a new Security-Elf recently started, and he has imposed some additional password requirements:</p>
+<ul>
+<li><p>Passwords must include one increasing straight of at least three letters, likeÂ <code>abc</code>,Â <code>bcd</code>,Â <code>cde</code>, and so on, up toÂ <code>xyz</code>. They cannot skip letters;Â <code>abd</code>Â doesn&#39;t count.</p>
+</li>
+<li><p>Passwords may not contain the lettersÂ <code>i</code>,Â <code>o</code>, orÂ <code>l</code>, as these letters can be mistaken for other characters and are therefore confusing.</p>
+</li>
+<li><p>Passwords must contain at least two different, non-overlapping pairs of letters, likeÂ <code>aa</code>,Â <code>bb</code>, orÂ <code>zz</code>.</p>
+</li>
+</ul>
+<p>For example:</p>
+<ul>
+<li><p><code>hijklmmn</code>Â meets the first requirement &#40;because it contains the straightÂ <code>hij</code>&#41; but fails the second requirement requirement &#40;because it containsÂ <code>i</code>Â andÂ <code>l</code>&#41;.</p>
+</li>
+<li><p><code>abbceffg</code>Â meets the third requirement &#40;because it repeatsÂ <code>bb</code>Â andÂ <code>ff</code>&#41; but fails the first requirement.</p>
+</li>
+<li><p><code>abbcegjk</code>Â fails the third requirement, because it only has one double letter &#40;<code>bb</code>&#41;.</p>
+</li>
+<li><p>The next password afterÂ <code>abcdefgh</code>Â isÂ <code>abcdffaa</code>.</p>
+</li>
+<li><p>The next password afterÂ <code>ghijklmn</code>Â isÂ <code>ghjaabcc</code>, because you eventually skip all the passwords that start withÂ <code>ghi...</code>, sinceÂ <code>i</code>Â is not allowed.</p>
+</li>
+</ul>
+<p><strong>Given Santa&#39;s current password &#40;your puzzle input&#41;, what should hisÂ next passwordÂ be?</strong></p>
+</div>°persist_js_stateÂ¤mime©text/html²last_run_timestampËAØ&o5›GR¬rootassigneeÀ§cell_idÙ$e89c666e-b0e7-11eb-22cf-7f6fd1e299bb§runtimeÍ–d§erroredÂÙ$7a68015d-0282-4cb0-bebc-c265d5ca72d3‡¦queuedÂ±published_objects€§runningÂ¦output…¤body °persist_js_stateÂ¤mimeªtext/plain²last_run_timestampËAØ&o8¬İn¬rootassigneeÀ§cell_idÙ$7a68015d-0282-4cb0-bebc-c265d5ca72d3§runtimeÎ[Ÿ§erroredÂÙ$58f76b47-542f-438b-ac71-694a76d9d77b‡¦queuedÂ±published_objects€§runningÂ¦output…¤body °persist_js_stateÂ¤mimeªtext/plain²last_run_timestampËAØ&o8­(ò¬rootassigneeÀ§cell_idÙ$58f76b47-542f-438b-ac71-694a76d9d77b§runtimeÍ”§erroredÂÙ$4e20e380-e928-4764-a982-3c0ca6bb942c‡¦queuedÂ±published_objects€§runningÂ¦output…¤bodyÙ%next (generic function with 1 method)°persist_js_stateÂ¤mimeªtext/plain²last_run_timestampËAØ&o8£T~¬rootassigneeÀ§cell_idÙ$4e20e380-e928-4764-a982-3c0ca6bb942c§runtimeÍ”§erroredÂÙ$c4d6ad5b-f500-4435-a8eb-76c1f33f9775‡¦queuedÂ±published_objects€§runningÂ¦output…¤body °persist_js_stateÂ¤mimeªtext/plain²last_run_timestampËAØ&o8¬ıP¬rootassigneeÀ§cell_idÙ$c4d6ad5b-f500-4435-a8eb-76c1f33f9775§runtimeÍ §erroredÂÙ$8f2717d2-ed5e-4e4e-abcd-6ff2982d8cd6‡¦queuedÂ±published_objects€§runningÂ¦output…¤body °persist_js_stateÂ¤mimeªtext/plain²last_run_timestampËAØ&o8­Ü¬rootassigneeÀ§cell_idÙ$8f2717d2-ed5e-4e4e-abcd-6ff2982d8cd6§runtimeÍ”§erroredÂ±cell_dependencies‡Ù$ec540096-d9d1-4b5f-b6a2-16c470322424„´precedence_heuristic§cell_idÙ$ec540096-d9d1-4b5f-b6a2-16c470322424´downstream_cells_map¬puzzle_input²upstream_cells_map€Ù$e89c666e-b0e7-11eb-22cf-7f6fd1e299bb„´precedence_heuristic§cell_idÙ$e89c666e-b0e7-11eb-22cf-7f6fd1e299bb´downstream_cells_map€²upstream_cells_map‚§@md_str¨getindexÙ$7a68015d-0282-4cb0-bebc-c265d5ca72d3„´precedence_heuristic§cell_idÙ$7a68015d-0282-4cb0-bebc-c265d5ca72d3´downstream_cells_map€²upstream_cells_mapƒ§@assert¤next‘Ù$4e20e380-e928-4764-a982-3c0ca6bb942c¢==Ù$58f76b47-542f-438b-ac71-694a76d9d77b„´precedence_heuristic§cell_idÙ$58f76b47-542f-438b-ac71-694a76d9d77b´downstream_cells_map€²upstream_cells_mapƒ§@assert¤next‘Ù$4e20e380-e928-4764-a982-3c0ca6bb942c¢==Ù$4e20e380-e928-4764-a982-3c0ca6bb942c„´precedence_heuristic§cell_idÙ$4e20e380-e928-4764-a982-3c0ca6bb942c´downstream_cells_map¤next”Ù$7a68015d-0282-4cb0-bebc-c265d5ca72d3Ù$c4d6ad5b-f500-4435-a8eb-76c1f33f9775Ù$8f2717d2-ed5e-4e4e-abcd-6ff2982d8cd6Ù$58f76b47-542f-438b-ac71-694a76d9d77b²upstream_cells_map‰§reverse¦length¡:¤join¡-¡>£Int§collect¡+Ù$c4d6ad5b-f500-4435-a8eb-76c1f33f9775„´precedence_heuristic§cell_idÙ$c4d6ad5b-f500-4435-a8eb-76c1f33f9775´downstream_cells_map€²upstream_cells_mapƒ§@assert¤next‘Ù$4e20e380-e928-4764-a982-3c0ca6bb942c¢==Ù$8f2717d2-ed5e-4e4e-abcd-6ff2982d8cd6„´precedence_heuristic§cell_idÙ$8f2717d2-ed5e-4e4e-abcd-6ff2982d8cd6´downstream_cells_map€²upstream_cells_mapƒ§@assert¤next‘Ù$4e20e380-e928-4764-a982-3c0ca6bb942c¢==´cell_execution_order—Ù$e89c666e-b0e7-11eb-22cf-7f6fd1e299bbÙ$ec540096-d9d1-4b5f-b6a2-16c470322424Ù$4e20e380-e928-4764-a982-3c0ca6bb942cÙ$7a68015d-0282-4cb0-bebc-c265d5ca72d3Ù$c4d6ad5b-f500-4435-a8eb-76c1f33f9775Ù$8f2717d2-ed5e-4e4e-abcd-6ff2982d8cd6Ù$58f76b47-542f-438b-ac71-694a76d9d77b©shortpath©Day 11.jl®process_status¥ready¤pathÙF/home/runner/work/adventofcode-julia/adventofcode-julia/2015/Day 11.jlªcell_order—Ù$e89c666e-b0e7-11eb-22cf-7f6fd1e299bbÙ$ec540096-d9d1-4b5f-b6a2-16c470322424Ù$4e20e380-e928-4764-a982-3c0ca6bb942cÙ$7a68015d-0282-4cb0-bebc-c265d5ca72d3Ù$c4d6ad5b-f500-4435-a8eb-76c1f33f9775Ù$8f2717d2-ed5e-4e4e-abcd-6ff2982d8cd6Ù$58f76b47-542f-438b-ac71-694a76d9d77b«cell_inputs‡Ù$ec540096-d9d1-4b5f-b6a2-16c470322424ƒ§cell_idÙ$ec540096-d9d1-4b5f-b6a2-16c470322424¤code¹puzzle_input = "hxbxwxba"«code_foldedÂÙ$e89c666e-b0e7-11eb-22cf-7f6fd1e299bbƒ§cell_idÙ$e89c666e-b0e7-11eb-22cf-7f6fd1e299bb¤codeÚâmd"""
+# [Day 11: Corporate Policy](https://adventofcode.com/2015/day/11)
+
+Santa's previous password expired, and he needs help choosing a new one.
+
+To help him remember his new password after the old one expires, Santa has devised a method of coming up with a password based on the previous one. Corporate policy dictates that passwords must be exactly eight lowercase letters (for security reasons), so he finds his new password byÂ incrementingÂ his old password string repeatedly until it is valid.
+
+Incrementing is just like counting with numbers:Â `xx`,Â `xy`,Â `xz`,Â `ya`,Â `yb`, and so on. Increase the rightmost letter one step; if it wasÂ `z`, it wraps around toÂ `a`, and repeat with the next letter to the left until one doesn't wrap around.
+
+Unfortunately for Santa, a new Security-Elf recently started, and he has imposed some additional password requirements:
+
+-   Passwords must include one increasing straight of at least three letters, likeÂ `abc`,Â `bcd`,Â `cde`, and so on, up toÂ `xyz`. They cannot skip letters;Â `abd`Â doesn't count.
+-   Passwords may not contain the lettersÂ `i`,Â `o`, orÂ `l`, as these letters can be mistaken for other characters and are therefore confusing.
+-   Passwords must contain at least two different, non-overlapping pairs of letters, likeÂ `aa`,Â `bb`, orÂ `zz`.
+
+For example:
+
+-   `hijklmmn`Â meets the first requirement (because it contains the straightÂ `hij`) but fails the second requirement requirement (because it containsÂ `i`Â andÂ `l`).
+-   `abbceffg`Â meets the third requirement (because it repeatsÂ `bb`Â andÂ `ff`) but fails the first requirement.
+-   `abbcegjk`Â fails the third requirement, because it only has one double letter (`bb`).
+-   The next password afterÂ `abcdefgh`Â isÂ `abcdffaa`.
+-   The next password afterÂ `ghijklmn`Â isÂ `ghjaabcc`, because you eventually skip all the passwords that start withÂ `ghi...`, sinceÂ `i`Â is not allowed.
+
+**Given Santa's current password (your puzzle input), what should hisÂ next passwordÂ be?**
+"""«code_foldedÃÙ$7a68015d-0282-4cb0-bebc-c265d5ca72d3ƒ§cell_idÙ$7a68015d-0282-4cb0-bebc-c265d5ca72d3¤codeº@assert next("xx") == "xy"«code_foldedÂÙ$58f76b47-542f-438b-ac71-694a76d9d77bƒ§cell_idÙ$58f76b47-542f-438b-ac71-694a76d9d77b¤codeº@assert next("ya") == "yb"«code_foldedÂÙ$4e20e380-e928-4764-a982-3c0ca6bb942cƒ§cell_idÙ$4e20e380-e928-4764-a982-3c0ca6bb942c¤codeÚfunction next(str)
+	chars = collect(str)
+	vmin = Int('a')
+	vmax = Int('z')
+	
+	for idx in reverse(1:length(str))
+		v = Int(chars[idx]) + 1
+		if v > vmax
+			v -= vmax-vmin + 1
+			chars[idx] = v
+		else
+			chars[idx] = v
+			break
+		end		
+	end
+	
+	join(chars)
+end«code_foldedÂÙ$c4d6ad5b-f500-4435-a8eb-76c1f33f9775ƒ§cell_idÙ$c4d6ad5b-f500-4435-a8eb-76c1f33f9775¤codeº@assert next("xy") == "xz"«code_foldedÂÙ$8f2717d2-ed5e-4e4e-abcd-6ff2982d8cd6ƒ§cell_idÙ$8f2717d2-ed5e-4e4e-abcd-6ff2982d8cd6¤codeº@assert next("xz") == "ya"«code_foldedÂ«notebook_idÙ$94358ea4-b1e4-11eb-38ac-4525a96895ea«in_temp_dirÂ
