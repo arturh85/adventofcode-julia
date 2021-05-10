@@ -8,10 +8,9 @@ using InteractiveUtils
 begin
 	import Pkg
 	Pkg.activate(mktempdir())
-	Pkg.add(["MD5"])	
-	Pkg.add(Pkg.PackageSpec(url="https://github.com/JuliaPluto/PlutoTest.jl"))	
+	Pkg.add(["MD5"])		
 	
-	using MD5, PlutoTest
+	using MD5
 end
 
 # ╔═╡ 0a80eec0-af92-11eb-2306-a1148fe38e04
@@ -44,10 +43,10 @@ function answer(input, zero_count)
 end
 
 # ╔═╡ fb6daadc-d6b2-47dd-b7c5-c119d24c33cf
-@test answer("abcdef", 5) == 609043
+@assert answer("abcdef", 5) == 609043
 
 # ╔═╡ b1b9e6bd-aa83-4c59-b524-189e5bf0d964
-@test answer("pqrstuv", 5) == 1048970
+@assert answer("pqrstuv", 5) == 1048970
 
 # ╔═╡ e9c559dc-544f-4c28-a9a8-d98477da244e
 part1 = answer(puzzle_input, 5)

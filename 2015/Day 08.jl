@@ -29,7 +29,7 @@ For example, given the four strings above, the total number of characters of str
 """
 
 # ╔═╡ 1e37e13a-5f56-478c-8d50-d96ea1e32cd3
-puzzle_input = """
+puzzle_input = raw"""
 "qxfcsmh"
 "ffsfyxbyuhqkpwatkjgudo"
 "byc\x9dyxuafof\\\xa6uf\\axfozomj\\olh\x6a"
@@ -334,6 +334,12 @@ puzzle_input = """
 
 # ╔═╡ 6a6cb1c1-6b76-4ae6-91f1-0a9f523106a5
 function analyse(input) 
+	if input[1] != '"'
+		throw(ErrorException("invalid syntax1: " * input))
+	end
+	if input[length(input)] != '"'
+		throw(ErrorException("invalid syntax2: " * input))
+	end
 	content = input[2:end-1]
 	content = replace(content, "\\\"" => "\"")
 	content = replace(content, "\\\\" => "\\")
@@ -351,40 +357,34 @@ function analyse(input)
 end
 
 # ╔═╡ 94efc347-bb75-498e-b132-c08b7b0d913f
-@assert analyse("\"\"") == (2,0)
+@assert analyse(raw"\"\"") == (2,0)
 
 # ╔═╡ 0a077daf-0e6f-487d-b7e3-ed3a39ffcc57
-@assert analyse("\"abc\"") == (5,3)
+@assert analyse(raw"\"abc\"") == (5,3)
 
 # ╔═╡ 5a12de6b-2a06-4a83-8aff-6adcaca2becf
-@assert analyse("\"aaa\\\"aaa\"") == (10,7)
+@assert analyse(raw"\"aaa\\\"aaa\"") == (10,7)
 
 # ╔═╡ 6bbf3051-3577-48e3-830f-d0a0db92d44a
-@assert analyse("\"\\x27\"") == (6,1)
+@assert analyse(raw"\"\x27\"") == (6,1)
+
+# ╔═╡ 22f16fc9-55cf-470d-ab21-b40094bf84ef
+raw"\"\x27\""
+
+# ╔═╡ 1d707d70-a9b5-4182-95a7-465fa9475e11
+@assert sum(map(((code, memory),)->code - memory, [(2,0), (5,3), (10,7), (6,1)])) == 12
 
 # ╔═╡ a63c540e-f24f-488e-9180-6234f93d52b2
-puzzle_strings = split(rstrip(puzzle_input), "\n")
+puzzle_strings = split(strip(puzzle_input), "\n")
 
 # ╔═╡ f737a9ba-0814-490c-80ad-b13bd25fa6a1
 puzzle_values = map(analyse, puzzle_strings)
-
-# ╔═╡ c32ff503-ccb8-4b93-886d-afa2aa1ac998
-# Disregarding the whitespace in the file, what is 
-
-#- the number of characters of code for string literals 
-#	minus 
-#- the number of characters in memory for the values of the strings 
-		
-#in total for the entire file?
 
 # ╔═╡ b347bd98-aff4-4390-9f12-fc37ab8d88c6
 part1 = sum(map(((code, memory),)->code - memory, puzzle_values))
 
 # ╔═╡ 4520cf19-164c-4dc8-a5d8-f362e2b48d82
-md"607: That's not the right answer; your answer is too low. "
-
-# ╔═╡ 3a747d4d-3deb-4da9-809c-28be1491b6e2
-
+md"912: That's not the right answer; your answer is too low. "
 
 # ╔═╡ Cell order:
 # ╟─7728c7b0-b022-11eb-363f-5f51427038cb
@@ -394,9 +394,9 @@ md"607: That's not the right answer; your answer is too low. "
 # ╠═0a077daf-0e6f-487d-b7e3-ed3a39ffcc57
 # ╠═5a12de6b-2a06-4a83-8aff-6adcaca2becf
 # ╠═6bbf3051-3577-48e3-830f-d0a0db92d44a
+# ╠═22f16fc9-55cf-470d-ab21-b40094bf84ef
+# ╠═1d707d70-a9b5-4182-95a7-465fa9475e11
 # ╠═a63c540e-f24f-488e-9180-6234f93d52b2
 # ╠═f737a9ba-0814-490c-80ad-b13bd25fa6a1
-# ╠═c32ff503-ccb8-4b93-886d-afa2aa1ac998
 # ╠═b347bd98-aff4-4390-9f12-fc37ab8d88c6
-# ╟─4520cf19-164c-4dc8-a5d8-f362e2b48d82
-# ╠═3a747d4d-3deb-4da9-809c-28be1491b6e2
+# ╠═4520cf19-164c-4dc8-a5d8-f362e2b48d82

@@ -9,9 +9,8 @@ begin
 	import Pkg
 	Pkg.activate(mktempdir())
 	Pkg.add(["Plots"])	
-	Pkg.add(Pkg.PackageSpec(url="https://github.com/JuliaPluto/PlutoTest.jl"))	
 	
-	using Plots, PlutoTest
+	using Plots
 	plotly()
 end
 
@@ -115,10 +114,7 @@ For example:
 
 # ╔═╡ 63128fe3-993d-48bc-b2c4-edce7c86db63
 function merge_grids(a, b) 
-	grid = Dict()
-	for k in keys(a)
-		grid[k] = a[k]
-	end
+	grid = copy(a)
 	for k in keys(b)
 		if haskey(grid, k) 
 			grid[k] += b[k]

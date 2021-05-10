@@ -4,6 +4,16 @@
 using Markdown
 using InteractiveUtils
 
+# ╔═╡ bbfa7498-30bf-4264-b4d9-ee0c238c9984
+begin
+	import Pkg
+	Pkg.activate(mktempdir())
+	Pkg.add(["Plots", "LightGraphs", "GraphPlot"])
+	
+	using Plots, LightGraphs, GraphPlot
+	plotly()
+end
+
 # ╔═╡ 56cedfe0-b02c-11eb-1f56-3557d6c170bc
 md"""
 # [Day 9: All in a Single Night](https://adventofcode.com/2015/day/9)
@@ -69,6 +79,61 @@ Straylight to Tristram = 27
 Straylight to Arbre = 81
 Tristram to Arbre = 90"
 
+# ╔═╡ bca7fd19-8fbe-4f35-96bb-aca1025729c3
+match(r"(\w+) to (\w+) = (\d+)", "London to Dublin = 464")
+
+# ╔═╡ 3ffc6481-2267-4d97-8065-d2fd78c637e9
+function build_graph(paths)
+	edges = []
+	for line in split(paths, "\n")
+		m = match(r"(\w+) to (\w+) = (\d+)", line)
+		push!(edges, (m[1], m[2], m[3]))
+	end
+	
+	nodes = Dict()
+	next_id = 1
+	for (from, to, weight) in edges
+		if !haskey(nodes, from)
+			nodes[from] = next_id 
+			next_id += 1
+		end
+		if !haskey(nodes, to)
+			nodes[to] = next_id 
+			next_id += 1
+		end
+	end
+	
+	
+	g = SimpleGraph(length(nodes));
+		
+	for (from, to, weight) in edges
+		add_edge!(g, nodes[from], nodes[to]);
+	end
+	
+	g
+end
+
+# ╔═╡ 78d4f47f-96b6-44f9-b9ab-2cb84bbb19b0
+example_graph = build_graph("""London to Dublin = 464
+London to Belfast = 518
+Dublin to Belfast = 141""")
+
+# ╔═╡ 7e17c6f5-3972-4777-9611-f4c321108144
+gplot(example_graph)
+
+# ╔═╡ 8e78e6fe-cb4a-46f7-839b-42aa35f7b71a
+puzzle_graph = build_graph(puzzle_input)
+
+# ╔═╡ 8dde0e83-121f-4720-80b6-00020bd33a6b
+gplot(puzzle_graph)
+
 # ╔═╡ Cell order:
+# ╠═bbfa7498-30bf-4264-b4d9-ee0c238c9984
 # ╟─56cedfe0-b02c-11eb-1f56-3557d6c170bc
 # ╟─1609ee1f-1d90-4889-b39d-5fe0fb6de8c4
+# ╠═bca7fd19-8fbe-4f35-96bb-aca1025729c3
+# ╠═3ffc6481-2267-4d97-8065-d2fd78c637e9
+# ╠═78d4f47f-96b6-44f9-b9ab-2cb84bbb19b0
+# ╠═7e17c6f5-3972-4777-9611-f4c321108144
+# ╠═8e78e6fe-cb4a-46f7-839b-42aa35f7b71a
+# ╠═8dde0e83-121f-4720-80b6-00020bd33a6b
