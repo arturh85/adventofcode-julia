@@ -43,7 +43,7 @@ puzzle_input = "11
 3"
 
 # ╔═╡ e44eedbb-747f-4c1b-9a86-62360e9ca26d
-
+containers = split(puzzle_input, "\n") |> Base.Fix1(map, s->parse(Int, s))
 
 # ╔═╡ Cell order:
 # ╠═00942730-b0e9-11eb-0b2b-f75ca9edadef
