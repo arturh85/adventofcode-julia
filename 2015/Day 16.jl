@@ -18,7 +18,7 @@ The My First Crime Scene Analysis Machine (MFCSAM for short) can detect a few sp
 
 -   `children`, by human DNA age analysis.
 -   `cats`. It doesn't differentiate individual breeds.
--   Several seemingly random breeds of dog: `[samoyeds](https://en.wikipedia.org/wiki/Samoyed_%28dog%29)`, `[pomeranians](https://en.wikipedia.org/wiki/Pomeranian_%28dog%29)`, `[akitas](https://en.wikipedia.org/wiki/Akita_%28dog%29)`, and `[vizslas](https://en.wikipedia.org/wiki/Vizsla)`.
+-   Several seemingly random breeds of dog: [samoyeds](https://en.wikipedia.org/wiki/Samoyed_%28dog%29), [pomeranians](https://en.wikipedia.org/wiki/Pomeranian_%28dog%29), [akitas](https://en.wikipedia.org/wiki/Akita_%28dog%29), and [vizslas](https://en.wikipedia.org/wiki/Vizsla).
 -   `goldfish`. No other kinds of fish.
 -   `trees`, all in one group.
 -   `cars`, presumably by exhaust or gasoline or something.
@@ -548,9 +548,124 @@ Sue 499: perfumes: 6, goldfish: 3, vizslas: 7
 Sue 500: cars: 1, perfumes: 6, vizslas: 1"
 
 # ╔═╡ 3278c05d-c412-457e-b6c4-37d76d576cd4
+function parsesues(input) 
+	sues = Dict()
+	
+	for line in split(input, "\n")
+		colonpos = findfirst(":", line)[1]
+		id = parse(Int, line[5: colonpos-1])
+		
+		data = Dict()
+		for info in split(line[colonpos+2:end], ", ")
+			parts = split(info, ": ")
+			
+			data[parts[1]] = parse(Int, parts[2])
+		end
+		
+		sues[id] = data
+	end
+	sues
+end
 
+# ╔═╡ 255547d8-d696-4f62-95a1-56b2a0bfdb9e
+firstindex
+
+# ╔═╡ 18ce336d-a5cb-42d2-8c2f-5e3eb26d9321
+puzzle_sues = parsesues(puzzle_input)
+
+# ╔═╡ 1a49f050-69ff-4404-a494-2b8e35fdaebb
+puzzle_facts = Dict(
+	"children" => 3,
+	"cats" => 7,
+	"samoyeds" => 2,
+	"pomeranians" => 3,
+	"akitas" => 0,
+	"vizslas" => 0,
+	"goldfish" => 5,
+	"trees" => 3,
+	"cars" => 2,
+	"perfumes" => 1
+)
+
+# ╔═╡ b46d289c-e2a1-45b1-9f2e-cac5e8093510
+function findsue1(sues, facts)
+	valid_sues = filter(id -> begin
+		for key in keys(sues[id])
+			if facts[key] != sues[id][key]
+				return false
+			end
+		end
+			
+		true
+	end, keys(sues))
+	
+	@assert length(valid_sues) == 1
+	return first(valid_sues)
+end
+
+# ╔═╡ 3c7002f4-f218-4329-b672-01fe36023d28
+part1 = findsue1(puzzle_sues, puzzle_facts)
+
+# ╔═╡ 39160fe9-a017-44f0-b298-7d7397f4efd7
+md"Your puzzle answer was `213`."
+
+# ╔═╡ 7ae737f3-dfe7-4509-b98c-c6b827e774a9
+md"""
+# Part Two
+
+As you're about to send the thank you note, something in the MFCSAM's instructions catches your eye. Apparently, it has an outdated retroencabulator, and so the output from the machine isn't exact values - some of them indicate ranges.
+
+In particular, the cats and trees readings indicates that there are greater than that many (due to the unpredictable nuclear decay of cat dander and tree pollen), while the pomeranians and goldfish readings indicate that there are fewer than that many (due to the modial interaction of magnetoreluctance).
+
+**What is the number of the real Aunt Sue?**
+"""
+
+# ╔═╡ e6ab6c98-3053-440d-9913-c044a7e97853
+function findsue2(sues, facts)
+	valid_sues = filter(id -> begin
+		for key in keys(sues[id])
+			fact = facts[key]
+			value = sues[id][key]
+				
+			if key == "cats" || key == "trees"
+				if value < fact
+					return false
+				end
+			elseif key == "pomeranians" || key == "goldfish"
+				if value > fact
+					return false
+				end
+			else		
+				if fact != value
+					return false
+				end
+			end
+		end
+			
+		true
+	end, keys(sues))
+	
+	# @assert length(valid_sues) == 1
+	return valid_sues
+end
+
+# ╔═╡ afcbab33-d3fa-4928-9171-4dafa83d8536
+part2 = findsue2(puzzle_sues, puzzle_facts)
+
+# ╔═╡ e2edeffa-752d-4242-b5cf-1798221a0038
+md"Your puzzle answer was `323`."
 
 # ╔═╡ Cell order:
 # ╟─d02132f0-b0e8-11eb-12cb-353922cb782a
 # ╟─56d67502-d140-4066-95e5-44dd2641ed7f
 # ╠═3278c05d-c412-457e-b6c4-37d76d576cd4
+# ╠═255547d8-d696-4f62-95a1-56b2a0bfdb9e
+# ╠═18ce336d-a5cb-42d2-8c2f-5e3eb26d9321
+# ╠═1a49f050-69ff-4404-a494-2b8e35fdaebb
+# ╠═b46d289c-e2a1-45b1-9f2e-cac5e8093510
+# ╠═3c7002f4-f218-4329-b672-01fe36023d28
+# ╟─39160fe9-a017-44f0-b298-7d7397f4efd7
+# ╟─7ae737f3-dfe7-4509-b98c-c6b827e774a9
+# ╠═e6ab6c98-3053-440d-9913-c044a7e97853
+# ╟─afcbab33-d3fa-4928-9171-4dafa83d8536
+# ╟─e2edeffa-752d-4242-b5cf-1798221a0038

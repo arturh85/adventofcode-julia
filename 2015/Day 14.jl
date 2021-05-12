@@ -50,12 +50,14 @@ function distance(player, time)
 	fly_seconds = player[2]
 	rest_seconds = player[3]
 	d = 0
-	while time > 0
-		stepTime = min(fly_seconds, time)
-		d += stepTime * km		
-		time -= stepTime + rest_seconds
-	end
+	#while time > 0
+	#	stepTime = min(fly_seconds, time)
+	#	d += stepTime * km		
+	#	time -= stepTime + rest_seconds
+	#end
 	
+	d = time ÷ (fly_seconds + rest_seconds) * (fly_seconds * km)
+	d += min(time % (fly_seconds + rest_seconds), fly_seconds) * km	
 	d		
 end
 
@@ -90,7 +92,36 @@ Again given the descriptions of each reindeer (in your puzzle input), after exac
 """
 
 # ╔═╡ 9cd8509d-38c3-49d0-bc6d-84c862bd37e0
+function maxscore(players, time)
+	scores = Dict()
+	
+	for idx in 1:length(players)
+		scores[idx] = 0
+	end
+	
+	for t in 1:time
+		distances = Dict()
+		for idx in 1:length(players)
+			distances[idx] = distance(players[idx], t)
+		end		
+		maxdistance = maximum(values(distances))		
+		winners = filter(idx-> distances[idx] == maxdistance, keys(distances))
+		for idx in winners
+			scores[idx] += 1
+		end
+	end	
+	maximum(values(scores))
+	
+end
 
+# ╔═╡ 14d5831a-f848-426d-a014-2a1e24ee1d68
+@assert maxscore(example_players, 1000) == 689
+
+# ╔═╡ 0dec0d65-0cc9-4d7c-bdf0-d2bbc3f6c956
+part2 = maxscore(puzzle_players, 2503)
+
+# ╔═╡ fa92058e-35cf-43b8-8552-71dd16e1c52e
+md"Your puzzle answer was `1256`."
 
 # ╔═╡ Cell order:
 # ╟─76d27f60-b0e8-11eb-3fd3-a7b73d0d4cfe
@@ -105,3 +136,6 @@ Again given the descriptions of each reindeer (in your puzzle input), after exac
 # ╟─17210bdf-21cd-4f48-8e86-b7c568ee3e2d
 # ╟─0975d5a4-675e-42b8-8ab1-4b31dc2de102
 # ╠═9cd8509d-38c3-49d0-bc6d-84c862bd37e0
+# ╠═14d5831a-f848-426d-a014-2a1e24ee1d68
+# ╠═0dec0d65-0cc9-4d7c-bdf0-d2bbc3f6c956
+# ╟─fa92058e-35cf-43b8-8552-71dd16e1c52e

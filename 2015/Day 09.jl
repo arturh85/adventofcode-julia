@@ -127,6 +127,9 @@ puzzle_graph = build_graph(puzzle_input)
 # ╔═╡ 8dde0e83-121f-4720-80b6-00020bd33a6b
 gplot(puzzle_graph)
 
+# ╔═╡ 47561207-3fe1-43ad-86f7-10df74a6a6ec
+[ 100*rand(2) for _ in 1:50]
+
 # ╔═╡ Cell order:
 # ╠═bbfa7498-30bf-4264-b4d9-ee0c238c9984
 # ╟─56cedfe0-b02c-11eb-1f56-3557d6c170bc
@@ -137,3 +140,4 @@ gplot(puzzle_graph)
 # ╠═7e17c6f5-3972-4777-9611-f4c321108144
 # ╠═8e78e6fe-cb4a-46f7-839b-42aa35f7b71a
 # ╠═8dde0e83-121f-4720-80b6-00020bd33a6b
+# ╠═47561207-3fe1-43ad-86f7-10df74a6a6ec
