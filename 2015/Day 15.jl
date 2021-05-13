@@ -67,7 +67,7 @@ begin
 	allratios = []
 	for a in 1:100
 		for b in 1:100-a
-			for c in 1:100-b
+			for c in 1:100-(a+b)
 				d = 100 - a - b -c
 				@assert a+b+c+d == 100
 				push!(allratios, (a,b,c,d))
@@ -139,7 +139,19 @@ cookiescore(example_ingredients, (44, 56))
 
 # ╔═╡ 0e81de2d-45d0-4627-8479-9dc92ce4433e
 function bestcookiescore(ingredients)
-	0
+	best = 0
+	for a in 1:100
+		for b in 1:100-a
+			for c in 1:100-(a+b)
+				d = 100 - a - b -c
+				score = cookiescore(ingredients, (a,b,c,d))
+				if score > best
+					best = score
+				end
+			end
+		end
+	end
+	best
 end
 
 # ╔═╡ 6e394cd1-dbdc-4540-ab6d-39bdf0299a9c
@@ -201,14 +213,8 @@ d
 # ╔═╡ 0d4650b4-1035-43f4-b423-8824cb3436d2
 part1 = bestcookiescore(puzzle_ingredients)
 
-# ╔═╡ ef49dbf5-44bc-4da6-b432-7a11f631a34c
-part1_test = cookiescore(puzzle_ingredients, (18, 8, 3, 71))
-
-# ╔═╡ 9eaf770f-b324-4995-9048-3bede3450a78
-part1_tes2t = cookiescore(puzzle_ingredients, (25, 25, 25, 25))
-
-# ╔═╡ 05c9cedd-fa2e-4fad-9c51-e69a5f130489
-# > 56232
+# ╔═╡ 117c9ac8-6f1e-4dc3-9b74-bb2cabe9b171
+md"Your puzzle answer was `13882464`."
 
 # ╔═╡ Cell order:
 # ╠═c5b26b1f-ae3a-4415-a971-373df73a2bb7
@@ -241,6 +247,4 @@ part1_tes2t = cookiescore(puzzle_ingredients, (25, 25, 25, 25))
 # ╠═c3d471b9-f0b5-4e29-937e-dcb917cf2a9c
 # ╠═59938b46-ff7d-441f-95ba-1a49fcaeefe7
 # ╠═0d4650b4-1035-43f4-b423-8824cb3436d2
-# ╠═ef49dbf5-44bc-4da6-b432-7a11f631a34c
-# ╠═9eaf770f-b324-4995-9048-3bede3450a78
-# ╠═05c9cedd-fa2e-4fad-9c51-e69a5f130489
+# ╟─117c9ac8-6f1e-4dc3-9b74-bb2cabe9b171
