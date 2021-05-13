@@ -76,6 +76,15 @@ function cookiescore(ingredients, ratios)
 	prod(map(score -> max(0, score), scores))
 end
 
+# ╔═╡ 782f3c0c-d95f-402f-8e1a-ff640b885c2b
+function cookiecalories(ingredients, ratios)
+	calories = 0
+	for (idx, ratio) in enumerate(ratios)
+		calories += ingredients[idx][6] * ratio
+	end
+	calories
+end
+
 # ╔═╡ b9a51427-a73f-4b53-aac0-35c49846ec3e
 @assert cookiescore(example_ingredients, (44, 56)) == 62842880
 
@@ -83,7 +92,7 @@ end
 cookiescore(example_ingredients, (44, 56))
 
 # ╔═╡ 0e81de2d-45d0-4627-8479-9dc92ce4433e
-function bestcookiescore(ingredients)
+function bestcookiescore1(ingredients)
 	best = 0
 	for a in 1:100
 		for b in 1:100-a
@@ -100,16 +109,16 @@ function bestcookiescore(ingredients)
 end
 
 # ╔═╡ 6e394cd1-dbdc-4540-ab6d-39bdf0299a9c
-@assert bestcookiescore(example_ingredients) == 62842880
+@assert bestcookiescore1(example_ingredients) == 62842880
 
 # ╔═╡ c3d471b9-f0b5-4e29-937e-dcb917cf2a9c
-bestcookiescore(example_ingredients)
+bestcookiescore1(example_ingredients)
 
 # ╔═╡ 59938b46-ff7d-441f-95ba-1a49fcaeefe7
 puzzle_ingredients = map(parseline, split(puzzle_input, "\n"))
 
 # ╔═╡ 0d4650b4-1035-43f4-b423-8824cb3436d2
-part1 = bestcookiescore(puzzle_ingredients)
+part1 = bestcookiescore1(puzzle_ingredients)
 
 # ╔═╡ 117c9ac8-6f1e-4dc3-9b74-bb2cabe9b171
 md"Your puzzle answer was `13882464`."
@@ -127,7 +136,27 @@ Given the ingredients in your kitchen and their properties, **what is the total
 """
 
 # ╔═╡ 3ae1cb15-f704-4559-9043-186c2874a035
+function bestcookiescore2(ingredients)
+	best = 0
+	for a in 1:100
+		for b in 1:100-a
+			for c in 1:100-(a+b)
+				d = 100 - a - b -c
+				score = cookiescore(ingredients, (a,b,c,d))
+				if score > best && cookiecalories(ingredients, (a,b,c,d)) == 500
+					best = score
+				end
+			end
+		end
+	end
+	best
+end
 
+# ╔═╡ a10ef2a7-c9d9-41f0-9cfc-6921a390306f
+part2 = bestcookiescore2(puzzle_ingredients)
+
+# ╔═╡ da313ad1-afdf-45cd-9601-5e6dec1f92bc
+md"Your puzzle answer was `11171160`."
 
 # ╔═╡ Cell order:
 # ╟─aa7f1ad0-b0e8-11eb-3904-bb242d044d08
@@ -136,6 +165,7 @@ Given the ingredients in your kitchen and their properties, **what is the total
 # ╠═34edc8a5-edc7-4a8d-8bbe-c9d354d8561d
 # ╠═4122ea48-c078-4b72-81ca-0f6163d7b474
 # ╠═cf9d9179-cbd0-4f1d-aee7-5eb7eaed4559
+# ╠═782f3c0c-d95f-402f-8e1a-ff640b885c2b
 # ╠═b9a51427-a73f-4b53-aac0-35c49846ec3e
 # ╠═65abcb4d-b961-4ad7-b78a-1d40aa64c867
 # ╠═0e81de2d-45d0-4627-8479-9dc92ce4433e
@@ -146,3 +176,5 @@ Given the ingredients in your kitchen and their properties, **what is the total
 # ╟─117c9ac8-6f1e-4dc3-9b74-bb2cabe9b171
 # ╟─9e397f78-a72b-406b-905c-dc1f79e852d0
 # ╠═3ae1cb15-f704-4559-9043-186c2874a035
+# ╠═a10ef2a7-c9d9-41f0-9cfc-6921a390306f
+# ╟─da313ad1-afdf-45cd-9601-5e6dec1f92bc
