@@ -8,9 +8,9 @@ using InteractiveUtils
 begin
 	import Pkg
 	Pkg.activate(mktempdir())
-	Pkg.add(["Plots", "LightGraphs", "GraphPlot", "Combinatorics"])
+	Pkg.add(["Plots", "LightGraphs", "SimpleWeightedGraphs", "GraphPlot", "Combinatorics"])
 	
-	using Plots, LightGraphs, GraphPlot, Combinatorics
+	using Plots, LightGraphs, SimpleWeightedGraphs, GraphPlot, Combinatorics
 	plotly()
 end
 
@@ -84,7 +84,7 @@ function build_graph(paths)
 	edges = []
 	for line in split(paths, "\n")
 		m = match(r"(\w+) to (\w+) = (\d+)", line)
-		push!(edges, (m[1], m[2], m[3]))
+		push!(edges, (m[1], m[2], parse(Int, m[3])))
 	end
 	
 	nodes = Dict()
@@ -101,28 +101,40 @@ function build_graph(paths)
 	end
 	
 	
-	g = SimpleGraph(length(nodes));
+	g = SimpleWeightedGraph(length(nodes));
+	
+	node_labels = []
+	edge_labels = []
 		
 	for (from, to, weight) in edges
-		add_edge!(g, nodes[from], nodes[to]);
+		push!(edge_labels, string(weight))
+		
+		if from ∉ node_labels
+			push!(node_labels, from)
+		end
+		if to ∉ node_labels
+			push!(node_labels, to)
+		end
+		
+		add_edge!(g, nodes[from], nodes[to], weight);
 	end
 	
-	g
+	g, node_labels, edge_labels
 end
 
 # ╔═╡ 78d4f47f-96b6-44f9-b9ab-2cb84bbb19b0
-example_graph = build_graph("""London to Dublin = 464
+example_graph, example_nodes, example_edges = build_graph("""London to Dublin = 464
 London to Belfast = 518
 Dublin to Belfast = 141""")
 
 # ╔═╡ 7e17c6f5-3972-4777-9611-f4c321108144
-gplot(example_graph)
+gplot(example_graph, nodelabel=example_nodes, edgelabel=example_edges)
 
 # ╔═╡ 8e78e6fe-cb4a-46f7-839b-42aa35f7b71a
-puzzle_graph = build_graph(puzzle_input)
+puzzle_graph, puzzle_nodes, puzzle_edges = build_graph(puzzle_input)
 
 # ╔═╡ 8dde0e83-121f-4720-80b6-00020bd33a6b
-gplot(puzzle_graph)
+gplot(puzzle_graph, nodelabel=puzzle_nodes, edgelabel=puzzle_edges)
 
 # ╔═╡ 76183faa-4f76-4da6-bcff-255e7d70b730
 function read(paths) 
