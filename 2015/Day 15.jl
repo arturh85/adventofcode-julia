@@ -4,16 +4,6 @@
 using Markdown
 using InteractiveUtils
 
-# ╔═╡ c5b26b1f-ae3a-4415-a971-373df73a2bb7
-begin
-	import Pkg
-	Pkg.activate(mktempdir())
-	Pkg.add(["Plots", "Optim", "Convex", "SCS", "GLPK", "ECOS"])
-	
-	using Plots, Optim, Convex, SCS, GLPK, ECOS
-	plotly()
-end
-
 # ╔═╡ aa7f1ad0-b0e8-11eb-3904-bb242d044d08
 md"""
 # [Day 15: Science for Hungry People](https://adventofcode.com/2015/day/15)
@@ -62,36 +52,6 @@ Butterscotch: capacity -1, durability -2, flavor 6, texture 3, calories 8
 Cinnamon: capacity 2, durability 3, flavor -2, texture -1, calories 3
 """ |> strip
 
-# ╔═╡ 02954358-49c5-401f-9a0d-02f52ac9ba51
-begin
-	allratios = []
-	for a in 1:100
-		for b in 1:100-a
-			for c in 1:100-(a+b)
-				d = 100 - a - b -c
-				@assert a+b+c+d == 100
-				push!(allratios, (a,b,c,d))
-			end
-		end
-	end
-	allratios
-end
-
-# ╔═╡ 3b3bf3fd-0adc-4f43-9c22-5d2ae5f56e39
-h(p) = allratios[Int(floor(p * 1.0/length(allratios))+1)]
-
-# ╔═╡ 35b9cb94-a96f-4bf2-9951-4b6233f7096f
-h(0.3)
-
-# ╔═╡ 5840a437-718c-4b82-b816-09e8c7f0db5f
-begin
-	lower = 0
-	upper = 1
-	initial_x = 0.5
-	inner_optimizer = GradientDescent()
-	results = optimize(h, lower, upper, initial_x, Fminbox(inner_optimizer))
-end
-
 # ╔═╡ 34edc8a5-edc7-4a8d-8bbe-c9d354d8561d
 function parseline(line) 
 	m = match(r"(\w+): capacity (-?\d+), durability (-?\d+), flavor (-?\d+), texture (-?\d+), calories (-?\d+)", line)
@@ -115,21 +75,6 @@ function cookiescore(ingredients, ratios)
 	]
 	prod(map(score -> max(0, score), scores))
 end
-
-# ╔═╡ e5a9f833-d4ae-4c93-95b6-a7be49d7a0cd
-md"""$$\begin{array}{ll}
-  \text{maximize} & f((a,b,c,d) \\
-    \text{subject to} & a,b,c,d \in \mathbb{N} \\
-  & a+b+c+d = 100 \\
-\end{array}$$"""
-
-# ╔═╡ 437b534a-aadf-4fb7-b234-9de378f32912
-g(a,b,c,d) = begin
-	a + b + c + d
-end
-
-# ╔═╡ b280f103-b00d-4e0b-b07c-421612d838dc
-supertype(Convex.MultiplyAtom)
 
 # ╔═╡ b9a51427-a73f-4b53-aac0-35c49846ec3e
 @assert cookiescore(example_ingredients, (44, 56)) == 62842880
@@ -163,83 +108,34 @@ bestcookiescore(example_ingredients)
 # ╔═╡ 59938b46-ff7d-441f-95ba-1a49fcaeefe7
 puzzle_ingredients = map(parseline, split(puzzle_input, "\n"))
 
-# ╔═╡ 0781c72b-7b11-4c1a-8acd-9e6646edb83a
-f(ratios) = cookiescore(puzzle_ingredients, ratios)
-
-# ╔═╡ 0d90bd8f-f3e1-4da1-a95b-443ae7bfc213
-begin
-	Convex.emit_dcp_warnings() = false
-	a = Variable(:Int)
-	b = Variable(:Int)
-	c = Variable(:Int)
-	d = Variable(:Int)
-
-	problem = maximize(f((a,b,c,d)), [a+b+c+d == 100])
-	#problem = maximize(g(a,b,c,d), [a+b+c+d == 100])
-	#solve!(problem, SCS.Optimizer)
-	solve!(problem, GLPK.Optimizer)
-	#solve!(problem, ECOS.Optimizer)
-	
-	#solve!(problem, Gurobi.Optimizer)
-	#solve!(problem, Mosek.Optimizer)
-	
-end
-
-# ╔═╡ e7254e54-e1cb-44f5-bb72-f84d3941d684
-typeof(b * 5)
-
-# ╔═╡ 04b8263f-d1da-4bc9-a51c-386dd8e056d9
-	# Check the status of the problem
-	problem.status # :Optimal, :Infeasible, :Unbounded etc.
-
-
-# ╔═╡ 1369cc78-6fa3-40c3-a9d6-ed8907518841
-
-	# Get the optimal value
-	problem.optval
-
-# ╔═╡ 4cc5e639-14f5-4c7a-aeba-7923902299ca
-a
-
-# ╔═╡ 0ed935b2-6de6-4105-ac50-f6c9f025cd20
-b
-
-# ╔═╡ 376d810d-c5a2-46e5-ac75-5e6cbb938b9c
-c
-
-# ╔═╡ 76f0a7c0-c2b4-48db-81b6-5420b6f9f42e
-d
-
 # ╔═╡ 0d4650b4-1035-43f4-b423-8824cb3436d2
 part1 = bestcookiescore(puzzle_ingredients)
 
 # ╔═╡ 117c9ac8-6f1e-4dc3-9b74-bb2cabe9b171
 md"Your puzzle answer was `13882464`."
 
+# ╔═╡ 9e397f78-a72b-406b-905c-dc1f79e852d0
+md"""
+# Part Two
+
+Your cookie recipe becomes wildly popular! Someone asks if you can make another recipe that has exactly `500` calories per cookie (so they can use it as a meal replacement). Keep the rest of your award-winning process the same (100 teaspoons, same ingredients, same scoring system).
+
+For example, given the ingredients above, if you had instead selected `40` teaspoons of butterscotch and `60` teaspoons of cinnamon (which still adds to `100`), the total calorie count would be `40*8 + 60*3 = 500`. The total score would go down, though: only `57600000`, the best you can do in such trying circumstances.
+
+Given the ingredients in your kitchen and their properties, **what is the total score of the highest-scoring cookie you can make with a calorie total of `500`**?
+
+"""
+
+# ╔═╡ 3ae1cb15-f704-4559-9043-186c2874a035
+
+
 # ╔═╡ Cell order:
-# ╠═c5b26b1f-ae3a-4415-a971-373df73a2bb7
 # ╟─aa7f1ad0-b0e8-11eb-3904-bb242d044d08
 # ╟─861a2d99-e0a6-44a9-9b18-ca1b25d1eabd
 # ╠═ad735981-4fdb-4527-9869-a6a748e2e5dd
-# ╠═02954358-49c5-401f-9a0d-02f52ac9ba51
-# ╠═3b3bf3fd-0adc-4f43-9c22-5d2ae5f56e39
-# ╠═35b9cb94-a96f-4bf2-9951-4b6233f7096f
-# ╠═5840a437-718c-4b82-b816-09e8c7f0db5f
 # ╠═34edc8a5-edc7-4a8d-8bbe-c9d354d8561d
 # ╠═4122ea48-c078-4b72-81ca-0f6163d7b474
 # ╠═cf9d9179-cbd0-4f1d-aee7-5eb7eaed4559
-# ╠═0781c72b-7b11-4c1a-8acd-9e6646edb83a
-# ╟─e5a9f833-d4ae-4c93-95b6-a7be49d7a0cd
-# ╠═437b534a-aadf-4fb7-b234-9de378f32912
-# ╠═0d90bd8f-f3e1-4da1-a95b-443ae7bfc213
-# ╠═e7254e54-e1cb-44f5-bb72-f84d3941d684
-# ╠═b280f103-b00d-4e0b-b07c-421612d838dc
-# ╠═04b8263f-d1da-4bc9-a51c-386dd8e056d9
-# ╠═1369cc78-6fa3-40c3-a9d6-ed8907518841
-# ╠═4cc5e639-14f5-4c7a-aeba-7923902299ca
-# ╠═0ed935b2-6de6-4105-ac50-f6c9f025cd20
-# ╠═376d810d-c5a2-46e5-ac75-5e6cbb938b9c
-# ╠═76f0a7c0-c2b4-48db-81b6-5420b6f9f42e
 # ╠═b9a51427-a73f-4b53-aac0-35c49846ec3e
 # ╠═65abcb4d-b961-4ad7-b78a-1d40aa64c867
 # ╠═0e81de2d-45d0-4627-8479-9dc92ce4433e
@@ -248,3 +144,5 @@ md"Your puzzle answer was `13882464`."
 # ╠═59938b46-ff7d-441f-95ba-1a49fcaeefe7
 # ╠═0d4650b4-1035-43f4-b423-8824cb3436d2
 # ╟─117c9ac8-6f1e-4dc3-9b74-bb2cabe9b171
+# ╟─9e397f78-a72b-406b-905c-dc1f79e852d0
+# ╠═3ae1cb15-f704-4559-9043-186c2874a035
