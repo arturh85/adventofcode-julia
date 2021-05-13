@@ -26,20 +26,29 @@ Starting with the digits in your puzzle input, apply this process 40 times. **Wh
 # ╔═╡ 0353fa91-ea22-4446-a83d-bb43cb52048d
 puzzle_input = "3113322113"
 
-# ╔═╡ 32aabdc4-e704-4f7c-b3bd-89b76a9be3ee
-function lookandsay(s)
-	out = ""
-	
-	last = s[1]
-	last_idx = 1
-	for (idx, char) in s[1:length(s)-1]
-		if char !== last
-			out *= string(idx - last_idx) * last
+# ╔═╡ 499c0130-654b-4d21-8f2f-1634b7e2b808
+function groupsplit(s)
+	groups = []
+	last = nothing
+	last_index = 1
+	for idx in 1:length(s)
+		if s[idx] != last
+			if last != nothing
+				push!(groups, s[last_index:idx-1])
+			end
+			last = s[idx]
+			last_index = idx
 		end
 	end
-	out *= string(length(s) - last_idx+1 ) * last
-	out
+	if last != nothing
+		push!(groups, s[last_index:end])
+	end
+	
+	groups
 end
+
+# ╔═╡ 32aabdc4-e704-4f7c-b3bd-89b76a9be3ee
+lookandsay(s) = map(g -> string(length(g)) * g[1], groupsplit(s)) |> join
 
 # ╔═╡ 3c013416-13bf-4113-889b-b37b3f6bbd15
 lookandsay("11")
@@ -60,11 +69,41 @@ lookandsay("11")
 @assert lookandsay("111221") == "312211"
 
 # ╔═╡ 43925c36-f5db-4895-9c6f-59c583af99b1
+function applylookandsay(s, count) 
+	for i in 1:count
+		s = lookandsay(s)
+	end
+	s
+end
 
+# ╔═╡ 8daceef8-005e-49dd-b9b5-5aed9e1bf83b
+@assert applylookandsay("1", 5) == "312211"
+
+# ╔═╡ 82717025-5412-4f8d-b0be-40b3bbac453a
+part1 = length(applylookandsay(puzzle_input, 40))
+
+# ╔═╡ f113e0d2-fee5-40d8-96bf-0095d6d07eeb
+md"Your puzzle answer was `329356`."
+
+# ╔═╡ f264f5a9-5f6b-4604-80db-64a07f5f38c3
+md"""
+# Part Two 
+
+Neat, right? You might also enjoy hearing [John Conway talking about this sequence](https://www.youtube.com/watch?v=ea7lJkEhytA) (that's Conway of Conway's Game of Life fame).
+
+Now, starting again with the digits in your puzzle input, apply this process 50 times. **What is the length of the new result?**
+"""
+
+# ╔═╡ 052995b1-fb2d-4ec5-92f4-63d707aa7e7d
+part2 = length(applylookandsay(puzzle_input, 50))
+
+# ╔═╡ 768ff05c-909d-4738-bce8-949c8c96541f
+md"Your puzzle answer was `4666278`."
 
 # ╔═╡ Cell order:
 # ╟─b90cb740-b02c-11eb-3bda-67e10d023147
 # ╟─0353fa91-ea22-4446-a83d-bb43cb52048d
+# ╠═499c0130-654b-4d21-8f2f-1634b7e2b808
 # ╠═32aabdc4-e704-4f7c-b3bd-89b76a9be3ee
 # ╠═3c013416-13bf-4113-889b-b37b3f6bbd15
 # ╠═cc43c879-6720-4b47-906a-d37486fa5ea9
@@ -73,3 +112,9 @@ lookandsay("11")
 # ╠═2340661d-4f63-45ce-b4c9-a1cd314443ff
 # ╠═0287d0bf-0870-4430-bb52-c7f6771b97dd
 # ╠═43925c36-f5db-4895-9c6f-59c583af99b1
+# ╠═8daceef8-005e-49dd-b9b5-5aed9e1bf83b
+# ╠═82717025-5412-4f8d-b0be-40b3bbac453a
+# ╟─f113e0d2-fee5-40d8-96bf-0095d6d07eeb
+# ╟─f264f5a9-5f6b-4604-80db-64a07f5f38c3
+# ╠═052995b1-fb2d-4ec5-92f4-63d707aa7e7d
+# ╟─768ff05c-909d-4738-bce8-949c8c96541f
