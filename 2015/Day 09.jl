@@ -8,9 +8,9 @@ using InteractiveUtils
 begin
 	import Pkg
 	Pkg.activate(mktempdir())
-	Pkg.add(["Plots", "LightGraphs", "GraphPlot"])
+	Pkg.add(["Plots", "LightGraphs", "GraphPlot", "Combinatorics", "PlutoUI"])
 	
-	using Plots, LightGraphs, GraphPlot
+	using Plots, LightGraphs, GraphPlot, Combinatorics, PlutoUI
 	plotly()
 end
 
@@ -79,8 +79,64 @@ Straylight to Tristram = 27
 Straylight to Arbre = 81
 Tristram to Arbre = 90"
 
-# ╔═╡ bca7fd19-8fbe-4f35-96bb-aca1025729c3
-match(r"(\w+) to (\w+) = (\d+)", "London to Dublin = 464")
+# ╔═╡ 76183faa-4f76-4da6-bcff-255e7d70b730
+function read(paths) 
+	nodes = []
+	distances = Dict()
+	
+	for line in split(paths, "\n")
+		m = match(r"(\w+) to (\w+) = (\d+)", line)
+		distances[m[1] * m[2]] = distances[m[2] * m[1]] = parse(Int, m[3])
+		
+		if m[1] ∉ nodes
+			push!(nodes, m[1])
+		end
+		if m[2] ∉ nodes
+			push!(nodes, m[2])
+		end
+	end
+	
+	smallest_distance = 9999666
+		
+	for c in permutations(nodes)
+		d = 0
+		for idx in 1:length(c)-1
+			m = nodes[idx]
+			n = nodes[idx+1]
+			name = m * n
+			d += distances[name]
+		end
+				
+		if d < smallest_distance
+			smallest_distance = d
+		end
+	end
+		
+	smallest_distance	
+end
+
+# ╔═╡ 684af9bd-4282-40ea-85d8-2d2d89c258c0
+@assert read("""London to Dublin = 464
+London to Belfast = 518
+Dublin to Belfast = 141""") == 605
+
+# ╔═╡ 8e52af28-3c76-4ec9-b6c2-fe780916fc41
+with_terminal() do
+	read(puzzle_input)
+end
+
+# ╔═╡ be574368-3f0d-4863-b420-ad14106b5175
+part1 = read(puzzle_input)
+
+# ╔═╡ a9c154ea-3250-4123-94fa-b6b5e9100771
+# 316 : your answer is too high
+
+# ╔═╡ db425385-e66e-4461-b03e-5f03551ea816
+with_terminal() do
+	for c in permutations(["AlphaCentauri", "Snowdin", "Tambi"])
+		println(c)
+	end
+end
 
 # ╔═╡ 3ffc6481-2267-4d97-8065-d2fd78c637e9
 function build_graph(paths)
@@ -127,17 +183,18 @@ puzzle_graph = build_graph(puzzle_input)
 # ╔═╡ 8dde0e83-121f-4720-80b6-00020bd33a6b
 gplot(puzzle_graph)
 
-# ╔═╡ 47561207-3fe1-43ad-86f7-10df74a6a6ec
-[ 100*rand(2) for _ in 1:50]
-
 # ╔═╡ Cell order:
 # ╠═bbfa7498-30bf-4264-b4d9-ee0c238c9984
 # ╟─56cedfe0-b02c-11eb-1f56-3557d6c170bc
 # ╟─1609ee1f-1d90-4889-b39d-5fe0fb6de8c4
-# ╠═bca7fd19-8fbe-4f35-96bb-aca1025729c3
+# ╠═76183faa-4f76-4da6-bcff-255e7d70b730
+# ╠═684af9bd-4282-40ea-85d8-2d2d89c258c0
+# ╠═8e52af28-3c76-4ec9-b6c2-fe780916fc41
+# ╠═be574368-3f0d-4863-b420-ad14106b5175
+# ╠═a9c154ea-3250-4123-94fa-b6b5e9100771
+# ╠═db425385-e66e-4461-b03e-5f03551ea816
 # ╠═3ffc6481-2267-4d97-8065-d2fd78c637e9
 # ╠═78d4f47f-96b6-44f9-b9ab-2cb84bbb19b0
 # ╠═7e17c6f5-3972-4777-9611-f4c321108144
 # ╠═8e78e6fe-cb4a-46f7-839b-42aa35f7b71a
 # ╠═8dde0e83-121f-4720-80b6-00020bd33a6b
-# ╠═47561207-3fe1-43ad-86f7-10df74a6a6ec

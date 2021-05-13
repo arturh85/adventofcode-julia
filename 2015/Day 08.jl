@@ -336,7 +336,7 @@ puzzle_input2 = raw"""
 puzzle_input = String(read("Day 08.txt"))
 
 # ╔═╡ 6a6cb1c1-6b76-4ae6-91f1-0a9f523106a5
-function analyse(input) 
+function decode(input) 
 	if input[1] != '"'
 		throw(ErrorException("invalid syntax1: " * input))
 	end
@@ -356,32 +356,41 @@ function analyse(input)
 		content = replace(content, "\\x" * code  => Char(parse(Int, code, base = 16)))
 	end
 		
-	return (length(input), length(content))
+	return content
 end
 
+# ╔═╡ 8b3fb62a-ebdc-429e-83b8-d89deda32282
+function count_diff(arr, func) 
+	before = arr           |> Base.Fix1(map, length) 
+	after = map(func, arr) |> Base.Fix1(map, length)
+	sum(before .- after)
+end
+
+# ╔═╡ c1b22b74-c875-40e9-911a-9b0ac762e887
+example_input = raw"""
+""
+"abc"
+"aaa\\"aaa"
+"\x27"
+"""
+
 # ╔═╡ 94efc347-bb75-498e-b132-c08b7b0d913f
-@assert analyse(raw"\"\"") == (2,0)
+@assert decode(raw"\"\"") == ""
 
 # ╔═╡ 0a077daf-0e6f-487d-b7e3-ed3a39ffcc57
-@assert analyse(raw"\"abc\"") == (5,3)
+@assert decode(raw"\"abc\"") == "abc"
 
 # ╔═╡ 5a12de6b-2a06-4a83-8aff-6adcaca2becf
-@assert analyse(raw"\"aaa\\\"aaa\"") == (10,7)
+@assert decode(raw"\"aaa\\\"aaa\"") == "aaa\"aaa"
 
 # ╔═╡ 6bbf3051-3577-48e3-830f-d0a0db92d44a
-@assert analyse(raw"\"\x27\"") == (6,1)
+@assert decode(raw"\"\x27\"") == "'"
 
-# ╔═╡ 1d707d70-a9b5-4182-95a7-465fa9475e11
-@assert sum(map(((code, memory),)->code - memory, [(2,0), (5,3), (10,7), (6,1)])) == 12
-
-# ╔═╡ a63c540e-f24f-488e-9180-6234f93d52b2
-puzzle_strings = split(strip(puzzle_input), "\n")
-
-# ╔═╡ f737a9ba-0814-490c-80ad-b13bd25fa6a1
-puzzle_values = map(analyse, puzzle_strings)
+# ╔═╡ fdcf3180-be09-4941-8b63-16ea1c4b86ae
+@assert count_diff(split(strip(example_input), "\n"), decode) == 12
 
 # ╔═╡ b347bd98-aff4-4390-9f12-fc37ab8d88c6
-part1 = sum(map(((code, memory),)->code - memory, puzzle_values))
+part1 = count_diff(split(strip(puzzle_input), "\n"), decode)
 
 # ╔═╡ 79bdbb26-ae3e-4311-a4f9-cfdd95a2e29f
 md"Your puzzle answer was `1350`."
@@ -394,27 +403,64 @@ Now, let's go the other way. In addition to finding the number of characters of 
 
 For example:
 
--   `""` encodes to `"\"\""`, an increase from `2` characters to `6`.
--   `"abc"` encodes to `"\"abc\""`, an increase from `5` characters to `9`.
--   `"aaa\"aaa"` encodes to `"\"aaa\\\"aaa\""`, an increase from `10` characters to `16`.
--   `"\x27"` encodes to `"\"\\x27\""`, an increase from `6` characters to `11`.
+-   `""` encodes to `"\\"\\""`, an increase from `2` characters to `6`.
+-   `"abc"` encodes to `"\\"abc\\""`, an increase from `5` characters to `9`.
+-   `"aaa\\"aaa"` encodes to `"\\"aaa\\\\\\"aaa\\""`, an increase from `10` characters to `16`.
+-   `"\x27"` encodes to `"\\"\\x27\\""`, an increase from `6` characters to `11`.
 
 Your task is to find the total number of characters to represent the newly encoded strings minus the number of characters of code in each original string literal. For example, for the strings above, the total encoded length (`6 + 9 + 16 + 11 = 42`) minus the characters in the original code representation (`23`, just like in the first part of this puzzle) is `42 - 23 = 19`.
 
 """
+
+# ╔═╡ 5f5f55f9-216f-42e9-a26c-71139e1f9198
+function encode(str) 
+	str = replace(str, "\\" => "\\\\")
+	str = "\"" * replace(str, "\"" => "\\\"") * "\""
+		
+	str
+end
+
+# ╔═╡ e4e67539-b9e0-4837-b8ea-f9d81404d137
+@assert encode(raw"\"\"") == "\"\\\"\\\"\""
+
+# ╔═╡ ba4b0f4a-db22-487f-80b9-40ff7a303734
+@assert encode(raw"\"abc\"") == "\"\\\"abc\\\"\""
+
+# ╔═╡ 6461a1a4-86ea-480b-9428-481c7378d731
+@assert encode(raw"\"aaa\\\"aaa\"") == "\"\\\"aaa\\\\\\\"aaa\\\"\""
+
+# ╔═╡ fc2681b1-04e2-4b03-b77a-0981807a8061
+@assert encode(raw"\"\\x27\"") == "\"\\\"\\\\\\\\x27\\\"\""
+
+# ╔═╡ 028f30af-d191-4313-932d-f75d818b304a
+@assert -count_diff(split(strip(example_input), "\n"), encode) == 19
+
+# ╔═╡ bb73ce4a-9d41-426e-bf13-687acf5d532f
+part2 = -count_diff(split(strip(puzzle_input), "\n"), encode)
+
+# ╔═╡ 60c68ada-5a88-4d86-aa59-d6709afabf4c
+md"Your puzzle answer was `2085`."
 
 # ╔═╡ Cell order:
 # ╟─7728c7b0-b022-11eb-363f-5f51427038cb
 # ╟─1e37e13a-5f56-478c-8d50-d96ea1e32cd3
 # ╠═1e28516d-8dc3-43c6-bd9d-b2afd93cf87e
 # ╠═6a6cb1c1-6b76-4ae6-91f1-0a9f523106a5
+# ╠═8b3fb62a-ebdc-429e-83b8-d89deda32282
+# ╠═c1b22b74-c875-40e9-911a-9b0ac762e887
 # ╠═94efc347-bb75-498e-b132-c08b7b0d913f
 # ╠═0a077daf-0e6f-487d-b7e3-ed3a39ffcc57
 # ╠═5a12de6b-2a06-4a83-8aff-6adcaca2becf
 # ╠═6bbf3051-3577-48e3-830f-d0a0db92d44a
-# ╠═1d707d70-a9b5-4182-95a7-465fa9475e11
-# ╠═a63c540e-f24f-488e-9180-6234f93d52b2
-# ╠═f737a9ba-0814-490c-80ad-b13bd25fa6a1
+# ╠═fdcf3180-be09-4941-8b63-16ea1c4b86ae
 # ╠═b347bd98-aff4-4390-9f12-fc37ab8d88c6
 # ╟─79bdbb26-ae3e-4311-a4f9-cfdd95a2e29f
 # ╟─5059f712-1e4f-4caa-9f2f-4f056d2928f0
+# ╠═5f5f55f9-216f-42e9-a26c-71139e1f9198
+# ╠═e4e67539-b9e0-4837-b8ea-f9d81404d137
+# ╠═ba4b0f4a-db22-487f-80b9-40ff7a303734
+# ╠═6461a1a4-86ea-480b-9428-481c7378d731
+# ╠═fc2681b1-04e2-4b03-b77a-0981807a8061
+# ╠═028f30af-d191-4313-932d-f75d818b304a
+# ╠═bb73ce4a-9d41-426e-bf13-687acf5d532f
+# ╟─60c68ada-5a88-4d86-aa59-d6709afabf4c
