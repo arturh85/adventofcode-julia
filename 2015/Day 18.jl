@@ -379,8 +379,8 @@ After 4 steps:
 heatmap(grid2matrix(repeatevolve(example_input, 4)))
 
 # ╔═╡ 905eccfc-b5ec-4ffd-b055-33b16aa72f70
-@gif for i=1:4
-   heatmap(grid2matrix(repeatevolve(example_input, i)))
+@gif for i=1:99
+   heatmap(grid2matrix(repeatevolve(example_input, floor(i/20))))
 end every 1
 
 # ╔═╡ 0349d3fa-2eb2-43a4-8cc5-e995472eb3c9
