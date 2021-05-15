@@ -158,7 +158,7 @@ end
 
 # ╔═╡ 8abefd65-5a57-4717-8bf4-4e92ebe9d562
 function smallest((nodes, distances),)	
-	smallest_distance = 9999666
+	smallest_distance = Inf
 		
 	for c in permutations(nodes)
 		d = 0
@@ -168,8 +168,6 @@ function smallest((nodes, distances),)
 			name = m * n
 			d += distances[name]
 		end
-		
-		#println(join(c, " -> ") * " = " * string(d))
 				
 		if d < smallest_distance
 			smallest_distance = d
