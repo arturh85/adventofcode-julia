@@ -88,9 +88,74 @@ e => OMg
 ORnPBPMgArCaCaCaSiThCaCaSiThCaCaPBSiRnFArRnFArCaCaSiThCaCaSiThCaCaCaCaCaCaSiRnFYFArSiRnMgArCaSiRnPTiTiBFYPBFArSiRnCaSiRnTiRnFArSiAlArPTiBPTiRnCaSiAlArCaPTiTiBPMgYFArPTiRnFArSiRnCaCaFArRnCaFArCaSiRnSiRnMgArFYCaSiRnMgArCaCaSiThPRnFArPBCaSiRnMgArCaCaSiThCaSiRnTiMgArFArSiThSiThCaCaSiRnMgArCaCaSiRnFArTiBPTiRnCaSiAlArCaPTiRnFArPBPBCaCaSiThCaPBSiThPRnFArSiThCaSiThCaSiThCaPTiBSiRnFYFArCaCaPRnFArPBCaCaPBSiRnTiRnFArCaPRnFArSiRnCaCaCaSiThCaRnCaFArYCaSiRnFArBCaCaCaSiThFArPBFArCaSiRnFArRnCaCaCaFArSiRnFArTiRnPMgArF"
 
 # ╔═╡ 03e179fb-d380-4d8d-919c-7dc940533876
+example_input = """
+H => HO
+H => OH
+O => HH
+""" |> strip
 
+# ╔═╡ 43daa5a3-6c7f-4afd-9bba-bb514bf41e83
+function parse1(input)
+	d = Dict()
+	for line in split(input, "\n")
+		parts = split(line, " => ")
+		
+		key = parts[1]
+		if haskey(d, key)
+			push!(d[key], parts[2])
+		else
+			d[key] = [parts[2]]
+		end
+	end
+	d		
+end
+
+# ╔═╡ fcad707b-3039-4753-bfe1-7db9a5846c48
+parse1(example_input)
+
+# ╔═╡ d393d954-9dc7-4aa3-a219-7a79458babe1
+map(f -> (f.match, f.offset), collect(eachmatch(Regex("H"), "HOH")))
+
+# ╔═╡ 19be711d-ca4c-478e-8422-0ece0efefc7e
+function molcombinations(mol, c)
+	vals = []
+	for key in keys(c)
+		
+		for m in eachmatch(Regex(key), mol)
+			
+			for val in c[key]
+			
+				n = collect(mol)
+				n[m.offset:m.offset+length(key)-1] = collect(val)
+				push!(vals, n)
+						
+			end
+		end
+		
+		
+		
+		#push!(n, c[key] * length(collect(eachmatch(Regex(key), mol))))
+	end
+	vals
+end
+
+# ╔═╡ 0662d133-08c2-4f14-857e-a77a8cb2ba43
+molcombinations("HOH", parse1(example_input))
+
+# ╔═╡ b30427b8-b806-4197-9879-b351587b5fb6
+@assert length(molcombinations("HOH", example_input)) == 4
+
+# ╔═╡ d29f7880-d4c0-40a7-a92a-c45883c3ae6f
+@assert length(molcombinations("HOHOHO", example_input)) == 7
 
 # ╔═╡ Cell order:
 # ╟─4f66ae50-b0e9-11eb-0350-3535845809d1
 # ╟─1a84a9cf-60bb-423b-b802-b35763e96032
-# ╠═03e179fb-d380-4d8d-919c-7dc940533876
+# ╟─03e179fb-d380-4d8d-919c-7dc940533876
+# ╠═43daa5a3-6c7f-4afd-9bba-bb514bf41e83
+# ╠═fcad707b-3039-4753-bfe1-7db9a5846c48
+# ╠═d393d954-9dc7-4aa3-a219-7a79458babe1
+# ╠═19be711d-ca4c-478e-8422-0ece0efefc7e
+# ╠═0662d133-08c2-4f14-857e-a77a8cb2ba43
+# ╠═b30427b8-b806-4197-9879-b351587b5fb6
+# ╠═d29f7880-d4c0-40a7-a92a-c45883c3ae6f

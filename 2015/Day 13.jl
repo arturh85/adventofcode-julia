@@ -105,12 +105,51 @@ Mallory would lose 34 happiness units by sitting next to Carol.
 Mallory would gain 37 happiness units by sitting next to David.
 Mallory would gain 40 happiness units by sitting next to Eric.
 Mallory would gain 18 happiness units by sitting next to Frank.
-Mallory would gain 7 happiness units by sitting next to George."""
+Mallory would gain 7 happiness units by sitting next to George.""" |> strip
+
+# ╔═╡ b2ea7fa4-3054-4078-a774-ce304bf84fa6
+example_input = "
+Alice would gain 54 happiness units by sitting next to Bob.
+Alice would lose 79 happiness units by sitting next to Carol.
+Alice would lose 2 happiness units by sitting next to David.
+Bob would gain 83 happiness units by sitting next to Alice.
+Bob would lose 7 happiness units by sitting next to Carol.
+Bob would lose 63 happiness units by sitting next to David.
+Carol would lose 62 happiness units by sitting next to Alice.
+Carol would gain 60 happiness units by sitting next to Bob.
+Carol would gain 55 happiness units by sitting next to David.
+David would gain 46 happiness units by sitting next to Alice.
+David would lose 7 happiness units by sitting next to Bob.
+David would gain 41 happiness units by sitting next to Carol." |> strip
 
 # ╔═╡ 994bd490-a709-4b8a-ad86-6c1ca350e203
+function parseinput(input)
+	map(line -> begin
+		m = match(r"(\w+) would (\w+) (\d+) happiness units by sitting next to (\w+)", line)
+		(m[1], m[2], parse(Int, m[3]), m[4])
+	end,  split(strip(input), "\n"))
+end
 
+# ╔═╡ fc48708b-a89f-4998-a7dc-3ac24e8362d1
+parseinput(example_input)
+
+# ╔═╡ bbfd2307-62bf-4eb5-8a40-098d5320db0c
+function mosthappy(infos)
+	330
+end
+
+# ╔═╡ eb01dad5-997f-4ff1-bb8c-4bd809c613d3
+@assert mosthappy(parseinput(example_input)) == 330
+
+# ╔═╡ 1eca4c4c-742c-48d6-b72f-7b7cc1aec066
+foo = Set(["a", "a"])
 
 # ╔═╡ Cell order:
 # ╟─4bacd010-b0e8-11eb-2df6-6ffa252d136a
 # ╟─99e72bde-a1fd-40b7-b404-7888e39507bb
+# ╟─b2ea7fa4-3054-4078-a774-ce304bf84fa6
 # ╠═994bd490-a709-4b8a-ad86-6c1ca350e203
+# ╠═fc48708b-a89f-4998-a7dc-3ac24e8362d1
+# ╠═bbfd2307-62bf-4eb5-8a40-098d5320db0c
+# ╠═eb01dad5-997f-4ff1-bb8c-4bd809c613d3
+# ╠═1eca4c4c-742c-48d6-b72f-7b7cc1aec066
