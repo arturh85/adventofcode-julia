@@ -4,6 +4,16 @@
 using Markdown
 using InteractiveUtils
 
+# ╔═╡ 4918dd79-c97b-45af-bd41-19b8936e2086
+begin
+	import Pkg
+	Pkg.activate(mktempdir())
+	Pkg.add(["Plots", "LightGraphs", "SimpleWeightedGraphs", "GraphPlot", "Combinatorics"])
+	
+	using Plots, LightGraphs, SimpleWeightedGraphs, GraphPlot, Combinatorics
+	plotly()
+end
+
 # ╔═╡ 4bacd010-b0e8-11eb-2df6-6ffa252d136a
 md"""
 # [Day 13: Knights of the Dinner Table](https://adventofcode.com/2015/day/13)
@@ -145,6 +155,7 @@ end
 foo = Set(["a", "a"])
 
 # ╔═╡ Cell order:
+# ╠═4918dd79-c97b-45af-bd41-19b8936e2086
 # ╟─4bacd010-b0e8-11eb-2df6-6ffa252d136a
 # ╟─99e72bde-a1fd-40b7-b404-7888e39507bb
 # ╟─b2ea7fa4-3054-4078-a774-ce304bf84fa6
