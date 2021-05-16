@@ -4,6 +4,15 @@
 using Markdown
 using InteractiveUtils
 
+# ╔═╡ b0602873-cda1-4d30-8ec8-1b9f7fdcdb07
+begin
+	import Pkg
+	Pkg.activate(mktempdir())
+	Pkg.add(["Latexify"])
+	
+	using Latexify
+end
+
 # ╔═╡ eac55bba-cc75-4632-832a-dbb06983be45
 md"""
 # [Day 2: I Was Told There Would Be No Math](https://adventofcode.com/2015/day/2)
@@ -1036,8 +1045,14 @@ shortest_side(dims) = dims[1:end .!= findfirst(x -> x == maximum(dims), dims)]
 # ╔═╡ 218a0a0f-4fa7-4b1b-8c3c-2ae96ef13c72
 @assert prod(shortest_side([2,10,10])) == 20
 
-# ╔═╡ 46055407-bd9b-4f04-81e3-04d6e4b564be
-paper_required(l,w,h) = 2*l*w + 2*w*h + 2*h*l + prod(shortest_side((l,w,h)))
+# ╔═╡ a6a7817f-b41a-458e-a807-6cc44a82dc1f
+begin
+	ex = :(
+		paper_required(l,w,h) = 2l*w + 2w*h + 2h*l 
+							+ prod(shortest_side((l,w,h))))
+	eval(ex)
+	latexify(ex)
+end
 
 # ╔═╡ ca06b273-ac98-4cde-94ec-6cd9a65e0807
 @assert paper_required((2,3,4)...) == 52 + 6 == 58
@@ -1067,7 +1082,14 @@ For example:
 """
 
 # ╔═╡ d23cc5bf-0748-489e-9da7-2054051482c9
-ribbon_required(l,w,h) = 2*sum(shortest_side((l,w,h))) + prod((l,w,h))
+begin
+	ex2 = :(
+		ribbon_required(l,w,h) = l*w*h + 2*sum(shortest_side((l,w,h)))
+		)
+	eval(ex2)
+	latexify(ex2)
+end
+
 
 # ╔═╡ c1eef318-9168-4400-aec1-defd790d28db
 @assert ribbon_required(2,3,4) == 10 + 24 == 34
@@ -1082,13 +1104,14 @@ part2 = sum(map(x->ribbon_required(x...), presents))
 md"Your puzzle answer was `3737498`."
 
 # ╔═╡ Cell order:
+# ╠═b0602873-cda1-4d30-8ec8-1b9f7fdcdb07
 # ╟─eac55bba-cc75-4632-832a-dbb06983be45
 # ╟─0568b194-e70a-42b5-a9e8-89e710e61648
 # ╠═0c139b96-8597-428f-b877-8ebe19f56b9b
 # ╠═fdebde6b-c7a2-46b7-936a-11c19fb037dc
 # ╠═5e2901d0-3731-441e-8f87-2db9b774760a
 # ╠═218a0a0f-4fa7-4b1b-8c3c-2ae96ef13c72
-# ╠═46055407-bd9b-4f04-81e3-04d6e4b564be
+# ╠═a6a7817f-b41a-458e-a807-6cc44a82dc1f
 # ╠═ca06b273-ac98-4cde-94ec-6cd9a65e0807
 # ╠═73275b5b-b4cd-47a7-ac0c-8b0ce25c6578
 # ╠═77691a13-3967-4874-8d08-4f35ddb21369
