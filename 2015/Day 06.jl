@@ -403,7 +403,7 @@ end
 grid1 = mass_apply1(split(puzzle_input, "\n"))
 
 # ╔═╡ 184bb620-2d32-4b98-a02d-f5b64ae88eb6
-heatmap(grid1)
+heatmap(grid1, size=(500,500))
 
 # ╔═╡ 9840d540-607e-47d3-874c-9df7ec814d51
 part1 = Int(sum(grid1))
