@@ -4,6 +4,9 @@
 using Markdown
 using InteractiveUtils
 
+# ╔═╡ 9d8454ee-2283-4725-850b-9b211ff3444f
+using PlutoTest
+
 # ╔═╡ efb28490-b023-11eb-04e4-db86b53af0fe
 md"""
 # [Day 7: Some Assembly Required](https://adventofcode.com/2015/day/7)
@@ -484,6 +487,9 @@ part1_state = interpret(split(puzzle_input, "\n"))
 # ╔═╡ a45ae491-e3ee-4827-a111-cb195eb41ba5
 part1 = Int(eval_expr("a", part1_state))
 
+# ╔═╡ f5c37588-077d-4511-9974-1f75d61d22f9
+@test part1 == 3176
+
 # ╔═╡ 2db74e17-ea06-427a-b1cb-378aa4378580
 md"Your puzzle answer was `3176`."
 
@@ -503,10 +509,14 @@ part2_state["b"] = "3176"
 # ╔═╡ 6bbe9474-4948-4b87-b638-e203a59143f0
 part2 = Int(eval_expr("a", part2_state))
 
+# ╔═╡ 2cc8d966-9e91-4035-91a5-441a95b93cb6
+@test part2 == 14710
+
 # ╔═╡ d23afbf6-3400-45e9-9e2b-5bfe1cfbf247
 md"Your puzzle answer was `14710`."
 
 # ╔═╡ Cell order:
+# ╠═9d8454ee-2283-4725-850b-9b211ff3444f
 # ╟─efb28490-b023-11eb-04e4-db86b53af0fe
 # ╟─bc36e815-9b26-4e8b-aaae-599e06f95af3
 # ╠═6b6a90e8-880b-46f4-9e7d-6c72056441d1
@@ -523,9 +533,11 @@ md"Your puzzle answer was `14710`."
 # ╠═2de2b696-f8fa-4b5b-9c80-264e81e1d231
 # ╠═789f6538-5bc5-48e1-a2d4-f16b6c520c55
 # ╠═a45ae491-e3ee-4827-a111-cb195eb41ba5
+# ╠═f5c37588-077d-4511-9974-1f75d61d22f9
 # ╟─2db74e17-ea06-427a-b1cb-378aa4378580
 # ╟─c393d2f4-548a-49e3-8aa8-df21a23da09e
 # ╠═9ce6d6a0-1a69-44d7-b15a-1d47017edba4
 # ╠═c04c298e-30c9-4bb4-b6a2-b70b1cf0c68d
 # ╠═6bbe9474-4948-4b87-b638-e203a59143f0
+# ╠═2cc8d966-9e91-4035-91a5-441a95b93cb6
 # ╟─d23afbf6-3400-45e9-9e2b-5bfe1cfbf247

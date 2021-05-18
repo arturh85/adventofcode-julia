@@ -4,6 +4,9 @@
 using Markdown
 using InteractiveUtils
 
+# ╔═╡ 1971addc-cd61-4449-831e-8e3a4b449777
+using PlutoTest
+
 # ╔═╡ b90cb740-b02c-11eb-3bda-67e10d023147
 md"""
 # [Day 10: Elves Look, Elves Say](https://adventofcode.com/2015/day/10)
@@ -82,6 +85,9 @@ end
 # ╔═╡ 82717025-5412-4f8d-b0be-40b3bbac453a
 part1 = length(applylookandsay(puzzle_input, 40))
 
+# ╔═╡ 6bf5cb81-cb0b-45c0-967c-c3b6e8e46027
+@test part1 == 329356
+
 # ╔═╡ f113e0d2-fee5-40d8-96bf-0095d6d07eeb
 md"Your puzzle answer was `329356`."
 
@@ -97,10 +103,14 @@ Now, starting again with the digits in your puzzle input, apply this process 50
 # ╔═╡ 052995b1-fb2d-4ec5-92f4-63d707aa7e7d
 part2 = length(applylookandsay(puzzle_input, 50))
 
+# ╔═╡ b3d9ca1e-6757-4701-8658-accd25c033bf
+@test part2 == 4666278
+
 # ╔═╡ 768ff05c-909d-4738-bce8-949c8c96541f
 md"Your puzzle answer was `4666278`."
 
 # ╔═╡ Cell order:
+# ╠═1971addc-cd61-4449-831e-8e3a4b449777
 # ╟─b90cb740-b02c-11eb-3bda-67e10d023147
 # ╟─0353fa91-ea22-4446-a83d-bb43cb52048d
 # ╠═499c0130-654b-4d21-8f2f-1634b7e2b808
@@ -114,7 +124,9 @@ md"Your puzzle answer was `4666278`."
 # ╠═43925c36-f5db-4895-9c6f-59c583af99b1
 # ╠═8daceef8-005e-49dd-b9b5-5aed9e1bf83b
 # ╠═82717025-5412-4f8d-b0be-40b3bbac453a
+# ╠═6bf5cb81-cb0b-45c0-967c-c3b6e8e46027
 # ╟─f113e0d2-fee5-40d8-96bf-0095d6d07eeb
 # ╟─f264f5a9-5f6b-4604-80db-64a07f5f38c3
 # ╠═052995b1-fb2d-4ec5-92f4-63d707aa7e7d
+# ╠═b3d9ca1e-6757-4701-8658-accd25c033bf
 # ╟─768ff05c-909d-4738-bce8-949c8c96541f

@@ -5,13 +5,7 @@ using Markdown
 using InteractiveUtils
 
 # ╔═╡ 6c489aef-df7e-40b0-a240-94f5ef4014a7
-begin
-	import Pkg
-	Pkg.activate(mktempdir())
-	Pkg.add(["JSON"])
-	
-	using JSON
-end
+using JSON, PlutoTest
 
 # ╔═╡ 0fc545a0-b0e8-11eb-2131-11446e2182c9
 md"""
@@ -76,6 +70,9 @@ puzzle_object = JSON.parse(puzzle_input)
 # ╔═╡ 0de0db85-dda3-4f65-967c-3cdf4b9811dd
 part1 = jsonsum1(puzzle_object)
 
+# ╔═╡ e4145d4b-54db-41a8-aa48-ec31be51e15d
+@test part1 == 191164
+
 # ╔═╡ e525b96f-cfa0-44b7-88ca-93548449bb41
 md"Your puzzle answer was `191164`."
 
@@ -115,6 +112,9 @@ end
 # ╔═╡ a4bfae1d-28c8-4ef4-a53f-500d8d381fc9
 part2 = jsonsum2(puzzle_object)
 
+# ╔═╡ a2b52ee9-96c3-44f5-9348-3e5760c01674
+@test part2 == 87842
+
 # ╔═╡ c0c9e608-c73d-4dac-9e91-a19a95d6a819
 md"Your puzzle answer was `87842`."
 
@@ -131,8 +131,10 @@ md"Your puzzle answer was `87842`."
 # ╠═bd4c3b2d-426f-43ca-a433-61a70432d612
 # ╠═1fb19f8f-e8d8-4fd8-9cf3-4f3d7d8a60ec
 # ╠═0de0db85-dda3-4f65-967c-3cdf4b9811dd
+# ╠═e4145d4b-54db-41a8-aa48-ec31be51e15d
 # ╟─e525b96f-cfa0-44b7-88ca-93548449bb41
 # ╟─b0448542-de84-4446-89f5-29eb3d1e3f61
 # ╠═3de64594-826b-4692-b071-7cd7e227fc49
 # ╠═a4bfae1d-28c8-4ef4-a53f-500d8d381fc9
+# ╠═a2b52ee9-96c3-44f5-9348-3e5760c01674
 # ╟─c0c9e608-c73d-4dac-9e91-a19a95d6a819

@@ -5,14 +5,13 @@ using Markdown
 using InteractiveUtils
 
 # ╔═╡ bbfa7498-30bf-4264-b4d9-ee0c238c9984
-begin
-	import Pkg
-	Pkg.activate(mktempdir())
-	Pkg.add(["Plots", "LightGraphs", "SimpleWeightedGraphs", "GraphPlot", "Combinatorics"])
-	
-	using Plots, LightGraphs, SimpleWeightedGraphs, GraphPlot, Combinatorics
-	plotly()
-end
+using Plots, Combinatorics, PlutoTest
+
+# ╔═╡ f0d31c21-f866-4d51-86ec-d473147f1677
+using LightGraphs, SimpleWeightedGraphs, GraphPlot
+
+# ╔═╡ f20ff74b-16f0-4a9d-9969-2d240ba18177
+plotly()
 
 # ╔═╡ 56cedfe0-b02c-11eb-1f56-3557d6c170bc
 md"""
@@ -185,6 +184,9 @@ Dublin to Belfast = 141""")) == 605
 # ╔═╡ be574368-3f0d-4863-b420-ad14106b5175
 part1 = smallest(read(puzzle_input))
 
+# ╔═╡ a1dafb48-4984-431a-82de-d5280f30af21
+@test part1 == 141
+
 # ╔═╡ 1d1f08c8-7092-4ea9-8884-43e28062c036
 md"Your puzzle answer was `141`."
 
@@ -230,11 +232,16 @@ Dublin to Belfast = 141""")) == 982
 # ╔═╡ dbdedef1-f657-460f-93a7-e27a2563fcae
 part2 = biggest(read(puzzle_input))
 
+# ╔═╡ 7d51e278-0442-4967-9bba-0cbc1518c693
+@test part2 == 736
+
 # ╔═╡ 0d5b2494-5454-41ec-9a3d-e627e4c27f51
 md"Your puzzle answer was `736`."
 
 # ╔═╡ Cell order:
 # ╠═bbfa7498-30bf-4264-b4d9-ee0c238c9984
+# ╠═f0d31c21-f866-4d51-86ec-d473147f1677
+# ╠═f20ff74b-16f0-4a9d-9969-2d240ba18177
 # ╟─56cedfe0-b02c-11eb-1f56-3557d6c170bc
 # ╟─1609ee1f-1d90-4889-b39d-5fe0fb6de8c4
 # ╠═3ffc6481-2267-4d97-8065-d2fd78c637e9
@@ -246,9 +253,11 @@ md"Your puzzle answer was `736`."
 # ╠═8abefd65-5a57-4717-8bf4-4e92ebe9d562
 # ╠═684af9bd-4282-40ea-85d8-2d2d89c258c0
 # ╠═be574368-3f0d-4863-b420-ad14106b5175
+# ╠═a1dafb48-4984-431a-82de-d5280f30af21
 # ╟─1d1f08c8-7092-4ea9-8884-43e28062c036
 # ╟─64028478-8bc7-412a-82be-de768aaa1fe6
 # ╠═ccd1c5e7-1c13-4608-8293-e4e0a76cca37
 # ╠═a548a1da-187a-4aa7-a338-c6c0b4114177
 # ╠═dbdedef1-f657-460f-93a7-e27a2563fcae
+# ╠═7d51e278-0442-4967-9bba-0cbc1518c693
 # ╟─0d5b2494-5454-41ec-9a3d-e627e4c27f51

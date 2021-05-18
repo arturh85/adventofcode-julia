@@ -4,6 +4,9 @@
 using Markdown
 using InteractiveUtils
 
+# ╔═╡ c1777303-1af2-4be8-8b26-254b70f6263c
+using PlutoTest
+
 # ╔═╡ aa7f1ad0-b0e8-11eb-3904-bb242d044d08
 md"""
 # [Day 15: Science for Hungry People](https://adventofcode.com/2015/day/15)
@@ -120,6 +123,9 @@ puzzle_ingredients = map(parseline, split(puzzle_input, "\n"))
 # ╔═╡ 0d4650b4-1035-43f4-b423-8824cb3436d2
 part1 = bestcookiescore1(puzzle_ingredients)
 
+# ╔═╡ fb3a890b-211c-4fa5-a85e-472183509fa8
+@test part1 == 13882464
+
 # ╔═╡ 117c9ac8-6f1e-4dc3-9b74-bb2cabe9b171
 md"Your puzzle answer was `13882464`."
 
@@ -155,10 +161,14 @@ end
 # ╔═╡ a10ef2a7-c9d9-41f0-9cfc-6921a390306f
 part2 = bestcookiescore2(puzzle_ingredients)
 
+# ╔═╡ 9274f947-ede1-446e-9845-9e776b2bf42c
+@test part2 == 11171160
+
 # ╔═╡ da313ad1-afdf-45cd-9601-5e6dec1f92bc
 md"Your puzzle answer was `11171160`."
 
 # ╔═╡ Cell order:
+# ╠═c1777303-1af2-4be8-8b26-254b70f6263c
 # ╟─aa7f1ad0-b0e8-11eb-3904-bb242d044d08
 # ╟─861a2d99-e0a6-44a9-9b18-ca1b25d1eabd
 # ╠═ad735981-4fdb-4527-9869-a6a748e2e5dd
@@ -173,8 +183,10 @@ md"Your puzzle answer was `11171160`."
 # ╠═c3d471b9-f0b5-4e29-937e-dcb917cf2a9c
 # ╠═59938b46-ff7d-441f-95ba-1a49fcaeefe7
 # ╠═0d4650b4-1035-43f4-b423-8824cb3436d2
+# ╠═fb3a890b-211c-4fa5-a85e-472183509fa8
 # ╟─117c9ac8-6f1e-4dc3-9b74-bb2cabe9b171
 # ╟─9e397f78-a72b-406b-905c-dc1f79e852d0
 # ╠═3ae1cb15-f704-4559-9043-186c2874a035
 # ╠═a10ef2a7-c9d9-41f0-9cfc-6921a390306f
+# ╠═9274f947-ede1-446e-9845-9e776b2bf42c
 # ╟─da313ad1-afdf-45cd-9601-5e6dec1f92bc

@@ -5,14 +5,13 @@ using Markdown
 using InteractiveUtils
 
 # ╔═╡ 4918dd79-c97b-45af-bd41-19b8936e2086
-begin
-	import Pkg
-	Pkg.activate(mktempdir())
-	Pkg.add(["Plots", "LightGraphs", "SimpleWeightedGraphs", "GraphPlot", "Combinatorics"])
-	
-	using Plots, LightGraphs, SimpleWeightedGraphs, GraphPlot, Combinatorics
-	plotly()
-end
+using Plots, Combinatorics, PlutoTest
+
+# ╔═╡ 8764aae7-27b7-4426-b97e-8b39f3fda965
+using LightGraphs, SimpleWeightedGraphs, GraphPlot
+
+# ╔═╡ e48f4d54-a05a-4cda-8726-36a49b5f2585
+plotly()
 
 # ╔═╡ 4bacd010-b0e8-11eb-2df6-6ffa252d136a
 md"""
@@ -178,6 +177,8 @@ mosthappy(map(parseline, split(example_input, "\n")))
 
 # ╔═╡ Cell order:
 # ╠═4918dd79-c97b-45af-bd41-19b8936e2086
+# ╠═8764aae7-27b7-4426-b97e-8b39f3fda965
+# ╠═e48f4d54-a05a-4cda-8726-36a49b5f2585
 # ╟─4bacd010-b0e8-11eb-2df6-6ffa252d136a
 # ╟─99e72bde-a1fd-40b7-b404-7888e39507bb
 # ╟─b2ea7fa4-3054-4078-a774-ce304bf84fa6

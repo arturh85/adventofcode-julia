@@ -5,14 +5,10 @@ using Markdown
 using InteractiveUtils
 
 # ╔═╡ 6ca83e83-423a-4621-ae14-dc8da5913394
-begin
-	import Pkg
-	Pkg.activate(mktempdir())
-	Pkg.add(["Plots", "ORCA"])
-	
-	using Plots, ORCA
-	plotly()
-end
+using Plots, PlutoTest
+
+# ╔═╡ df80bc4c-770a-4acd-a4f3-337c6b720c71
+plotly()
 
 # ╔═╡ 20fb22d0-b0e9-11eb-1561-8b6505f5cb45
 md"""
@@ -397,6 +393,9 @@ heatmap(grid2matrix(repeatevolve(puzzle_input, 100)))
 # ╔═╡ 214c1e6e-7035-4cdb-a380-d86919173535
 part1 = lights(repeatevolve(puzzle_input, 100))
 
+# ╔═╡ c44422ed-30e3-4ea7-a81a-291ec6e7084a
+@test part1 == 814
+
 # ╔═╡ c3ef9fe2-7a92-45dd-91fe-e31e132b62ec
 md"Your puzzle answer was `814`."
 
@@ -620,11 +619,15 @@ heatmap(grid2matrix(repeatevolve2(puzzle_input, 100)))
 # ╔═╡ 038dca7c-0369-41f4-8902-56ba5081b0fc
 part2 = lights(repeatevolve2(puzzle_input, 100))
 
+# ╔═╡ 73ce4e85-0913-4ae8-97dd-dca6d09f2ac8
+@test part2 == 924
+
 # ╔═╡ 2e0eb85c-f975-4760-bf4e-e4319d5f1cce
 md"Your puzzle answer was `924`."
 
 # ╔═╡ Cell order:
 # ╠═6ca83e83-423a-4621-ae14-dc8da5913394
+# ╠═df80bc4c-770a-4acd-a4f3-337c6b720c71
 # ╟─20fb22d0-b0e9-11eb-1561-8b6505f5cb45
 # ╟─c73f4666-7302-4743-bb13-07ca4aea6440
 # ╠═de9c2f12-f7bb-4e0e-badc-1fffb75d569a
@@ -648,6 +651,7 @@ md"Your puzzle answer was `924`."
 # ╠═c9234ee3-9206-40fb-b398-571222598774
 # ╠═fd116e3b-2eda-4c68-bca4-152aaf1d05c0
 # ╠═214c1e6e-7035-4cdb-a380-d86919173535
+# ╠═c44422ed-30e3-4ea7-a81a-291ec6e7084a
 # ╟─c3ef9fe2-7a92-45dd-91fe-e31e132b62ec
 # ╟─75f28fc6-29a1-4733-bd5b-88ac67c844b4
 # ╠═385a7cab-ea88-4ad6-b614-6d446549eef0
@@ -669,4 +673,5 @@ md"Your puzzle answer was `924`."
 # ╠═a6fc1934-51d3-40e7-9098-282f18edc10f
 # ╠═6cc2df3c-7532-4b5b-b306-24bc6b06000f
 # ╠═038dca7c-0369-41f4-8902-56ba5081b0fc
+# ╠═73ce4e85-0913-4ae8-97dd-dca6d09f2ac8
 # ╟─2e0eb85c-f975-4760-bf4e-e4319d5f1cce

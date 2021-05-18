@@ -5,13 +5,7 @@ using Markdown
 using InteractiveUtils
 
 # ╔═╡ d2c27263-8b8e-486e-9f85-a639ce3749c7
-begin
-	import Pkg
-	Pkg.activate(mktempdir())
-	Pkg.add(["MD5"])		
-	
-	using MD5
-end
+using MD5, PlutoTest
 
 # ╔═╡ 0a80eec0-af92-11eb-2306-a1148fe38e04
 md"""
@@ -51,6 +45,9 @@ end
 # ╔═╡ e9c559dc-544f-4c28-a9a8-d98477da244e
 part1 = answer(puzzle_input, 5)
 
+# ╔═╡ 1fe61914-4666-44dd-9fac-3d96c0484a50
+@test part1 == 346386
+
 # ╔═╡ 30832092-32ec-447b-8e66-6a114734629a
 md"Your puzzle answer was `346386`."
 
@@ -63,6 +60,9 @@ Now find one that starts with six zeroes.
 # ╔═╡ 4747ba76-4eac-43ba-bd6a-911e54604c9f
 part2 = answer(puzzle_input, 6)
 
+# ╔═╡ 83b80af3-6153-4add-853f-c9d9eaae5268
+@test part2 == 9958218
+
 # ╔═╡ 0aa393b8-5b60-4aea-aa0a-025261708ee1
 md"Your puzzle answer was `9958218`."
 
@@ -74,7 +74,9 @@ md"Your puzzle answer was `9958218`."
 # ╠═fb6daadc-d6b2-47dd-b7c5-c119d24c33cf
 # ╠═b1b9e6bd-aa83-4c59-b524-189e5bf0d964
 # ╠═e9c559dc-544f-4c28-a9a8-d98477da244e
+# ╠═1fe61914-4666-44dd-9fac-3d96c0484a50
 # ╟─30832092-32ec-447b-8e66-6a114734629a
 # ╟─f57a76e1-43db-47ad-971d-89d7a8300db0
 # ╠═4747ba76-4eac-43ba-bd6a-911e54604c9f
+# ╠═83b80af3-6153-4add-853f-c9d9eaae5268
 # ╟─0aa393b8-5b60-4aea-aa0a-025261708ee1

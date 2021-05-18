@@ -5,14 +5,10 @@ using Markdown
 using InteractiveUtils
 
 # ╔═╡ 9353168e-bd57-446f-9fc3-ce063aa9c0f5
-begin
-	import Pkg
-	Pkg.activate(mktempdir())
-	Pkg.add(["Plots"])
-	
-	using Plots
-	plotly()
-end
+using Plots, PlutoTest
+
+# ╔═╡ 4049e274-f948-468f-9e43-71855a426603
+plotly()
 
 # ╔═╡ 1b64f670-b017-11eb-140d-ebd5ac033872
 md"""
@@ -403,10 +399,13 @@ end
 grid1 = mass_apply1(split(puzzle_input, "\n"))
 
 # ╔═╡ 184bb620-2d32-4b98-a02d-f5b64ae88eb6
-heatmap(grid1, size=(500,500))
+heatmap(grid1)
 
 # ╔═╡ 9840d540-607e-47d3-874c-9df7ec814d51
 part1 = Int(sum(grid1))
+
+# ╔═╡ 08f7886a-9cef-4b23-9885-8dab7066640a
+@test part1 == 377891
 
 # ╔═╡ 8ada2165-6667-4850-8131-e56b1fde7abe
 md"Your puzzle answer was `377891`."
@@ -488,11 +487,15 @@ heatmap(grid2)
 # ╔═╡ f245c971-fa2d-482e-a355-67a51963c0cb
 part2 = Int(sum(grid2))
 
+# ╔═╡ 6e303fd4-5539-4ec6-9bb8-72f366904f1f
+@test part2 == 14110788
+
 # ╔═╡ 0f036ef3-4901-42e4-bf0c-0580215b20cb
 md"Your puzzle answer was `14110788`."
 
 # ╔═╡ Cell order:
 # ╠═9353168e-bd57-446f-9fc3-ce063aa9c0f5
+# ╠═4049e274-f948-468f-9e43-71855a426603
 # ╟─1b64f670-b017-11eb-140d-ebd5ac033872
 # ╟─c87dc276-6a3a-4903-955e-6ee8063b0f53
 # ╠═462f3b05-97a4-4bc7-b817-0b74be141531
@@ -508,6 +511,7 @@ md"Your puzzle answer was `14110788`."
 # ╠═175908f4-2ef8-44a9-81c0-fb21e4bc10b7
 # ╠═184bb620-2d32-4b98-a02d-f5b64ae88eb6
 # ╠═9840d540-607e-47d3-874c-9df7ec814d51
+# ╠═08f7886a-9cef-4b23-9885-8dab7066640a
 # ╟─8ada2165-6667-4850-8131-e56b1fde7abe
 # ╟─b3b7099c-b2c2-4ff4-b5c2-dfa6ec3cda87
 # ╠═eea139c9-3d08-499a-a9fb-df4f20bd129a
@@ -517,4 +521,5 @@ md"Your puzzle answer was `14110788`."
 # ╠═4d5a5013-fd59-4fea-8f73-396fba062fc5
 # ╠═fbae4e2b-2ea5-414a-b3fd-01cd5630bfda
 # ╠═f245c971-fa2d-482e-a355-67a51963c0cb
+# ╠═6e303fd4-5539-4ec6-9bb8-72f366904f1f
 # ╟─0f036ef3-4901-42e4-bf0c-0580215b20cb

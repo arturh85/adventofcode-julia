@@ -5,14 +5,10 @@ using Markdown
 using InteractiveUtils
 
 # ╔═╡ bb9d2d33-45fb-4746-9305-9844bad00725
-begin
-	import Pkg
-	Pkg.activate(mktempdir())
-	Pkg.add(["Plots"])	
-	
-	using Plots
-	plotly()
-end
+using Plots, PlutoTest
+
+# ╔═╡ 21e1a572-4c2b-4320-b0b5-f2f6ff370a6a
+plotly()
 
 # ╔═╡ 107fc214-1fef-49cc-ab35-52bf21241db9
 md"""
@@ -93,6 +89,9 @@ visualize_grid(grid1)
 # ╔═╡ 3ffcafa7-fdcd-4e5a-8b7b-7b562bdb7e59
 part1 = length(grid1)
 
+# ╔═╡ 5799bcde-a2e3-4d78-a453-3cd514cafbcd
+
+
 # ╔═╡ 2741702a-5941-46dd-9765-bcd6cae92194
 md"Your puzzle answer was `2565`."
 
@@ -156,6 +155,7 @@ md"""Your puzzle answer was `2639`."""
 
 # ╔═╡ Cell order:
 # ╠═bb9d2d33-45fb-4746-9305-9844bad00725
+# ╠═21e1a572-4c2b-4320-b0b5-f2f6ff370a6a
 # ╟─107fc214-1fef-49cc-ab35-52bf21241db9
 # ╟─e5bf1d5f-35c3-4c69-805d-506435532e24
 # ╠═349fb7c9-8fc8-4554-8fdc-26604b2d3920
@@ -166,6 +166,7 @@ md"""Your puzzle answer was `2639`."""
 # ╠═df8c0698-8b30-435e-a134-fc477c9e27f8
 # ╠═062672eb-cb2b-401f-adfe-a278c2604311
 # ╠═3ffcafa7-fdcd-4e5a-8b7b-7b562bdb7e59
+# ╠═5799bcde-a2e3-4d78-a453-3cd514cafbcd
 # ╟─2741702a-5941-46dd-9765-bcd6cae92194
 # ╟─1237b6c7-a70c-48e6-bc87-c717ab42c509
 # ╠═63128fe3-993d-48bc-b2c4-edce7c86db63

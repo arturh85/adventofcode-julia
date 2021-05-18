@@ -5,13 +5,7 @@ using Markdown
 using InteractiveUtils
 
 # ╔═╡ da1b7333-9417-46ff-82a1-b1c2f2dea898
-begin
-	import Pkg
-	Pkg.activate(mktempdir())
-	Pkg.add(["Combinatorics"])
-	
-	using Combinatorics
-end
+using Combinatorics, PlutoTest
 
 # ╔═╡ 00942730-b0e9-11eb-0b2b-f75ca9edadef
 md"""
@@ -69,6 +63,9 @@ fillcombos(example_containers, 25)
 # ╔═╡ 49a9f8fc-35ed-43c9-887f-5a9539f81327
 part1 = length(fillcombos(puzzle_containers, 150))
 
+# ╔═╡ d8d2387e-2b83-4b3a-a115-9abda10ae23d
+@test part1 == 4372
+
 # ╔═╡ d121315b-6677-4321-bf18-3d9e55d0e242
 md"Your puzzle answer was `4372`."
 
@@ -96,6 +93,9 @@ end
 # ╔═╡ e789427d-cc33-4be8-ae59-12c2ed5ad2ea
 part2 = length(smallestcombo(fillcombos(puzzle_containers, 150)))
 
+# ╔═╡ a05cdc89-1294-40fe-b859-b2c2600b044b
+@test part2 == 4
+
 # ╔═╡ 7b90394f-dc75-4ec0-8ba2-b51b1c66fdb0
 md"Your puzzle answer was `4`."
 
@@ -109,9 +109,11 @@ md"Your puzzle answer was `4`."
 # ╠═8d17977b-147c-4883-907f-8c5a57f6db04
 # ╠═7b8fc350-d982-45a8-84ad-05e05a7621ec
 # ╠═49a9f8fc-35ed-43c9-887f-5a9539f81327
+# ╠═d8d2387e-2b83-4b3a-a115-9abda10ae23d
 # ╟─d121315b-6677-4321-bf18-3d9e55d0e242
 # ╟─2ed48157-bd9b-4374-b1bc-b406ae15c82d
 # ╠═5859e90b-f4cf-40f5-a680-9feb4e65c476
 # ╠═4dd35aa3-75d5-4d1e-8c6f-56527ec9e9b5
 # ╠═e789427d-cc33-4be8-ae59-12c2ed5ad2ea
+# ╠═a05cdc89-1294-40fe-b859-b2c2600b044b
 # ╟─7b90394f-dc75-4ec0-8ba2-b51b1c66fdb0
