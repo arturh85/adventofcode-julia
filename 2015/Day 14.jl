@@ -4,6 +4,9 @@
 using Markdown
 using InteractiveUtils
 
+# ╔═╡ 9f4d1108-1fed-4314-ae4e-560ec7a9be9c
+using PlutoTest
+
 # ╔═╡ 76d27f60-b0e8-11eb-3fd3-a7b73d0d4cfe
 md"""
 # [Day 14: Reindeer Olympics](https://adventofcode.com/2015/day/14)
@@ -70,6 +73,9 @@ puzzle_players = map(parseline, split(puzzle_input, "\n"))
 # ╔═╡ 598ca1b1-acfc-449d-be51-6ae63efaeaa7
 part1 = maxdistance(puzzle_players, 2503)
 
+# ╔═╡ 40ae0576-75ae-4d63-b163-4fbefe0e0060
+@test part1 == 2660
+
 # ╔═╡ 17210bdf-21cd-4f48-8e86-b7c568ee3e2d
 md"Your puzzle answer was `2660`."
 
@@ -117,10 +123,14 @@ end
 # ╔═╡ 0dec0d65-0cc9-4d7c-bdf0-d2bbc3f6c956
 part2 = maxscore(puzzle_players, 2503)
 
+# ╔═╡ 09982bbe-252b-40e2-b818-c1f2f575f458
+@test part2 == 1256
+
 # ╔═╡ fa92058e-35cf-43b8-8552-71dd16e1c52e
 md"Your puzzle answer was `1256`."
 
 # ╔═╡ Cell order:
+# ╠═9f4d1108-1fed-4314-ae4e-560ec7a9be9c
 # ╟─76d27f60-b0e8-11eb-3fd3-a7b73d0d4cfe
 # ╟─7b3cffcf-5c04-4d13-9714-8dad9e4956f3
 # ╠═4c30acd3-078f-40a6-8e22-c90704abef38
@@ -130,9 +140,11 @@ md"Your puzzle answer was `1256`."
 # ╠═cac38821-4cef-4d15-a86b-7878a37392da
 # ╠═315d6498-c7d6-44f6-876f-3cbc599d7393
 # ╠═598ca1b1-acfc-449d-be51-6ae63efaeaa7
+# ╠═40ae0576-75ae-4d63-b163-4fbefe0e0060
 # ╟─17210bdf-21cd-4f48-8e86-b7c568ee3e2d
 # ╟─0975d5a4-675e-42b8-8ab1-4b31dc2de102
 # ╠═9cd8509d-38c3-49d0-bc6d-84c862bd37e0
 # ╠═14d5831a-f848-426d-a014-2a1e24ee1d68
 # ╠═0dec0d65-0cc9-4d7c-bdf0-d2bbc3f6c956
+# ╠═09982bbe-252b-40e2-b818-c1f2f575f458
 # ╟─fa92058e-35cf-43b8-8552-71dd16e1c52e

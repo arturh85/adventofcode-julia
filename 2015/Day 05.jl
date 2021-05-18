@@ -4,6 +4,9 @@
 using Markdown
 using InteractiveUtils
 
+# ╔═╡ f1b53f4d-6d7c-42b8-bd4b-b77e3b3a1055
+using PlutoTest
+
 # ╔═╡ e9086930-afeb-11eb-35ad-dba62b2459a9
 md"""
 # [Day 5: Doesn't He Have Intern-Elves For This?](https://adventofcode.com/2015/day/5)
@@ -1098,6 +1101,9 @@ part1 = split(puzzle_input, "\n") |>
 	Base.Fix1(map, str -> check1(str) ? 1 : 0) |>
 	sum
 
+# ╔═╡ 1ac94504-2c3f-4908-a1c8-9ab132cafb48
+@test part1 == 238
+
 # ╔═╡ 12eeff68-cf8d-48c0-a76a-1b6404b32247
 md"Your puzzle answer was `238`."
 
@@ -1185,9 +1191,10 @@ part2 = split(puzzle_input, "\n") |>
 md"Your puzzle answer was `69`."
 
 # ╔═╡ af6ef30c-c753-472f-8fde-312e277f1c89
-
+@test part2 == 69
 
 # ╔═╡ Cell order:
+# ╠═f1b53f4d-6d7c-42b8-bd4b-b77e3b3a1055
 # ╟─e9086930-afeb-11eb-35ad-dba62b2459a9
 # ╟─c7430382-47c7-4f2e-a260-fa4de8a8648c
 # ╠═0cc15cb8-4a0f-4a04-a858-43088cb68ff3
@@ -1206,6 +1213,7 @@ md"Your puzzle answer was `69`."
 # ╠═064293dc-63ff-44a6-9ecb-5a0fba08df66
 # ╠═69765b8f-6917-4781-bfc4-3f00843005a2
 # ╠═c4811f7d-6801-4fcb-8065-205bbd5e2e03
+# ╠═1ac94504-2c3f-4908-a1c8-9ab132cafb48
 # ╟─12eeff68-cf8d-48c0-a76a-1b6404b32247
 # ╟─95825a3c-e112-4451-94c4-c68929e28cf3
 # ╠═542ba6ce-f781-4f10-9414-329177b35733

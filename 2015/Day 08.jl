@@ -4,6 +4,9 @@
 using Markdown
 using InteractiveUtils
 
+# ╔═╡ 7d1ac287-43d9-4921-bade-5658899648e6
+using PlutoTest
+
 # ╔═╡ 7728c7b0-b022-11eb-363f-5f51427038cb
 md"""
 # [Day 8: Matchsticks](https://adventofcode.com/2015/day/8)
@@ -392,6 +395,9 @@ example_input = raw"""
 # ╔═╡ b347bd98-aff4-4390-9f12-fc37ab8d88c6
 part1 = count_diff(split(strip(puzzle_input), "\n"), decode)
 
+# ╔═╡ 00c3f519-2637-432a-8c5e-28fafd9020f5
+@test part1 == 1350
+
 # ╔═╡ 79bdbb26-ae3e-4311-a4f9-cfdd95a2e29f
 md"Your puzzle answer was `1350`."
 
@@ -438,10 +444,14 @@ end
 # ╔═╡ bb73ce4a-9d41-426e-bf13-687acf5d532f
 part2 = -count_diff(split(strip(puzzle_input), "\n"), encode)
 
+# ╔═╡ 67b06ec6-3835-44e7-906e-3ed393110dc3
+@test part2 == 2085
+
 # ╔═╡ 60c68ada-5a88-4d86-aa59-d6709afabf4c
 md"Your puzzle answer was `2085`."
 
 # ╔═╡ Cell order:
+# ╠═7d1ac287-43d9-4921-bade-5658899648e6
 # ╟─7728c7b0-b022-11eb-363f-5f51427038cb
 # ╟─1e37e13a-5f56-478c-8d50-d96ea1e32cd3
 # ╠═1e28516d-8dc3-43c6-bd9d-b2afd93cf87e
@@ -454,6 +464,7 @@ md"Your puzzle answer was `2085`."
 # ╠═6bbf3051-3577-48e3-830f-d0a0db92d44a
 # ╠═fdcf3180-be09-4941-8b63-16ea1c4b86ae
 # ╠═b347bd98-aff4-4390-9f12-fc37ab8d88c6
+# ╠═00c3f519-2637-432a-8c5e-28fafd9020f5
 # ╟─79bdbb26-ae3e-4311-a4f9-cfdd95a2e29f
 # ╟─5059f712-1e4f-4caa-9f2f-4f056d2928f0
 # ╠═5f5f55f9-216f-42e9-a26c-71139e1f9198
@@ -463,4 +474,5 @@ md"Your puzzle answer was `2085`."
 # ╠═fc2681b1-04e2-4b03-b77a-0981807a8061
 # ╠═028f30af-d191-4313-932d-f75d818b304a
 # ╠═bb73ce4a-9d41-426e-bf13-687acf5d532f
+# ╠═67b06ec6-3835-44e7-906e-3ed393110dc3
 # ╟─60c68ada-5a88-4d86-aa59-d6709afabf4c

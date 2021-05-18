@@ -4,6 +4,9 @@
 using Markdown
 using InteractiveUtils
 
+# ╔═╡ 090f6f0f-fd67-419b-a35e-5392a59f39b1
+using PlutoTest
+
 # ╔═╡ e89c666e-b0e7-11eb-22cf-7f6fd1e299bb
 md"""
 # [Day 11: Corporate Policy](https://adventofcode.com/2015/day/11)
@@ -137,6 +140,9 @@ end
 # ╔═╡ cbcd58ec-5f81-4ca4-8a4f-2a570db79f2a
 part1 = next_valid(puzzle_input)
 
+# ╔═╡ 2d3ab22d-11fe-4ee3-9ee1-9410ae03498a
+@test part1 == "hxbxxyzz"
+
 # ╔═╡ bd64f7b1-4074-4eeb-925d-eb8cc7a524bf
 md"Your puzzle answer was `hxbxxyzz`."
 
@@ -149,10 +155,14 @@ Santa's password expired again. **What's the next one?**
 # ╔═╡ 1ef77364-44a3-4819-b0c3-11cca842e53c
 part2 = next_valid("hxbxxyzz")
 
+# ╔═╡ fb47e75f-a3a0-4ee9-97c8-8a7e3d3f7831
+@test part2 == "hxcaabcc"
+
 # ╔═╡ bd67cd4e-af24-403c-a3ba-9753f11dc21c
 md"Your puzzle answer was `hxcaabcc`."
 
 # ╔═╡ Cell order:
+# ╠═090f6f0f-fd67-419b-a35e-5392a59f39b1
 # ╟─e89c666e-b0e7-11eb-22cf-7f6fd1e299bb
 # ╠═ec540096-d9d1-4b5f-b6a2-16c470322424
 # ╠═4e20e380-e928-4764-a982-3c0ca6bb942c
@@ -174,7 +184,9 @@ md"Your puzzle answer was `hxcaabcc`."
 # ╠═6b671ffc-ccc1-4b84-9ddb-7f7137995348
 # ╠═a33d8ddb-5ef5-4c0c-891c-eef1368fbcc9
 # ╠═cbcd58ec-5f81-4ca4-8a4f-2a570db79f2a
+# ╠═2d3ab22d-11fe-4ee3-9ee1-9410ae03498a
 # ╟─bd64f7b1-4074-4eeb-925d-eb8cc7a524bf
 # ╟─aa05c55c-e79d-4846-95e1-823f0a5ea2e3
 # ╠═1ef77364-44a3-4819-b0c3-11cca842e53c
+# ╠═fb47e75f-a3a0-4ee9-97c8-8a7e3d3f7831
 # ╟─bd67cd4e-af24-403c-a3ba-9753f11dc21c

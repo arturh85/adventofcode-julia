@@ -304,6 +304,11 @@ git-tree-sha1 = "6187bb2d5fcbb2007c39e7ac53308b0d371124bd"
 uuid = "9fb69e20-1954-56bb-a84f-559cc56a8ff7"
 version = "0.2.2"
 
+[[HypertextLiteral]]
+git-tree-sha1 = "bc09b8d183505e128545c2a3b00cae5e5ea89c52"
+uuid = "ac1192a8-f4b3-4bfe-ba22-af5b92cd3ab2"
+version = "0.6.0"
+
 [[Inflate]]
 git-tree-sha1 = "f5fc07d4e706b84f72d54eedcc1c13d92fb0871c"
 uuid = "d25df0c9-e2be-5dd7-82c8-3ad0b3e990b9"
@@ -670,6 +675,14 @@ deps = ["Base64", "Configurations", "FromFile", "GitHubActions", "HTTP", "Loggin
 git-tree-sha1 = "70fbcb506c931bcdcd1c6570dbc686307ff311d2"
 uuid = "2fc8631c-6f24-4c5b-bca7-cbb509c42db4"
 version = "0.2.3"
+
+[[PlutoTest]]
+deps = ["HypertextLiteral", "InteractiveUtils", "Markdown", "Test"]
+git-tree-sha1 = "356e8990688242012a2b7c7b1f55a6ddbaac7a29"
+repo-rev = "main"
+repo-url = "https://github.com/JuliaPluto/PlutoTest.jl"
+uuid = "cb4044da-4d16-4ffa-a6a3-8cad7f73ebdc"
+version = "0.0.1"
 
 [[PlutoUI]]
 deps = ["Base64", "Dates", "InteractiveUtils", "JSON", "Logging", "Markdown", "Random", "Reexport", "Suppressor"]

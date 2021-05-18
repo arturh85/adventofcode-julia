@@ -5,13 +5,7 @@ using Markdown
 using InteractiveUtils
 
 # ╔═╡ b0602873-cda1-4d30-8ec8-1b9f7fdcdb07
-begin
-	import Pkg
-	Pkg.activate(mktempdir())
-	Pkg.add(["Latexify"])
-	
-	using Latexify
-end
+using Latexify, PlutoTest
 
 # ╔═╡ eac55bba-cc75-4632-832a-dbb06983be45
 md"""
@@ -1063,6 +1057,9 @@ end
 # ╔═╡ 77691a13-3967-4874-8d08-4f35ddb21369
 part1 = sum(map(x->paper_required(x...), presents))
 
+# ╔═╡ 4a9e893a-61d6-4c44-b032-50ce16aa245b
+@test part1 == 1586300
+
 # ╔═╡ b0d9c03f-6b5c-4d5f-a88d-bc1d641bd86a
 md"Your puzzle answer was `1586300`."
 
@@ -1100,6 +1097,9 @@ end
 # ╔═╡ 630aad38-6f6f-4902-be97-8836fd7b8ed7
 part2 = sum(map(x->ribbon_required(x...), presents))
 
+# ╔═╡ 0bdf8ff7-fa34-429b-b7e4-899fd52c4f22
+@test part2 == 3737498
+
 # ╔═╡ 819beeb8-7b2a-4a88-aa50-032ef21dbae8
 md"Your puzzle answer was `3737498`."
 
@@ -1115,10 +1115,12 @@ md"Your puzzle answer was `3737498`."
 # ╠═ca06b273-ac98-4cde-94ec-6cd9a65e0807
 # ╠═73275b5b-b4cd-47a7-ac0c-8b0ce25c6578
 # ╠═77691a13-3967-4874-8d08-4f35ddb21369
+# ╠═4a9e893a-61d6-4c44-b032-50ce16aa245b
 # ╟─b0d9c03f-6b5c-4d5f-a88d-bc1d641bd86a
 # ╟─c086f72d-ba34-42e5-bc38-4f3d40a6a0a2
 # ╠═d23cc5bf-0748-489e-9da7-2054051482c9
 # ╠═c1eef318-9168-4400-aec1-defd790d28db
 # ╠═9bc722bb-f1ae-4cd9-9664-5ab7c282c57c
 # ╠═630aad38-6f6f-4902-be97-8836fd7b8ed7
+# ╠═0bdf8ff7-fa34-429b-b7e4-899fd52c4f22
 # ╟─819beeb8-7b2a-4a88-aa50-032ef21dbae8

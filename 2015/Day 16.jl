@@ -4,6 +4,9 @@
 using Markdown
 using InteractiveUtils
 
+# ╔═╡ 012d94dd-8736-46d9-b49d-aae96b9a8320
+using PlutoTest
+
 # ╔═╡ d02132f0-b0e8-11eb-12cb-353922cb782a
 md"""
 # [Day 16: Aunt Sue](https://adventofcode.com/2015/day/16)
@@ -606,6 +609,9 @@ end
 # ╔═╡ 3c7002f4-f218-4329-b672-01fe36023d28
 part1 = findsue1(puzzle_sues, puzzle_facts)
 
+# ╔═╡ d9dc6c87-6b3d-44e0-8ab5-45358a23c23d
+@test part1 == 213
+
 # ╔═╡ 39160fe9-a017-44f0-b298-7d7397f4efd7
 md"Your puzzle answer was `213`."
 
@@ -646,16 +652,20 @@ function findsue2(sues, facts)
 	end, keys(sues))
 	
 	# @assert length(valid_sues) == 1
-	return valid_sues
+	return collect(valid_sues)
 end
 
 # ╔═╡ afcbab33-d3fa-4928-9171-4dafa83d8536
-part2 = findsue2(puzzle_sues, puzzle_facts)
+part2 = findsue2(puzzle_sues, puzzle_facts)[2] # why two results?
+
+# ╔═╡ 6129d2e9-331e-4760-bd12-a037369ccab9
+@test part2 == 323
 
 # ╔═╡ e2edeffa-752d-4242-b5cf-1798221a0038
 md"Your puzzle answer was `323`."
 
 # ╔═╡ Cell order:
+# ╠═012d94dd-8736-46d9-b49d-aae96b9a8320
 # ╟─d02132f0-b0e8-11eb-12cb-353922cb782a
 # ╟─56d67502-d140-4066-95e5-44dd2641ed7f
 # ╠═3278c05d-c412-457e-b6c4-37d76d576cd4
@@ -664,8 +674,10 @@ md"Your puzzle answer was `323`."
 # ╠═1a49f050-69ff-4404-a494-2b8e35fdaebb
 # ╠═b46d289c-e2a1-45b1-9f2e-cac5e8093510
 # ╠═3c7002f4-f218-4329-b672-01fe36023d28
+# ╠═d9dc6c87-6b3d-44e0-8ab5-45358a23c23d
 # ╟─39160fe9-a017-44f0-b298-7d7397f4efd7
 # ╟─7ae737f3-dfe7-4509-b98c-c6b827e774a9
 # ╠═e6ab6c98-3053-440d-9913-c044a7e97853
-# ╟─afcbab33-d3fa-4928-9171-4dafa83d8536
+# ╠═afcbab33-d3fa-4928-9171-4dafa83d8536
+# ╠═6129d2e9-331e-4760-bd12-a037369ccab9
 # ╟─e2edeffa-752d-4242-b5cf-1798221a0038

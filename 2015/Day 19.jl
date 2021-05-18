@@ -4,6 +4,9 @@
 using Markdown
 using InteractiveUtils
 
+# ╔═╡ 2cb37ccd-f298-404a-8dea-0815bcd7fda9
+using PlutoTest
+
 # ╔═╡ 4f66ae50-b0e9-11eb-0350-3535845809d1
 md"""
 # [Day 19: Medicine for Rudolph](https://adventofcode.com/2015/day/19)
@@ -155,6 +158,7 @@ molcombinations("HOH", parse1(example_input))
 @assert length(molcombinations("HOHOHO", example_input)) == 7
 
 # ╔═╡ Cell order:
+# ╠═2cb37ccd-f298-404a-8dea-0815bcd7fda9
 # ╟─4f66ae50-b0e9-11eb-0350-3535845809d1
 # ╟─1a84a9cf-60bb-423b-b802-b35763e96032
 # ╟─03e179fb-d380-4d8d-919c-7dc940533876
