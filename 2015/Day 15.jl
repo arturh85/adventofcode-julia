@@ -56,7 +56,7 @@ Cinnamon: capacity 2, durability 3, flavor -2, texture -1, calories 3
 function parseline(line) 
 	m = match(r"(\w+): capacity (-?\d+), durability (-?\d+), flavor (-?\d+), texture (-?\d+), calories (-?\d+)", line)
 	m
-	(m[1], parse(Int, m[2]), parse(Int, m[3]), parse(Int, m[4]), parse(Int, m[5]), parse(Int, m[6]))
+	(name=m[1], capacity=parse(Int, m[2]), durability=parse(Int, m[3]), flavor=parse(Int, m[4]), texture=parse(Int, m[5]), calories=parse(Int, m[6]))
 end
 
 # ╔═╡ 4122ea48-c078-4b72-81ca-0f6163d7b474
@@ -68,10 +68,10 @@ function cookiescore(ingredients, ratios)
 #		return -1
 #end
 	scores = [
-		sum(map(((idx, ingredient),)-> ingredient[2] * ratios[idx], enumerate(ingredients))),
-		sum(map(((idx, ingredient),)-> ingredient[3] * ratios[idx], enumerate(ingredients))),
-		sum(map(((idx, ingredient),)-> ingredient[4] * ratios[idx], enumerate(ingredients))),
-		sum(map(((idx, ingredient),)-> ingredient[5] * ratios[idx], enumerate(ingredients))),
+		sum(map(((idx, ingredient),)-> ingredient.capacity * ratios[idx], enumerate(ingredients))),
+		sum(map(((idx, ingredient),)-> ingredient.durability * ratios[idx], enumerate(ingredients))),
+		sum(map(((idx, ingredient),)-> ingredient.flavor * ratios[idx], enumerate(ingredients))),
+		sum(map(((idx, ingredient),)-> ingredient.texture * ratios[idx], enumerate(ingredients))),
 	]
 	prod(map(score -> max(0, score), scores))
 end

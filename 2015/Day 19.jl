@@ -124,10 +124,16 @@ function molcombinations(mol, c)
 		for m in eachmatch(Regex(key), mol)
 			
 			for val in c[key]
+				
 			
 				n = collect(mol)
-				n[m.offset:m.offset+length(key)-1] = collect(val)
-				push!(vals, n)
+				n = collect(val)
+				push!(vals, 
+					(
+					mol[m.offset:m.offset+length(key)-1],
+				
+					)
+				)
 						
 			end
 		end

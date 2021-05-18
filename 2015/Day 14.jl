@@ -38,7 +38,7 @@ Prancer can fly 25 km/s for 6 seconds, but then must rest for 143 seconds."
 # ╔═╡ 4c30acd3-078f-40a6-8e22-c90704abef38
 function parseline(line) 
 	m = match(r"(\w+) can fly (\d+) km/s for (\d+) seconds, but then must rest for (\d+) seconds.", line)
-	(parse(Int, m[2]), parse(Int, m[3]), parse(Int, m[4]))
+	(km=parse(Int, m[2]), fly_seconds=parse(Int, m[3]), rest_seconds=parse(Int, m[4]))
 end
 
 # ╔═╡ 6259b41c-e73c-46b6-bf76-2f42c6428003
@@ -46,9 +46,6 @@ example_players = map(parseline, ["Comet can fly 14 km/s for 10 seconds, but the
 
 # ╔═╡ 21d4c9cf-2502-4522-90fc-5136e5bd13bd
 function distance(player, time)
-	km = player[1]
-	fly_seconds = player[2]
-	rest_seconds = player[3]
 	d = 0
 	#while time > 0
 	#	stepTime = min(fly_seconds, time)
@@ -56,8 +53,8 @@ function distance(player, time)
 	#	time -= stepTime + rest_seconds
 	#end
 	
-	d = time ÷ (fly_seconds + rest_seconds) * (fly_seconds * km)
-	d += min(time % (fly_seconds + rest_seconds), fly_seconds) * km	
+	d = time ÷ (player.fly_seconds + player.rest_seconds) * (player.fly_seconds * player.km)
+	d += min(time % (player.fly_seconds + player.rest_seconds), player.fly_seconds) * player.km	
 	d		
 end
 
