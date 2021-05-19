@@ -134,7 +134,11 @@ David would gain 41 happiness units by sitting next to Carol." |> strip
 # ╔═╡ 994bd490-a709-4b8a-ad86-6c1ca350e203
 function parseline(line)
 	m = match(r"(\w+) would (\w+) (\d+) happiness units by sitting next to (\w+)", line)
-		(personA=m[1], change=m[2], value=parse(Int, m[3]), personB=m[4])
+	(
+		personA=m[1], 
+		value=m[2] == "gain" ? parse(Int, m[3]) : -parse(Int, m[3]), 
+		personB=m[4]
+	)
 end
 
 # ╔═╡ fc48708b-a89f-4998-a7dc-3ac24e8362d1
@@ -142,38 +146,85 @@ map(parseline, split(example_input, "\n"))
 
 # ╔═╡ 717f4ea0-b6a7-4049-b4a3-ce79fef4ec32
 function calc_happiness(table, rules)
-	happiness = 0
+	by_name = Dict(name => 0 for name in table)
+	table2 = vcat(table[2:end], table[1])
 	
-	#tablep = [table[length(table)], i for i in table]
-	
-	for p in table
-		
+	for (a,b) in zip(table, table2)
+		for change in filter(r -> r.personA == a && r.personB == b, rules)
+			by_name[a] += change.value
+		end
+		for change in filter(r -> r.personA == b && r.personB == a, rules)
+			by_name[b] += change.value
+		end
 	end
+	
+	return sum(values(by_name))
 end
-
 
 # ╔═╡ d726299a-786c-472d-ab10-001bd288f5c1
 calc_happiness(["Alice", "Bob", "Carol", "David"], map(parseline, split(example_input, "\n")))
 
 # ╔═╡ bbfd2307-62bf-4eb5-8a40-098d5320db0c
-function mosthappy(rules)
-	people = Set(map(rule -> rule.personA, rules))
+function mosthappy1(rules)
+	people = collect(Set(map(rule -> rule.personA, rules)))
 	
 	maxhappiness = 0
-	for perm in permutations(collect(people))
+	for perm in permutations(people)
 		maxhappiness = max(maxhappiness, calc_happiness(perm, rules))
 	end
 	maxhappiness
 end
 
 # ╔═╡ eb01dad5-997f-4ff1-bb8c-4bd809c613d3
-@assert mosthappy(map(parseline, split(example_input, "\n"))) == 330
-
-# ╔═╡ e01aabdf-b114-4212-a97f-b2a46c7d22eb
-mosthappy(map(parseline, split(example_input, "\n")))
+@assert mosthappy1(map(parseline, split(example_input, "\n"))) == 330
 
 # ╔═╡ 39b98fdd-782f-4614-af12-8ba266bee41a
+part1 = mosthappy1(map(parseline, split(puzzle_input, "\n")))
 
+# ╔═╡ e8343b85-aa88-4163-bed1-404264ab23af
+@test part1 == 709
+
+# ╔═╡ 62ab159c-6bc5-474b-8ae4-86b3a3f8ef12
+md"Your puzzle answer was `709`."
+
+# ╔═╡ 5ca3b7cc-5b66-4365-9c2f-7d1034d3c4f2
+md"""
+# Part Two
+
+In all the commotion, you realize that you forgot to seat yourself. At this point, you're pretty apathetic toward the whole thing, and your happiness wouldn't really go up or down regardless of who you sit next to. You assume everyone else would be just as ambivalent about sitting next to you, too.
+
+So, add yourself to the list, and give all happiness relationships that involve you a score of `0`.
+
+What is the total change in happiness for the optimal seating arrangement that actually includes yourself?
+
+"""
+
+# ╔═╡ 48782852-f830-4772-b514-d95f8b4a5189
+function mosthappy2(rules)
+	people = collect(Set(map(rule -> rule.personA, rules)))
+	me_rules = copy(rules)
+	
+	for person in people
+		push!(rules, (personA="me", value=0, personB=person))
+		push!(rules, (personA=person, value=0, personB="me"))
+	end	
+	
+	push!(people, "me")	
+	maxhappiness = 0
+	for perm in permutations(people)
+		maxhappiness = max(maxhappiness, calc_happiness(perm, rules))
+	end
+	maxhappiness
+end
+
+# ╔═╡ 417da2c9-cbe5-4ca9-a46f-18db168dcd88
+part2 = mosthappy2(map(parseline, split(puzzle_input, "\n")))
+
+# ╔═╡ db1e2565-3223-423b-a408-4bd2c680dc62
+md"Your puzzle answer was `668`."
+
+# ╔═╡ ff4448b7-73a3-4114-8b31-3ed17c02bc30
+@test part2 == 668
 
 # ╔═╡ Cell order:
 # ╠═4918dd79-c97b-45af-bd41-19b8936e2086
@@ -188,5 +239,11 @@ mosthappy(map(parseline, split(example_input, "\n")))
 # ╠═d726299a-786c-472d-ab10-001bd288f5c1
 # ╠═bbfd2307-62bf-4eb5-8a40-098d5320db0c
 # ╠═eb01dad5-997f-4ff1-bb8c-4bd809c613d3
-# ╠═e01aabdf-b114-4212-a97f-b2a46c7d22eb
 # ╠═39b98fdd-782f-4614-af12-8ba266bee41a
+# ╠═e8343b85-aa88-4163-bed1-404264ab23af
+# ╟─62ab159c-6bc5-474b-8ae4-86b3a3f8ef12
+# ╟─5ca3b7cc-5b66-4365-9c2f-7d1034d3c4f2
+# ╠═48782852-f830-4772-b514-d95f8b4a5189
+# ╠═417da2c9-cbe5-4ca9-a46f-18db168dcd88
+# ╟─db1e2565-3223-423b-a408-4bd2c680dc62
+# ╠═ff4448b7-73a3-4114-8b31-3ed17c02bc30
